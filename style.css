@@ -1,127 +1,58 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
+/* Layout Fix */
 body {
     background-color: #0f0f13;
     color: white;
     display: flex;
-    flex-direction: row;
+    margin: 0;
     min-height: 100vh;
 }
 
-/* Sidebar Styling */
 .sidebar {
-    width: 260px;
+    width: 250px;
     background: #16161d;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #2a2a35;
+    height: 100vh;
     position: fixed;
-    height: 100%;
+    border-right: 1px solid #2a2a35;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #a855f7;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-}
-
-.nav-links {
-    list-style: none;
-}
-
-.nav-links li {
-    padding: 12px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.nav-links li:hover, .nav-links li.active {
-    background: #252530;
-    color: #a855f7;
-}
-
-/* Main Content Area */
 .main-content {
-    margin-left: 260px; /* Sidebar ki width ke barabar */
-    padding: 40px;
-    width: 100%;
+    margin-left: 250px; /* Sidebar ke liye jagah */
+    padding: 30px;
+    width: calc(100% - 250px);
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap; /* Isse cards ek ke niche ek aayenge agar jagah kam ho */
+    gap: 20px;
 }
 
-.container {
-    max-width: 800px;
+/* Cards Adjustment */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
     width: 100%;
 }
 
-/* Card Styling */
 .card {
     background: #1a1a24;
-    padding: 30px;
-    border-radius: 15px;
+    padding: 20px;
+    border-radius: 12px;
     border: 1px solid #2a2a35;
-    text-align: center;
 }
 
-button {
-    background: #a855f7;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    width: 100%;
-}
-
-/* MOBILE RESPONSIVE FIX (image_29ba60.png ke liye) */
+/* Mobile Responsive */
 @media (max-width: 768px) {
     body {
-        flex-direction: column; /* Phone par upar-neeche ho jayega */
+        flex-direction: column;
     }
-
     .sidebar {
         width: 100%;
         height: auto;
-        position: relative; /* Fixed hata diya taaki flow sahi rahe */
-        border-right: none;
-        border-bottom: 1px solid #2a2a35;
+        position: relative;
     }
-
     .main-content {
-        margin-left: 0; /* Sidebar ke side mein nahi, neeche aayega */
-        padding: 20px;
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .nav-links {
-        display: flex;
-        overflow-x: auto; /* Menu ko slide kar sakte hain */
-        gap: 10px;
-        padding-bottom: 10px;
-    }
-
-    .nav-links li {
-        white-space: nowrap;
-        font-size: 14px;
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
     }
 }
