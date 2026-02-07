@@ -3,62 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EnderKit | OP Minecraft Tools</title>
-    
-    <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
-
+    <title>EnderKit | Minecraft Tools</title>
     <style>
-        /* CSS START - Dark Neon Theme */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #0b0b0e; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-        /* Sidebar for Laptop / Navbar for Mobile */
-        .sidebar { 
-            background: #12121a; padding: 25px 20px; border-right: 2px solid #39ff14; 
-            width: 280px; position: fixed; height: 100vh; z-index: 1000; transition: 0.3s;
-        }
-
-        .logo { font-size: 26px; font-weight: 800; color: #a855f7; text-shadow: 0 0 15px rgba(168, 85, 247, 0.5); margin-bottom: 40px; text-align: center; }
+        .sidebar { background: #12121a; padding: 20px; border-right: 2px solid #39ff14; width: 280px; position: fixed; height: 100vh; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 800; color: #a855f7; margin-bottom: 30px; text-align: center; }
         .logo span { color: #39ff14; }
-
-        .nav-menu { display: flex; flex-direction: column; gap: 12px; }
-        .nav-btn { 
-            width: 100%; padding: 14px; background: #1a1a24; border: 1px solid transparent; 
-            border-radius: 12px; color: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 14px;
-        }
-        .nav-btn:hover, .nav-btn.active { border-color: #39ff14; color: #39ff14; background: rgba(57, 255, 20, 0.05); }
-
-        /* Main Content Area */
-        .main-content { margin-left: 280px; padding: 40px; width: 100%; display: flex; justify-content: center; align-items: flex-start; }
+        .nav-menu { display: flex; flex-direction: column; gap: 10px; }
+        .nav-btn { width: 100%; padding: 12px; background: #1a1a24; border: 1px solid transparent; border-radius: 10px; color: #fff; cursor: pointer; text-align: left; font-size: 14px; }
+        .nav-btn.active { border-color: #39ff14; color: #39ff14; }
+        .main-content { margin-left: 280px; padding: 30px; width: 100%; display: flex; justify-content: center; }
+        .app-card { display: none; background: #16161f; padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; width: 100%; max-width: 550px; }
+        .app-card.active { display: block; }
+        input, select { width: 100%; padding: 12px; background: #0b0b0e; border: 1px solid #333; border-radius: 10px; color: #39ff14; margin-bottom: 15px; outline: none; }
+        .glow-btn { width: 100%; padding: 14px; background: #a855f7; color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .c-btn { padding: 10px; border-radius: 8px; border: none; font-weight: 800; font-size: 12px; cursor: pointer; text-align: center; }
         
-        .app-card { 
-            display: none; background: #16161f; padding: 35px; border-radius: 24px; 
-            border: 1px solid #2a2a35; width: 100%; max-width: 600px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-        }
-        .app-card.active { display: block; animation: fadeIn 0.4s ease-out; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Common Elements */
-        h2 { margin-bottom: 20px; font-size: 22px; color: #fff; border-left: 4px solid #39ff14; padding-left: 12px; }
-        input, select { width: 100%; padding: 14px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 15px; outline: none; font-size: 15px; }
-        .glow-btn { width: 100%; padding: 16px; background: #a855f7; color: #fff; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); transition: 0.3s; }
-        .glow-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
-
-        /* Seed & Color Grids */
-        .res-box { margin-top: 20px; padding: 20px; background: #0b0b0e; border-radius: 15px; border: 1px dashed #39ff14; text-align: center; }
-        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-        .c-btn { padding: 12px 5px; border-radius: 8px; border: none; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s; }
-        .c-btn:hover { transform: translateY(-3px); }
-
-        /* RESPONSIVE FIX (image_29ba60.png) */
         @media (max-width: 850px) {
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; padding: 15px; }
-            .nav-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
-            .nav-btn { width: auto; padding: 10px 15px; font-size: 12px; }
-            .main-content { margin-left: 0; padding: 20px; }
-            .logo { margin-bottom: 15px; font-size: 22px; }
-            .color-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .nav-btn { width: auto; font-size: 12px; padding: 8px 12px; }
+            .main-content { margin-left: 0; padding: 15px; }
         }
     </style>
 </head>
@@ -67,358 +34,93 @@
     <div class="sidebar">
         <div class="logo">ENDER<span>KIT</span></div>
         <div class="nav-menu">
-            <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
-            <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 OP Seeds</button>
-            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
-            <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
+            <button class="nav-btn active" onclick="switchTab(event, 'status')">Status</button>
+            <button class="nav-btn" onclick="switchTab(event, 'seed')">Seeds</button>
+            <button class="nav-btn" onclick="switchTab(event, 'colors')">Colors</button>
+            <button class="nav-btn" onclick="switchTab(event, 'skin')">Skin</button>
         </div>
     </div>
 
     <div class="main-content">
         <div id="status" class="app-card active">
             <h2>Server Checker</h2>
-            <input type="text" id="serverIP" placeholder="e.g. play.hypixel.net">
-            <button class="glow-btn" onclick="checkServer()">Check Online</button>
-            <div id="statusResult" style="margin-top:20px; text-align:center; font-weight: bold;"></div>
+            <input type="text" id="serverIP" placeholder="play.hypixel.net">
+            <button class="glow-btn" onclick="checkServer()">Check Now</button>
+            <div id="statusResult" style="margin-top:15px; text-align:center;"></div>
         </div>
 
         <div id="seed" class="app-card">
             <h2>OP Seed Finder</h2>
             <select id="seedType">
-                <option value="survival">God Survival (Villages)</option>
-                <option value="manhunt">Speedrun/Manhunt (Nether OP)</option>
-                <option value="rare">Rare Biomes (Cherry/Ice)</option>
-            </select>
-            <select id="seedEd">
-                <option value="java">Java Edition</option>
-                <option value="bedrock">Bedrock / PE</option>
+                <option value="survival">Survival</option>
+                <option value="manhunt">Speedrun</option>
+                <option value="rare">Rare Biomes</option>
             </select>
             <button class="glow-btn" onclick="getOpSeed()">Generate Seed</button>
-            <div id="seedBox" class="res-box" style="display:none;">
-                <p style="color:#aaa; font-size:12px;">Your Seed:</p>
-                <h3 id="seedDisplay" style="color:#39ff14; margin:10px 0; font-size:24px;"></h3>
-                <p id="seedInfo" style="color:#a855f7; font-size:13px;"></p>
-                <button class="glow-btn" style="background:#333; margin-top:10px; padding:10px;" onclick="copySeed()">Copy Seed</button>
+            <div id="seedBox" style="display:none; margin-top:15px; padding:15px; border:1px dashed #39ff14; text-align:center;">
+                <h3 id="seedDisplay" style="color:#39ff14;"></h3>
+                <p id="seedInfo" style="font-size:12px; color:#a855f7;"></p>
             </div>
         </div>
 
         <div id="colors" class="app-card">
-            <h2>OP Color Codes</h2>
+            <h2>OP Colors</h2>
             <div class="color-grid">
-                <button class="c-btn" style="background:#55FF55; color:#000;" onclick="copyCode('§a')">Neon</button>
-                <button class="c-btn" style="background:#FFAA00; color:#fff;" onclick="copyCode('§6')">Gold</button>
-                <button class="c-btn" style="background:#55FFFF; color:#000;" onclick="copyCode('§b')">Aqua</button>
-                <button class="c-btn" style="background:#FF55FF; color:#000;" onclick="copyCode('§d')">Pink</button>
+                <button class="c-btn" style="background:#55FF55;" onclick="copyCode('§a')">Neon</button>
+                <button class="c-btn" style="background:#FFAA00;" onclick="copyCode('§6')">Gold</button>
+                <button class="c-btn" style="background:#55FFFF;" onclick="copyCode('§b')">Aqua</button>
+                <button class="c-btn" style="background:#FF55FF;" onclick="copyCode('§d')">Pink</button>
                 <button class="c-btn" style="background:#fff; color:#000;" onclick="copyCode('§l')">Bold</button>
-                <button class="c-btn" style="background:#000; color:#39ff14; border:1px solid #39ff14;" onclick="copyCode('§k')">Magic</button>
+                <button class="c-btn" style="background:#333; color:#fff;" onclick="copyCode('§k')">Magic</button>
             </div>
-            <p id="copyMsg" style="text-align:center; margin-top:15px; color:#39ff14; font-weight:bold;"></p>
+            <p id="copyMsg" style="text-align:center; margin-top:10px; color:#39ff14; font-weight:bold;"></p>
         </div>
 
         <div id="skin" class="app-card">
-            <h2>Skin Viewer</h2>
+            <h2>Skin Grabber</h2>
             <input type="text" id="mcUser" placeholder="Username">
-            <button class="glow-btn" onclick="getSkin()">Grab Skin</button>
-            <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
+            <button class="glow-btn" onclick="getSkin()">View Skin</button>
+            <div id="skinDisplay" style="text-align:center; margin-top:15px;"></div>
         </div>
     </div>
 
     <script>
         const adLink = "https://otieu.com/4/10581423";
-
         function switchTab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             e.currentTarget.classList.add('active');
         }
-
-        const seedDatabase = {
-            survival: { java: ["34088318464", "Village & Stronghold Island"], bedrock: ["22061", "5 Blacksmith Village"] },
-            manhunt: { java: ["3285167357", "Instant Bastion/Fortress"], bedrock: ["640934442", "OP Shipwreck Spawn"] },
-            rare: { java: ["169125654352", "Triple Ancient City"], bedrock: ["510928347", "Jungle Stronghold"] }
-        };
-
         function getOpSeed() {
             window.open(adLink, '_blank');
             const type = document.getElementById('seedType').value;
-            const ed = document.getElementById('seedEd').value;
-            const seed = seedDatabase[type][ed];
-            document.getElementById('seedDisplay').innerText = seed[0];
-            document.getElementById('seedInfo').innerText = "📍 " + seed[1];
+            const seeds = { survival: ["34088318464", "Stronghold Village"], manhunt: ["3285167357", "Instant Bastion"], rare: ["169125654352", "Ancient City"] };
+            document.getElementById('seedDisplay').innerText = seeds[type][0];
+            document.getElementById('seedInfo').innerText = seeds[type][1];
             document.getElementById('seedBox').style.display = "block";
         }
-
         async function checkServer() {
             const ip = document.getElementById('serverIP').value;
             if(!ip) return;
             window.open(adLink, '_blank');
-            const resDiv = document.getElementById('statusResult');
-            resDiv.innerHTML = "Checking...";
             try {
                 const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
                 const data = await res.json();
-                resDiv.innerHTML = data.online ? `<span style="color:#39ff14">ONLINE</span>` : `<span style="color:#ff5555">OFFLINE</span>`;
-            } catch { resDiv.innerHTML = "Error!"; }
+                document.getElementById('statusResult').innerHTML = data.online ? "<span style='color:#39ff14'>ONLINE</span>" : "<span style='color:#ff5555'>OFFLINE</span>";
+            } catch { alert("Error"); }
         }
-
         function copyCode(c) {
             navigator.clipboard.writeText(c);
-            document.getElementById('copyMsg').innerText = "Copied: " + c;
-            setTimeout(() => document.getElementById('copyMsg').innerText = "", 2000);
-        }
-
-        function copySeed() {
-            const s = document.getElementById('seedDisplay').innerText;
-            navigator.clipboard.writeText(s);
-            alert("Seed Copied!");
-        }
-
-        function getSkin() {
-            const user = document.getElementById('mcUser').value;
-            if(!user) return;
-            window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/140">`;
-        }
-    </script>
-</body>
-</html>        </div>
-    </div>
-
-    <script>
-        const adLink = "https://otieu.com/4/10581423";
-
-        function switchTab(e, id) {
-            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            e.currentTarget.classList.add('active');
-        }
-
-        const seedDatabase = {
-            survival: {
-                java: [
-                    {s: "34088318464", d: "Island with 3 Villages & Stronghold!"},
-                    {s: "-81018388166280234", d: "Mansion & Outpost at Spawn"},
-                    {s: "743324534", d: "Cherry Grove + Exposed Dripstone"}
-                ],
-                bedrock: [
-                    {s: "22061", d: "Village with 5 Blacksmiths!"},
-                    {s: "16512740", d: "Desert Temple + Village + Outpost"}
-                ]
-            },
-            manhunt: {
-                java: [
-                    {s: "3285167357", d: "Fastest Bastion & Fortress Nether"},
-                    {s: "-501905305141203000", d: "Shipwreck with 32 Iron at Spawn"}
-                ],
-                bedrock: [
-                    {s: "640934442", d: "OP Loot Shipwreck + Ruined Portal"},
-                    {s: "13429", d: "Fastest Stronghold Access"}
-                ]
-            },
-            village: {
-                java: [
-                    {s: "86386325345717", d: "Desert Village inside Mangrove Swamp"},
-                    {s: "-402283201", d: "Plains Village + Spruce Village"}
-                ],
-                bedrock: [
-                    {s: "-7410250325400203000", d: "Village built on Ocean Monument!"}
-                ]
-            },
-            rare: {
-                java: [
-                    {s: "169125654352", d: "Triple Ancient City under Cherry Forest"},
-                    {s: "8624896", d: "Smallest Mushroom Island ever"}
-                ],
-                bedrock: [
-                    {s: "510928347", d: "Exposed Stronghold in Jungle"},
-                    {s: "69420", d: "Ice Spikes + Village Spawner"}
-                ]
-            }
-        };
-
-        function getOpSeed() {
-            window.open(adLink, '_blank');
-            const type = document.getElementById('seedType').value;
-            const ed = document.getElementById('seedEd').value;
-            const db = seedDatabase[type][ed];
-            const random = db[Math.floor(Math.random() * db.length)];
-            
-            document.getElementById('seedDisplay').innerText = random.s;
-            document.getElementById('seedInfo').innerText = "📍 " + random.d;
-            document.getElementById('seedBox').style.display = "block";
-        }
-
-        function copySeed() {
-            navigator.clipboard.writeText(document.getElementById('seedDisplay').innerText);
-            alert("Seed Copied!");
-        }
-
-        async function checkServer() {
-            const ip = document.getElementById('serverIP').value;
-            if(!ip) return;
-            window.open(adLink, '_blank');
-            const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-            const data = await res.json();
-            document.getElementById('statusResult').innerHTML = data.online ? `<p style="color:#39ff14">ONLINE | ${data.players.online} Players</p>` : `<p style="color:#ff5555">OFFLINE</p>`;
-        }
-
-        function copyCode(c) {
-            navigator.clipboard.writeText(c);
-            document.getElementById('copyMsg').innerText = "Copied: " + c;
+            document.getElementById('copyMsg').innerText = "Copied!";
             setTimeout(() => document.getElementById('copyMsg').innerText="", 2000);
         }
-
         function getSkin() {
-            const user = document.getElementById('mcUser').value;
-            if(!user) return;
+            const u = document.getElementById('mcUser').value;
+            if(!u) return;
             window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150">`;
-        }
-
-        let timer, sec = 0;
-        function startTimer() {
-            if(timer) return;
-            timer = setInterval(() => {
-                sec++;
-                let h = Math.floor(sec/3600).toString().padStart(2,'0');
-                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-                let s = (sec%60).toString().padStart(2,'0');
-                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
-            }, 1000);
+            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${u}/120">`;
         }
     </script>
 </body>
 </html>
-
-        // --- Advanced Seed Logic ---
-        function generateSeed() {
-            window.open(adLink, '_blank'); // Ad trigger
-            
-            const cat = document.getElementById('seedCategory').value;
-            const ed = document.getElementById('seedEdition').value;
-            const resBox = document.getElementById('seedResult');
-            const seedVal = document.getElementById('finalSeed');
-            const seedDesc = document.getElementById('seedDesc');
-
-            let seeds = {
-                survival: { java: "2151901553968352745", bedrock: "-7410250325400203000", desc: "Spawn in a mega village with 3 blacksmiths!" },
-                manhunt: { java: "3285167357", bedrock: "640934442", desc: "Fortress and Bastion right at the nether spawn!" },
-                biome: { java: "169125654352", bedrock: "510928347", desc: "Huge Cherry Blossom grove surrounded by Ice Peaks." },
-                structure: { java: "-81018388166280234", bedrock: "16512740", desc: "Woodland Mansion near a Desert Temple." }
-            };
-
-            seedVal.innerText = seeds[cat][ed];
-            seedDesc.innerText = "Info: " + seeds[cat][ed === 'java' ? 'java' : 'bedrock' + 'Desc' || seeds[cat].desc];
-            resBox.style.display = "block";
-        }
-
-        function openChunkbase() {
-            window.open(adLink, '_blank');
-            window.open('https://www.chunkbase.com/apps/seed-map', '_blank');
-        }
-
-        async function checkServer() {
-            const ip = document.getElementById('serverIP').value;
-            if (!ip) return;
-            window.open(adLink, '_blank');
-            document.getElementById('statusResult').innerHTML = "Scanning...";
-            try {
-                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-                const data = await res.json();
-                document.getElementById('statusResult').innerHTML = data.online ? `✅ ONLINE` : "❌ OFFLINE";
-            } catch (e) { }
-        }
-
-        function getSkin() {
-            const user = document.getElementById('mcUser').value;
-            if (!user) return;
-            window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150">`;
-        }
-
-        let timer, sec = 0;
-        function startTimer() {
-            if (timer) return;
-            timer = setInterval(() => {
-                sec++;
-                let h = Math.floor(sec/3600).toString().padStart(2,'0');
-                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-                let s = (sec%60).toString().padStart(2,'0');
-                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
-            }, 1000);
-        }
-    </script>
-</body>
-</html>                </div>
-                <p id="copyMsg" style="text-align:center; color:#39ff14; margin-top:15px; font-weight: bold;"></p>
-            </div>
-
-            <div id="timer" class="app-card">
-                <h2>Session Timer</h2>
-                <h1 id="timeDisp" style="font-size: 60px; text-align:center; margin: 20px 0;">00:00:00</h1>
-                <button class="glow-btn" onclick="startTimer()">Start Session</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const adLink = "https://otieu.com/4/10581423";
-
-        function switchTab(event, tabId) {
-            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        async function checkServer() {
-            const ip = document.getElementById('serverIP').value;
-            if (!ip) return;
-            window.open(adLink, '_blank');
-            const resDiv = document.getElementById('statusResult');
-            resDiv.innerHTML = "🔍 Scanning...";
-            try {
-                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-                const data = await res.json();
-                resDiv.innerHTML = data.online ? `✅ ONLINE | Players: ${data.players.online}` : "❌ OFFLINE";
-                resDiv.style.color = data.online ? "#39ff14" : "#ff5555";
-            } catch (e) { resDiv.innerHTML = "Error!"; }
-        }
-
-        function getSkin() {
-            const user = document.getElementById('mcUser').value;
-            if (!user) return;
-            window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/160"><br><br><a href="https://mc-heads.net/download/${user}" target="_blank"><button class="glow-btn" style="width:auto; padding:10px 20px;">Download</button></a>`;
-        }
-
-        function findSeeds() {
-            window.open(adLink, '_blank'); // Ad Trigger
-            window.open('https://www.chunkbase.com/apps/seed-map', '_blank'); // Chunkbase open
-        }
-
-        function copyCode(code) {
-            navigator.clipboard.writeText(code);
-            document.getElementById('copyMsg').innerText = "Copied: " + code;
-            setTimeout(() => { document.getElementById('copyMsg').innerText = ""; }, 2000);
-        }
-
-        let timer, sec = 0;
-        function startTimer() {
-            if (timer) return;
-            timer = setInterval(() => {
-                sec++;
-                let h = Math.floor(sec/3600).toString().padStart(2,'0');
-                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-                let s = (sec%60).toString().padStart(2,'0');
-                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
-
-
-
