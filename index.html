@@ -3,52 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit | Minecraft Tools</title>
+    <title>EnderKit | Pro Minecraft Tools</title>
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #0b0b0e; color: #e0e0e0; display: flex; min-height: 100vh; overflow-x: hidden; }
-
         .dashboard { display: flex; width: 100%; }
-
-        .sidebar { 
-            width: 280px; background: #12121a; padding: 30px 20px; position: fixed; 
-            height: 100vh; border-right: 2px solid #39ff14; 
-            box-shadow: 5px 0 20px rgba(57, 255, 20, 0.15); z-index: 100;
-        }
-
+        .sidebar { width: 280px; background: #12121a; padding: 30px 20px; position: fixed; height: 100vh; border-right: 2px solid #39ff14; box-shadow: 5px 0 20px rgba(57, 255, 20, 0.15); z-index: 100; }
         .logo { font-size: 28px; font-weight: 800; color: #a855f7; text-shadow: 0 0 15px rgba(168, 85, 247, 0.6); margin-bottom: 50px; text-align: center; }
         .logo span { color: #39ff14; }
-
-        .nav-btn { 
-            width: 100%; padding: 15px; margin-bottom: 15px; background: #1a1a24; border: 1px solid transparent; 
-            border-radius: 12px; color: #fff; cursor: pointer; text-align: left; transition: 0.3s; font-weight: 600;
-        }
+        .nav-btn { width: 100%; padding: 15px; margin-bottom: 15px; background: #1a1a24; border: 1px solid transparent; border-radius: 12px; color: #fff; cursor: pointer; text-align: left; font-weight: 600; transition: 0.3s; }
         .nav-btn:hover, .nav-btn.active { border-color: #39ff14; color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
-
         .main-content { margin-left: 280px; padding: 60px; width: 100%; display: flex; justify-content: center; }
-
-        .app-card { 
-            display: none; background: #16161f; padding: 40px; border-radius: 24px; 
-            border: 1px solid #2a2a35; width: 100%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-        }
+        .app-card { display: none; background: #16161f; padding: 40px; border-radius: 24px; border: 1px solid #2a2a35; width: 100%; max-width: 650px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .app-card.active { display: block; animation: fadeIn 0.4s ease; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        input { width: 100%; padding: 15px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 20px; outline: none; }
-        .glow-btn { width: 100%; padding: 15px; background: #a855f7; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); transition: 0.3s; width: 100%; }
+        
+        /* Select & Input Styling */
+        select, input { width: 100%; padding: 15px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 15px; outline: none; font-size: 15px; }
+        .glow-btn { width: 100%; padding: 15px; background: #a855f7; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); transition: 0.3s; }
         .glow-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 85, 247, 0.7); }
+        
+        .seed-result-box { background: #0b0b0e; padding: 20px; border-radius: 12px; border: 1px dashed #39ff14; margin-top: 20px; display: none; }
+        .seed-val { color: #a855f7; font-size: 20px; font-weight: 900; letter-spacing: 1px; }
 
-        .color-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
-        .palette-btn { padding: 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
-
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; }
-            .main-content { margin-left: 0; padding: 20px; }
-        }
+        @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; } .main-content { margin-left: 0; padding: 20px; } }
     </style>
 </head>
 <body>
@@ -59,7 +38,6 @@
             <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
             <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
             <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 Seed Finder</button>
-            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
             <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
         </div>
 
@@ -68,37 +46,122 @@
                 <h2>Server Status Checker</h2>
                 <input type="text" id="serverIP" placeholder="Example: play.hypixel.net">
                 <button class="glow-btn" onclick="checkServer()">Check Now</button>
-                <div id="statusResult" style="margin-top:20px; text-align:center; font-weight: bold;"></div>
+                <div id="statusResult" style="margin-top:20px; text-align:center;"></div>
+            </div>
+
+            <div id="seed" class="app-card">
+                <h2>Advanced Seed Finder</h2>
+                <p style="color:#aaa; text-align:center; margin-bottom:20px;">Find the perfect world for your next adventure.</p>
+                
+                <label>Choose Category:</label>
+                <select id="seedCategory">
+                    <option value="survival">Survival (Best Spawns)</option>
+                    <option value="manhunt">Manhunt (OP Speedrun)</option>
+                    <option value="biome">Rare Biomes (Cherry/Ice/Jungle)</option>
+                    <option value="structure">Structures (Mansion/Village)</option>
+                </select>
+
+                <label>Edition:</label>
+                <select id="seedEdition">
+                    <option value="java">Java Edition</option>
+                    <option value="bedrock">Bedrock / Pocket Edition</option>
+                </select>
+
+                <button class="glow-btn" onclick="generateSeed()">Get Best Seed</button>
+
+                <div id="seedResult" class="seed-result-box">
+                    <p style="margin-bottom:10px;">Your Custom Seed:</p>
+                    <div class="seed-val" id="finalSeed">-------</div>
+                    <p id="seedDesc" style="font-size:12px; color:#aaa; margin-top:10px;"></p>
+                    <button class="glow-btn" style="background:#333; margin-top:15px; padding:8px;" onclick="openChunkbase()">View Map</button>
+                </div>
             </div>
 
             <div id="skin" class="app-card">
                 <h2>Skin Grabber</h2>
-                <input type="text" id="mcUser" placeholder="Minecraft Username">
+                <input type="text" id="mcUser" placeholder="Username">
                 <button class="glow-btn" onclick="getSkin()">View Skin</button>
                 <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
             </div>
 
-            <div id="seed" class="app-card">
-                <h2>Epic Seed Finder</h2>
-                <p style="text-align:center; margin-bottom:20px; color:#aaa;">Dhoondho sabse rare Minecraft seeds aur structures.</p>
-                <button class="glow-btn" onclick="findSeeds()">Open Seed Map</button>
-                <div id="seedList" style="margin-top:20px;">
-                    <p style="color:#39ff14; font-size:14px; margin-bottom:5px;">🔥 Recommended Seeds:</p>
-                    <div style="background:#0b0b0e; padding:10px; border-radius:8px; font-size:12px; border:1px solid #2a2a35;">
-                        • 2151901553968352745 (Village + Mansion)<br>
-                        • -7410250325400203000 (Ocean Monument)
-                    </div>
-                </div>
+            <div id="timer" class="app-card">
+                <h2>Session Timer</h2>
+                <h1 id="timeDisp" style="font-size: 60px; text-align:center; margin: 20px 0;">00:00:00</h1>
+                <button class="glow-btn" onclick="startTimer()">Start</button>
             </div>
+        </div>
+    </div>
 
-            <div id="colors" class="app-card">
-                <h2>Minecraft Color Codes</h2>
-                <div class="color-palette">
-                    <button class="palette-btn" style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
-                    <button class="palette-btn" style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
-                    <button class="palette-btn" style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
-                    <button class="palette-btn" style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
-                </div>
+    <script>
+        const adLink = "https://otieu.com/4/10581423";
+
+        function switchTab(event, tabId) {
+            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // --- Advanced Seed Logic ---
+        function generateSeed() {
+            window.open(adLink, '_blank'); // Ad trigger
+            
+            const cat = document.getElementById('seedCategory').value;
+            const ed = document.getElementById('seedEdition').value;
+            const resBox = document.getElementById('seedResult');
+            const seedVal = document.getElementById('finalSeed');
+            const seedDesc = document.getElementById('seedDesc');
+
+            let seeds = {
+                survival: { java: "2151901553968352745", bedrock: "-7410250325400203000", desc: "Spawn in a mega village with 3 blacksmiths!" },
+                manhunt: { java: "3285167357", bedrock: "640934442", desc: "Fortress and Bastion right at the nether spawn!" },
+                biome: { java: "169125654352", bedrock: "510928347", desc: "Huge Cherry Blossom grove surrounded by Ice Peaks." },
+                structure: { java: "-81018388166280234", bedrock: "16512740", desc: "Woodland Mansion near a Desert Temple." }
+            };
+
+            seedVal.innerText = seeds[cat][ed];
+            seedDesc.innerText = "Info: " + seeds[cat][ed === 'java' ? 'java' : 'bedrock' + 'Desc' || seeds[cat].desc];
+            resBox.style.display = "block";
+        }
+
+        function openChunkbase() {
+            window.open(adLink, '_blank');
+            window.open('https://www.chunkbase.com/apps/seed-map', '_blank');
+        }
+
+        async function checkServer() {
+            const ip = document.getElementById('serverIP').value;
+            if (!ip) return;
+            window.open(adLink, '_blank');
+            document.getElementById('statusResult').innerHTML = "Scanning...";
+            try {
+                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+                const data = await res.json();
+                document.getElementById('statusResult').innerHTML = data.online ? `✅ ONLINE` : "❌ OFFLINE";
+            } catch (e) { }
+        }
+
+        function getSkin() {
+            const user = document.getElementById('mcUser').value;
+            if (!user) return;
+            window.open(adLink, '_blank');
+            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150">`;
+        }
+
+        let timer, sec = 0;
+        function startTimer() {
+            if (timer) return;
+            timer = setInterval(() => {
+                sec++;
+                let h = Math.floor(sec/3600).toString().padStart(2,'0');
+                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+                let s = (sec%60).toString().padStart(2,'0');
+                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>                </div>
                 <p id="copyMsg" style="text-align:center; color:#39ff14; margin-top:15px; font-weight: bold;"></p>
             </div>
 
@@ -166,3 +229,4 @@
     </script>
 </body>
 </html>
+
