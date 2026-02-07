@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHub - Ultimate Minecraft Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="logo">G<span>HUB</span></div>
+    <nav class="nav-menu">
+      <button class="nav-btn active" onclick="switchTab(event, 'color-tools')">🎨 Color Codes</button>
+      <button class="nav-btn" onclick="switchTab(event, 'mc-tools')">⛏️ MC Tools</button>
+      <button class="nav-btn" onclick="switchTab(event, 'session')">🕒 Session</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <section id="color-tools" class="app-card active">
+      <h2>MC Color Picker</h2>
+      <p>Click a color to add it to your text!</p>
+      
+      <input type="text" id="rawText" placeholder="Enter your message..." oninput="updateColorPreview()">
+      
+      <div class="color-palette">
+         <button onclick="addColor('§4')" style="background:#AA0000">§4</button>
+         <button onclick="addColor('§c')" style="background:#FF5555">§c</button>
+         <button onclick="addColor('§6')" style="background:#FFAA00">§6</button>
+         <button onclick="addColor('§e')" style="background:#FFFF55">§e</button>
+         <button onclick="addColor('§2')" style="background:#00AA00">§2</button>
+         <button onclick="addColor('§a')" style="background:#55FF55">§a</button>
+         <button onclick="addColor('§b')" style="background:#55FFFF">§b</button>
+         <button onclick="addColor('§3')" style="background:#00AAAA">§3</button>
+         <button onclick="addColor('§1')" style="background:#0000AA">§1</button>
+         <button onclick="addColor('§9')" style="background:#5555FF">§9</button>
+         <button onclick="addColor('§d')" style="background:#FF55FF">§d</button>
+         <button onclick="addColor('§5')" style="background:#AA00AA">§5</button>
+         <button onclick="addColor('§f')" style="background:#FFFFFF; color:#000">§f</button>
+         <button onclick="addColor('§7')" style="background:#AAAAAA">§7</button>
+         <button onclick="addColor('§0')" style="background:#000000">§0</button>
+         <button onclick="addColor('§l')" style="background:#444">B</button>
+      </div>
+
+      <div class="res-box" onclick="copyToClipboard()">
+        <p>Your Formatted Code (Click to Copy):</p>
+        <code id="formattedCode">§f</code>
+      </div>
+    </section>
+
+    <section id="mc-tools" class="app-card">
+      <h2>Minecraft Utilities</h2>
+      <div class="sub-tool">
+        <h3>Skin Downloader</h3>
+        <input type="text" id="mcUser" placeholder="Username...">
+        <div class="btn-row">
+          <button class="glow-btn" onclick="getSkin()">View Skin</button>
+          <a id="downloadBtn" class="glow-btn dl-btn" style="display:none;">DOWNLOAD PNG</a>
+        </div>
+        <div id="skinDisplay"></div>
+      </div>
+      
+      <div class="sub-tool">
+        <h3>Nether Linker</h3>
+        <div class="input-row">
+          <input type="number" id="xCoord" placeholder="Overworld X">
+          <button class="glow-btn" onclick="calcNether()">Calculate</button>
+        </div>
+        <p id="netherRes"></p>
+      </div>
+    </section>
+
+    <section id="session" class="app-card">
+      <h2>Game Session Tracker</h2>
+      <div class="timer-box">
+        <h1 id="timer">00:00:00</h1>
+        <div class="btn-row centered">
+          <button id="startBtn" class="glow-btn" onclick="startTimer()">Start</button>
+          <button id="stopBtn" class="glow-btn stop" onclick="stopTimer()" style="display:none;">Stop</button>
+          <button class="glow-btn reset" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
