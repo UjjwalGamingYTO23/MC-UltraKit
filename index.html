@@ -3,97 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit - Ultimate Minecraft Toolkit</title>
+    <title>EnderKit | Minecraft Tools</title>
     
-    <script src="https://quge5.com/88/tag.min.js" data-zone="209183" async data-cfasync="false"></script>
+    <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(reg) { console.log('SW Registered!', reg); })
-          .catch(function(err) { console.log('SW Failed!', err); });
-      }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --p: #00ff88; --bg: #0a0b0d; --card: #161b22; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background: #0d1117; border-right: 1px solid #30363d; display: flex; flex-direction: column; padding: 20px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--p); margin-bottom: 40px; text-align: center; }
+        .nav-btn { background: none; border: none; color: #8b949e; padding: 15px; text-align: left; font-size: 16px; cursor: pointer; border-radius: 8px; transition: 0.3s; margin-bottom: 10px; }
+        .nav-btn:hover, .nav-btn.active { background: #21262d; color: var(--p); }
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+        /* Main Content */
+        .main { flex: 1; padding: 40px; overflow-y: auto; display: flex; justify-content: center; }
+        .app-card { background: var(--card); border-radius: 20px; padding: 30px; width: 100%; max-width: 600px; border: 1px solid #30363d; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .active { display: block; animation: fadeIn 0.5s; }
+
+        h2 { color: var(--p); margin-top: 0; }
+        input { width: 100%; padding: 12px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; box-sizing: border-box; margin-bottom: 20px; }
+        button.action-btn { width: 100%; padding: 15px; background: var(--p); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; color: black; }
+        button.action-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        /* Color Grid */
+        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+        .c-btn { padding: 10px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; }
+
+        #statusResult, #skinDisplay { margin-top: 25px; text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
 
-<div class="dashboard">
-  <aside class="sidebar">
-    <div class="logo">ENDER<span>KIT</span></div>
-    <nav class="nav-menu">
-      <button class="nav-btn active" onclick="switchTab(event, 'mc-status')">🟢 Server Status</button>
-      <button class="nav-btn" onclick="switchTab(event, 'color-tools')">🎨 Color Picker</button>
-      <button class="nav-btn" onclick="switchTab(event, 'mc-tools')">⛏️ MC Tools</button>
-      <button class="nav-btn" onclick="switchTab(event, 'session')">🕒 Game Session</button>
-    </nav>
-    
-    <div class="promo-box" style="margin-top: 20px; padding: 15px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; border: 1px dashed #a855f7;">
-        <p style="font-size: 12px; color: #a855f7; margin-bottom: 8px;">Want a 24/7 Server?</p>
-        <button class="glow-btn" style="width: 100%; font-size: 11px; padding: 8px;" onclick="window.open('https://www.google.com', '_blank')">GET HOSTING</button>
+    <div class="sidebar">
+        <div class="logo">ENDERKIT</div>
+        <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
+        <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
+        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
     </div>
-  </aside>
 
-  <main class="main-content">
-    <section id="mc-status" class="app-card active">
-      <h2>Minecraft Server Status</h2>
-      <p>Check if a server is Online or Offline</p>
-      <div class="input-row">
-        <input type="text" id="serverIP" placeholder="e.g. play.hypixel.net">
-        <button class="glow-btn" onclick="checkServer()">Check Now</button>
-      </div>
-      <div id="statusResult" class="res-box" style="display:none; margin-top:20px;"></div>
-    </section>
-
-    <section id="color-tools" class="app-card">
-      <h2>MC Color Picker</h2>
-      <p>Create formatted Minecraft text</p>
-      <input type="text" id="rawText" placeholder="Type your message..." oninput="updateColorPreview()">
-      <div class="color-palette">
-         <button onclick="addColor('§c')" style="background:#FF5555">§c</button>
-         <button onclick="addColor('§a')" style="background:#55FF55">§a</button>
-         <button onclick="addColor('§e')" style="background:#FFFF55">§e</button>
-         <button onclick="addColor('§b')" style="background:#55FFFF">§b</button>
-         <button onclick="addColor('§f')" style="background:#FFFFFF; color:#000">§f</button>
-         <button onclick="addColor('§l')" style="background:#444">B</button>
-      </div>
-      <div class="res-box" onclick="copyToClipboard()">
-        <code id="formattedCode">§f</code>
-      </div>
-    </section>
-
-    <section id="mc-tools" class="app-card">
-      <h2>Minecraft Utilities</h2>
-      <div class="sub-tool">
-        <h3>Skin Downloader</h3>
-        <div class="input-row">
-            <input type="text" id="mcUser" placeholder="Username...">
-            <button class="glow-btn" onclick="getSkin()">View Skin</button>
+    <div class="main">
+        
+        <div id="status" class="app-card active">
+            <h2>Check Server Status</h2>
+            <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
+            <button class="action-btn" onclick="checkServer()">Check Now</button>
+            <div id="statusResult"></div>
         </div>
-        <div id="skinDisplay"></div>
-      </div>
-    </section>
 
-    <section id="session" class="app-card">
-      <h2>Game Session Tracker</h2>
-      <div class="timer-box" style="text-align:center;">
-        <h1 id="timer" style="font-size: 3rem; margin: 20px 0;">00:00:00</h1>
-        <div class="btn-row centered">
-          <button id="startBtn" class="glow-btn" onclick="startTimer()">Start</button>
-          <button id="stopBtn" class="glow-btn stop" onclick="stopTimer()" style="display:none;">Stop</button>
-          <button class="glow-btn reset" onclick="resetTimer()">Reset</button>
+        <div id="skin" class="app-card">
+            <h2>Skin Downloader</h2>
+            <input type="text" id="mcUser" placeholder="Minecraft Username">
+            <button class="action-btn" onclick="getSkin()">View Skin</button>
+            <div id="skinDisplay"></div>
         </div>
-      </div>
-    </section>
 
-    <footer style="margin-top: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-        <p style="font-size: 13px; color: #888;">&copy; 2026 EnderKit | Built by Ujjwal</p>
-    </footer>
-  </main>
-</div>
+        <div id="colors" class="app-card">
+            <h2>Minecraft Color Picker</h2>
+            <div class="color-grid">
+                <button class="c-btn" style="background:#000; color:white" onclick="copyCode('§0')">§0</button>
+                <button class="c-btn" style="background:#0000AA; color:white" onclick="copyCode('§1')">§1</button>
+                <button class="c-btn" style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
+                <button class="c-btn" style="background:#AA0000; color:white" onclick="copyCode('§4')">§4</button>
+                <button class="c-btn" style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
+                <button class="c-btn" style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
+                <button class="c-btn" style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
+                <button class="c-btn" style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
+            </div>
+            <p id="copyMsg" style="text-align:center; color:var(--p); margin-top:15px;"></p>
+        </div>
 
-<script src="script.js"></script>
+        <div id="timer" class="app-card">
+            <h2>Game Session Timer</h2>
+            <h1 id="timeDisp" style="font-size: 48px; text-align:center;">00:00:00</h1>
+            <div style="display:flex; gap:10px;">
+                <button class="action-btn" onclick="startTimer()">Start</button>
+                <button class="action-btn" style="background:#555; color:white" onclick="stopTimer()">Stop</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
