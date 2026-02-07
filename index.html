@@ -5,103 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnderKit | Minecraft Tools</title>
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
+
     <style>
-        /* Neon Green & Purple Theme */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #0b0b0e; color: #e0e0e0; display: flex; min-height: 100vh; }
+        body { background-color: #0b0b0e; color: #e0e0e0; display: flex; min-height: 100vh; overflow-x: hidden; }
+
         .dashboard { display: flex; width: 100%; }
-        .sidebar { width: 280px; background: #12121a; padding: 30px 20px; position: fixed; height: 100vh; border-right: 2px solid #39ff14; box-shadow: 5px 0 20px rgba(57, 255, 20, 0.15); z-index: 100; }
+
+        .sidebar { 
+            width: 280px; background: #12121a; padding: 30px 20px; position: fixed; 
+            height: 100vh; border-right: 2px solid #39ff14; 
+            box-shadow: 5px 0 20px rgba(57, 255, 20, 0.15); z-index: 100;
+        }
+
         .logo { font-size: 28px; font-weight: 800; color: #a855f7; text-shadow: 0 0 15px rgba(168, 85, 247, 0.6); margin-bottom: 50px; text-align: center; }
         .logo span { color: #39ff14; }
-        .nav-btn { width: 100%; padding: 15px; margin-bottom: 15px; background: #1a1a24; border: 1px solid transparent; border-radius: 12px; color: #fff; cursor: pointer; text-align: left; font-weight: 600; }
-        .nav-btn.active { border-color: #39ff14; color: #39ff14; }
+
+        .nav-btn { 
+            width: 100%; padding: 15px; margin-bottom: 15px; background: #1a1a24; border: 1px solid transparent; 
+            border-radius: 12px; color: #fff; cursor: pointer; text-align: left; transition: 0.3s; font-weight: 600;
+        }
+        .nav-btn:hover, .nav-btn.active { border-color: #39ff14; color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
+
         .main-content { margin-left: 280px; padding: 60px; width: 100%; display: flex; justify-content: center; }
-        .app-card { display: none; background: #16161f; padding: 40px; border-radius: 24px; border: 1px solid #2a2a35; width: 100%; max-width: 600px; }
-        .app-card.active { display: block; }
+
+        .app-card { 
+            display: none; background: #16161f; padding: 40px; border-radius: 24px; 
+            border: 1px solid #2a2a35; width: 100%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        }
+        .app-card.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         input { width: 100%; padding: 15px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 20px; outline: none; }
-        .glow-btn { width: 100%; padding: 15px; background: #a855f7; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
-        @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; } .main-content { margin-left: 0; padding: 20px; } }
+        .glow-btn { width: 100%; padding: 15px; background: #a855f7; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); transition: 0.3s; width: 100%; }
+        .glow-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 85, 247, 0.7); }
+
+        .color-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+        .palette-btn { padding: 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; }
+            .main-content { margin-left: 0; padding: 20px; }
+        }
     </style>
 </head>
 <body>
+
     <div class="dashboard">
         <div class="sidebar">
             <div class="logo">ENDER<span>KIT</span></div>
             <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
             <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
-            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Timer</button>
+            <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 Seed Finder</button>
+            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
+            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
         </div>
+
         <div class="main-content">
             <div id="status" class="app-card active">
-                <h2>Check Server Status</h2>
-                <input type="text" id="serverIP" placeholder="play.hypixel.net">
+                <h2>Server Status Checker</h2>
+                <input type="text" id="serverIP" placeholder="Example: play.hypixel.net">
                 <button class="glow-btn" onclick="checkServer()">Check Now</button>
-                <div id="statusResult" style="margin-top:20px; text-align:center;"></div>
+                <div id="statusResult" style="margin-top:20px; text-align:center; font-weight: bold;"></div>
             </div>
+
             <div id="skin" class="app-card">
-                <h2>Skin Downloader</h2>
-                <input type="text" id="mcUser" placeholder="Username">
+                <h2>Skin Grabber</h2>
+                <input type="text" id="mcUser" placeholder="Minecraft Username">
                 <button class="glow-btn" onclick="getSkin()">View Skin</button>
                 <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
             </div>
+
+            <div id="seed" class="app-card">
+                <h2>Epic Seed Finder</h2>
+                <p style="text-align:center; margin-bottom:20px; color:#aaa;">Dhoondho sabse rare Minecraft seeds aur structures.</p>
+                <button class="glow-btn" onclick="findSeeds()">Open Seed Map</button>
+                <div id="seedList" style="margin-top:20px;">
+                    <p style="color:#39ff14; font-size:14px; margin-bottom:5px;">🔥 Recommended Seeds:</p>
+                    <div style="background:#0b0b0e; padding:10px; border-radius:8px; font-size:12px; border:1px solid #2a2a35;">
+                        • 2151901553968352745 (Village + Mansion)<br>
+                        • -7410250325400203000 (Ocean Monument)
+                    </div>
+                </div>
+            </div>
+
+            <div id="colors" class="app-card">
+                <h2>Minecraft Color Codes</h2>
+                <div class="color-palette">
+                    <button class="palette-btn" style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
+                    <button class="palette-btn" style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
+                    <button class="palette-btn" style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
+                    <button class="palette-btn" style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
+                </div>
+                <p id="copyMsg" style="text-align:center; color:#39ff14; margin-top:15px; font-weight: bold;"></p>
+            </div>
+
             <div id="timer" class="app-card">
                 <h2>Session Timer</h2>
-                <h1 id="timeDisp" style="font-size: 50px; text-align:center; margin: 20px 0;">00:00:00</h1>
-                <button class="glow-btn" onclick="startTimer()">Start</button>
+                <h1 id="timeDisp" style="font-size: 60px; text-align:center; margin: 20px 0;">00:00:00</h1>
+                <button class="glow-btn" onclick="startTimer()">Start Session</button>
             </div>
         </div>
     </div>
 
     <script>
-        // YAHAN APNA LINK DALO (Quotes ke andar)
-        const adLink = "https://otieu.com/4/10581423"; 
-
-        function switchTab(e, id) {
-            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            e.currentTarget.classList.add('active');
-        }
-
-        async function checkServer() {
-            const ip = document.getElementById('serverIP').value;
-            if (!ip) return alert("IP dalo bhai!");
-            
-            // Ad Open
-            if(adLink !== "PASTE_YOUR_LINK_HERE") window.open(adLink, '_blank');
-
-            document.getElementById('statusResult').innerText = "Checking...";
-            try {
-                const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
-                const data = await res.json();
-                document.getElementById('statusResult').innerHTML = data.online ? 
-                    `<p style="color:#39ff14">✅ Online | Players: ${data.players.online}</p>` : `<p style="color:#ff5555">❌ Offline</p>`;
-            } catch { document.getElementById('statusResult').innerText = "API Error!"; }
-        }
-
-        function getSkin() {
-            const user = document.getElementById('mcUser').value;
-            if (!user) return alert("User dalo!");
-            if(adLink !== "PASTE_YOUR_LINK_HERE") window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150">`;
-        }
-
-        let timer, sec = 0;
-        function startTimer() {
-            if (timer) return;
-            timer = setInterval(() => {
-                sec++;
-                let h = Math.floor(sec/3600).toString().padStart(2,'0');
-                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-                let s = (sec%60).toString().padStart(2,'0');
-                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
-            }, 1000);
-        }
-    </script>
-</body>
-</html>    <script>
-        // JS START - Monetag & Logic (image_294dff.png)
-        const adLink = "https://your-direct-link-here.com"; // <-- APNA LINK DALO
+        const adLink = "https://otieu.com/4/10581423";
 
         function switchTab(event, tabId) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -113,24 +123,34 @@
         async function checkServer() {
             const ip = document.getElementById('serverIP').value;
             if (!ip) return;
-            window.open(adLink, '_blank'); // Direct Link Trigger
-            document.getElementById('statusResult').innerText = "Checking...";
+            window.open(adLink, '_blank');
+            const resDiv = document.getElementById('statusResult');
+            resDiv.innerHTML = "🔍 Scanning...";
             try {
-                const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
                 const data = await res.json();
-                document.getElementById('statusResult').innerHTML = data.online ? 
-                    `<p style="color:#39ff14">✅ Online | Players: ${data.players.online}</p>` : `<p style="color:#ff5555">❌ Offline</p>`;
-            } catch { document.getElementById('statusResult').innerText = "Error!"; }
+                resDiv.innerHTML = data.online ? `✅ ONLINE | Players: ${data.players.online}` : "❌ OFFLINE";
+                resDiv.style.color = data.online ? "#39ff14" : "#ff5555";
+            } catch (e) { resDiv.innerHTML = "Error!"; }
         }
 
         function getSkin() {
             const user = document.getElementById('mcUser').value;
             if (!user) return;
-            window.open(adLink, '_blank'); // Direct Link Trigger
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150"><br><br><a href="https://mc-heads.net/download/${user}" target="_blank"><button class="glow-btn">Download Skin</button></a>`;
+            window.open(adLink, '_blank');
+            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/160"><br><br><a href="https://mc-heads.net/download/${user}" target="_blank"><button class="glow-btn" style="width:auto; padding:10px 20px;">Download</button></a>`;
         }
 
-        function copyCode(c) { navigator.clipboard.writeText(c); document.getElementById('copyMsg').innerText = "Copied: " + c; }
+        function findSeeds() {
+            window.open(adLink, '_blank'); // Ad Trigger
+            window.open('https://www.chunkbase.com/apps/seed-map', '_blank'); // Chunkbase open
+        }
+
+        function copyCode(code) {
+            navigator.clipboard.writeText(code);
+            document.getElementById('copyMsg').innerText = "Copied: " + code;
+            setTimeout(() => { document.getElementById('copyMsg').innerText = ""; }, 2000);
+        }
 
         let timer, sec = 0;
         function startTimer() {
@@ -143,8 +163,6 @@
                 document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
             }, 1000);
         }
-        function stopTimer() { clearInterval(timer); timer = null; }
     </script>
 </body>
-    </html>
-
+</html>
