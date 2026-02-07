@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GHub - Ultimate Minecraft Toolkit</title>
+    <title>EnderKit - Ultimate Minecraft Toolkit</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
@@ -11,11 +11,11 @@
 
 <div class="dashboard">
   <aside class="sidebar">
-    <div class="logo">G<span>HUB</span></div>
+    <div class="logo">ENDER<span>KIT</span></div>
     <nav class="nav-menu">
-      <button class="nav-btn active" onclick="switchTab(event, 'color-tools')">🎨 Color Codes</button>
+      <button class="nav-btn active" onclick="switchTab(event, 'color-tools')">🎨 Color Picker</button>
       <button class="nav-btn" onclick="switchTab(event, 'mc-tools')">⛏️ MC Tools</button>
-      <button class="nav-btn" onclick="switchTab(event, 'session')">🕒 Session</button>
+      <button class="nav-btn" onclick="switchTab(event, 'session')">🕒 Game Session</button>
     </nav>
   </aside>
 
@@ -24,7 +24,7 @@
       <h2>MC Color Picker</h2>
       <p>Click a color to add it to your text!</p>
       
-      <input type="text" id="rawText" placeholder="Enter your message..." oninput="updateColorPreview()">
+      <input type="text" id="rawText" placeholder="Type your message..." oninput="updateColorPreview()">
       
       <div class="color-palette">
          <button onclick="addColor('§4')" style="background:#AA0000">§4</button>
@@ -78,7 +78,7 @@
       <div class="timer-box">
         <h1 id="timer">00:00:00</h1>
         <div class="btn-row centered">
-          <button id="startBtn" class="glow-btn" onclick="startTimer()">Start</button>
+          <button id="startBtn" class="glow-btn" onclick="startTimer()">Start Session</button>
           <button id="stopBtn" class="glow-btn stop" onclick="stopTimer()" style="display:none;">Stop</button>
           <button class="glow-btn reset" onclick="resetTimer()">Reset</button>
         </div>
