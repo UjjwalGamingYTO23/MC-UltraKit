@@ -8,46 +8,46 @@ function switchTab(event, tabId) {
     event.currentTarget.classList.add('active');
 }
 
-// 2. Minecraft Server Status Checker (Direct Link ke sath)
+// 2. Minecraft Server Status (With Ads)
 async function checkServer() {
-    // 👇 Ye line click hote hi Ad khol degi
     window.open('https://otieu.com/4/10581423', '_blank'); 
-
     const ip = document.getElementById('serverIP').value;
     const resBox = document.getElementById('statusResult');
-    if(!ip) { alert("Bhai, Server IP toh dalo!"); return; }
-
-    resBox.style.display = "block";
-    resBox.innerHTML = "🔍 Checking status...";
-
+    if(!ip) { alert("Bhai, IP dalo!"); return; }
+    resBox.innerHTML = "🔍 Checking...";
     try {
-        const response = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        const data = await response.json();
-        if(data.online) {
-            resBox.innerHTML = `<div style="border-left: 4px solid #55FF55; padding-left: 15px;">
-                <p style="color:#55FF55; font-weight:bold;">🟢 ONLINE</p>
-                <p>👥 Players: ${data.players.online}/${data.players.max}</p>
-            </div>`;
-        } else {
-            resBox.innerHTML = `<p style="color:#FF5555; font-weight:bold;">🔴 OFFLINE</p>`;
-        }
-    } catch (err) { resBox.innerHTML = "❌ Error!"; }
+        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+        const data = await res.json();
+        resBox.innerHTML = data.online ? `<p style="color:#55FF55;">🟢 Online | Players: ${data.players.online}</p>` : `<p style="color:#FF5555;">🔴 Offline</p>`;
+    } catch { resBox.innerHTML = "❌ Error!"; }
 }
 
-// 3. Minecraft Skin Downloader (Direct Link ke sath)
+// 3. Skin Downloader (With Ads)
 async function getSkin() {
-    // 👇 Ye line click hote hi Ad khol degi
     window.open('https://otieu.com/4/10581423', '_blank');
-
     const user = document.getElementById('mcUser').value;
     const display = document.getElementById('skinDisplay');
     if(!user) return;
-
-    display.innerHTML = `
-        <img src="https://mc-heads.net/body/${user}" style="width:150px; margin-top:20px; cursor:pointer;" 
-        onclick="window.open('https://mc-heads.net/download/${user}')">
-        <p style="font-size:12px; color:#888;">(Skin Loading...)</p>
-    `;
+    display.innerHTML = `<img src="https://mc-heads.net/body/${user}" style="width:120px; cursor:pointer;" onclick="window.open('https://mc-heads.net/download/${user}')"><p>Click skin to download</p>`;
 }
 
-// ... baaki ka color picker aur timer code waisa hi rehne do
+// 4. Color Code Copy
+function copyCode(code) {
+    navigator.clipboard.writeText(code);
+    const msg = document.getElementById('copyMsg');
+    msg.innerText = "Copied: " + code;
+    setTimeout(() => msg.innerText = "", 2000);
+}
+
+// 5. Timer Logic
+let timer, sec = 0;
+function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+        sec++;
+        let h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+        document.getElementById('timeDisp').innerText = 
+            `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }, 1000);
+}
+function stopTimer() { clearInterval(timer); }
