@@ -1,58 +1,77 @@
-// Smart Ad Opener Function
-function openMyAd() {
-    const adUrl = 'https://otieu.com/4/10581423';
-    const windowProxy = window.open(adUrl, '_blank');
-    
-    // Agar normal open block ho jaye toh "Force Click" use karo
-    if (!windowProxy || windowProxy.closed || typeof windowProxy.closed == 'undefined') {
-        const link = document.createElement('a');
-        link.href = adUrl;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-}
+// --- CONFIGURATION ---
+const MONETAG_DIRECT_LINK = "https://your-direct-link-here.com"; // <-- APNA DIRECT LINK YAHAN DALO
 
-// 1. Tab Switching
+// --- TAB SWITCHING LOGIC ---
 function switchTab(event, tabId) {
-    const sections = document.querySelectorAll('.app-card');
-    sections.forEach(s => s.classList.remove('active'));
+    // Sabhi cards ko hide karo
+    const cards = document.querySelectorAll('.app-card');
+    cards.forEach(card => card.classList.remove('active'));
+
+    // Sabhi buttons se active class hatao
     const buttons = document.querySelectorAll('.nav-btn');
-    buttons.forEach(b => b.classList.remove('active'));
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // Jo select kiya usse show karo
     document.getElementById(tabId).classList.add('active');
     event.currentTarget.classList.add('active');
 }
 
-// 2. Server Status (Ad Integrated)
-async function checkServer() {
-    openMyAd(); 
-    const ip = document.getElementById('serverIP').value;
-    const resBox = document.getElementById('statusResult');
-    if(!ip) { alert("Server IP dalo bhai!"); return; }
-    resBox.innerHTML = "🔍 Checking...";
-    try {
-        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        const data = await res.json();
-        resBox.innerHTML = data.online ? 
-            `<p style="color:#55FF55;">🟢 Online | Players: ${data.players.online}/${data.players.max}</p>` : 
-            `<p style="color:#FF5555;">🔴 Offline</p>`;
-    } catch { resBox.innerHTML = "❌ Error connecting!"; }
+// --- MONETAG AD TRIGGER (Direct Link) ---
+function triggerAd() {
+    // Ye function har click par ad link kholega (image_294dff.png)
+    window.open(MONETAG_DIRECT_LINK, '_blank');
 }
 
-// 3. Skin Grabber (Ad Integrated)
-async function getSkin() {
-    openMyAd();
+// --- MINECRAFT SERVER STATUS ---
+async function checkServer() {
+    const ip = document.getElementById('serverIP').value;
+    const resultDiv = document.getElementById('statusResult');
+    
+    if (!ip) return alert("Please enter a server IP!");
+
+    // Ad Trigger
+    triggerAd(); // Click karte hi ad khulega
+
+    resultDiv.innerHTML = "Checking...";
+
+    try {
+        const response = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+        const data = await response.json();
+
+        if (data.online) {
+            resultDiv.innerHTML = `
+                <p style="color:#39ff14;">✅ Server is Online</p>
+                <p>Players: ${data.players.online} / ${data.players.max}</p>
+                <p>Version: ${data.version.name}</p>
+            `;
+        } else {
+            resultDiv.innerHTML = `<p style="color:#ff5555;">❌ Server is Offline</p>`;
+        }
+    } catch (error) {
+        resultDiv.innerHTML = "Error fetching status.";
+    }
+}
+
+// --- SKIN DOWNLOADER ---
+function getSkin() {
     const user = document.getElementById('mcUser').value;
     const display = document.getElementById('skinDisplay');
-    if(!user) return;
+
+    if (!user) return alert("Enter Username!");
+
+    // Ad Trigger
+    triggerAd(); // Skin view par bhi ad
+
     display.innerHTML = `
-        <img src="https://mc-heads.net/body/${user}" style="width:120px; margin-top:10px; cursor:pointer;" onclick="window.open('https://mc-heads.net/download/${user}')">
-        <p style="font-size:12px; color:#888;">Click skin to download</p>
+        <img src="https://mc-heads.net/body/${user}/150" alt="skin" style="margin-bottom:10px;">
+        <br>
+        <a href="https://mc-heads.net/download/${user}" target="_blank">
+            <button class="glow-btn" style="width:auto; padding: 10px 20px;">Download Skin</button>
+        </a>
     `;
 }
 
-// 4. Color Codes
+// --- COLOR CODE COPY ---
 function copyCode(code) {
     navigator.clipboard.writeText(code);
     const msg = document.getElementById('copyMsg');
@@ -60,15 +79,23 @@ function copyCode(code) {
     setTimeout(() => msg.innerText = "", 2000);
 }
 
-// 5. Timer
-let timer, sec = 0;
+// --- SESSION TIMER ---
+let timerInterval;
+let seconds = 0;
+
 function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-        sec++;
-        let h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        seconds++;
+        let hrs = Math.floor(seconds / 3600);
+        let mins = Math.floor((seconds % 3600) / 60);
+        let secs = seconds % 60;
         document.getElementById('timeDisp').innerText = 
-            `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }, 1000);
 }
-function stopTimer() { clearInterval(timer); }
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
