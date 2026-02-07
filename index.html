@@ -7,56 +7,61 @@
     
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="logo">ENDERKIT</div>
-        <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
-        <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
-        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
-        <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
-    </div>
-
-    <div class="main">
-        <div id="status" class="app-card active">
-            <h2>Check Server Status</h2>
-            <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
-            <button class="action-btn" onclick="checkServer()">Check Now</button>
-            <div id="statusResult"></div>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="logo">ENDER<span>KIT</span></div>
+            <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
+            <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
+            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
+            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
         </div>
 
-        <div id="skin" class="app-card">
-            <h2>Skin Downloader</h2>
-            <input type="text" id="mcUser" placeholder="Minecraft Username">
-            <button class="action-btn" onclick="getSkin()">View Skin</button>
-            <div id="skinDisplay"></div>
-        </div>
-
-        <div id="colors" class="app-card">
-            <h2>Minecraft Color Picker</h2>
-            <div class="color-grid">
-                <button class="c-btn" style="background:#000; color:white" onclick="copyCode('§0')">§0</button>
-                <button class="c-btn" style="background:#0000AA; color:white" onclick="copyCode('§1')">§1</button>
-                <button class="c-btn" style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
-                <button class="c-btn" style="background:#AA0000; color:white" onclick="copyCode('§4')">§4</button>
-                <button class="c-btn" style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
-                <button class="c-btn" style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
-                <button class="c-btn" style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
-                <button class="c-btn" style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
+        <div class="main-content">
+            
+            <div id="status" class="app-card active">
+                <h2>Check Server Status</h2>
+                <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
+                <button class="glow-btn" onclick="checkServer()">Check Now</button>
+                <div id="statusResult" class="res-box" style="display:none; margin-top:20px;"></div>
             </div>
-            <p id="copyMsg" style="text-align:center; color:#00ff88; margin-top:15px;"></p>
-        </div>
 
-        <div id="timer" class="app-card">
-            <h2>Game Session Timer</h2>
-            <h1 id="timeDisp" style="font-size: 48px; text-align:center; margin: 20px 0;">00:00:00</h1>
-            <div style="display:flex; gap:10px;">
-                <button class="action-btn" onclick="startTimer()">Start</button>
-                <button class="action-btn" style="background:#555; color:white" onclick="stopTimer()">Stop</button>
+            <div id="skin" class="app-card">
+                <h2>Skin Downloader</h2>
+                <input type="text" id="mcUser" placeholder="Minecraft Username">
+                <button class="glow-btn" onclick="getSkin()">View Skin</button>
+                <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
             </div>
+
+            <div id="colors" class="app-card">
+                <h2>Minecraft Color Picker</h2>
+                <div class="color-palette">
+                    <button style="background:#000; color:white" onclick="copyCode('§0')">§0</button>
+                    <button style="background:#0000AA; color:white" onclick="copyCode('§1')">§1</button>
+                    <button style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
+                    <button style="background:#AA0000; color:white" onclick="copyCode('§4')">§4</button>
+                    <button style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
+                    <button style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
+                    <button style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
+                    <button style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
+                </div>
+                <p id="copyMsg" style="text-align:center; color:#a855f7; font-weight:bold;"></p>
+            </div>
+
+            <div id="timer-section" class="app-card">
+                <h2>Game Session Timer</h2>
+                <div id="timer">00:00:00</div>
+                <div class="btn-row centered">
+                    <button class="glow-btn" onclick="startTimer()">Start</button>
+                    <button class="glow-btn stop" onclick="stopTimer()">Stop</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
