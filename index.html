@@ -8,7 +8,6 @@
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,7 +27,7 @@
                 <h2>Check Server Status</h2>
                 <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
                 <button class="glow-btn" onclick="checkServer()">Check Now</button>
-                <div id="statusResult" class="res-box" style="display:none; margin-top:20px;"></div>
+                <div id="statusResult" style="margin-top:20px; text-align:center;"></div>
             </div>
 
             <div id="skin" class="app-card">
@@ -50,15 +49,15 @@
                     <button style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
                     <button style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
                 </div>
-                <p id="copyMsg" style="text-align:center; color:#a855f7; font-weight:bold;"></p>
+                <p id="copyMsg" style="text-align:center; color:#a855f7; margin-top:15px; font-weight: bold;"></p>
             </div>
 
-            <div id="timer-section" class="app-card">
+            <div id="timer" class="app-card">
                 <h2>Game Session Timer</h2>
-                <div id="timer">00:00:00</div>
-                <div class="btn-row centered">
+                <h1 id="timeDisp" style="font-size: 60px; text-align:center; margin: 20px 0;">00:00:00</h1>
+                <div style="display:flex; gap:10px;">
                     <button class="glow-btn" onclick="startTimer()">Start</button>
-                    <button class="glow-btn stop" onclick="stopTimer()">Stop</button>
+                    <button class="glow-btn" style="background:#444;" onclick="stopTimer()">Stop</button>
                 </div>
             </div>
 
