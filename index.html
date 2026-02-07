@@ -1,173 +1,61 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnderKit | Minecraft Tools</title>
+    
+    <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
-body {
-    background-color: #0b0b0e;
-    color: #e0e0e0;
-    overflow-x: hidden;
-}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-/* Dashboard Layout */
-.dashboard {
-    display: flex;
-    min-height: 100vh;
-}
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="logo">ENDER<span>KIT</span></div>
+            <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
+            <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
+            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
+            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
+        </div>
 
-/* Sidebar Styling */
-.sidebar {
-    width: 280px;
-    background: #12121a;
-    padding: 30px 20px;
-    position: fixed;
-    height: 100vh;
-    border-right: 2px solid #39ff14; /* Neon Green Border */
-    box-shadow: 5px 0 20px rgba(57, 255, 20, 0.15);
-    z-index: 100;
-}
+        <div class="main-content">
+            
+            <div id="status" class="app-card active">
+                <h2>Check Server Status</h2>
+                <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
+                <button class="glow-btn" onclick="checkServer()">Check Now</button>
+                <div id="statusResult" style="margin-top:20px; text-align:center;"></div>
+            </div>
 
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    color: #a855f7; /* Purple */
-    text-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
-    margin-bottom: 50px;
-    text-align: center;
-}
+            <div id="skin" class="app-card">
+                <h2>Skin Downloader</h2>
+                <input type="text" id="mcUser" placeholder="Minecraft Username">
+                <button class="glow-btn" onclick="getSkin()">View Skin</button>
+                <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
+            </div>
 
-.logo span {
-    color: #39ff14; /* Neon Green KIT */
-}
+            <div id="colors" class="app-card">
+                <h2>Minecraft Color Picker</h2>
+                <div class="color-palette">
+                    <button style="background:#000; color:white" onclick="copyCode('§0')">§0</button>
+                    <button style="background:#0000AA; color:white" onclick="copyCode('§1')">§1</button>
+                    <button style="background:#00AA00; color:white" onclick="copyCode('§2')">§2</button>
+                    <button style="background:#AA0000; color:white" onclick="copyCode('§4')">§4</button>
+                    <button style="background:#FFAA00; color:white" onclick="copyCode('§6')">§6</button>
+                    <button style="background:#55FF55; color:black" onclick="copyCode('§a')">§a</button>
+                    <button style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
+                    <button style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
+                </div>
+                <p id="copyMsg" style="text-align:center; color:#a855f7; margin-top:15px; font-weight: bold;"></p>
+            </div>
 
-/* Nav Buttons */
-.nav-btn {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    background: #1a1a24;
-    border: 1px solid transparent;
-    border-radius: 12px;
-    color: #fff;
-    cursor: pointer;
-    text-align: left;
-    transition: 0.3s;
-    font-weight: 600;
-}
-
-.nav-btn:hover, .nav-btn.active {
-    border-color: #39ff14;
-    color: #39ff14;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-    transform: translateX(5px);
-}
-
-/* Main Content Area */
-.main-content {
-    margin-left: 280px;
-    padding: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-/* App Card Styling (Matches your HTML) */
-.app-card {
-    display: none; /* Tabs ke liye */
-    background: #16161f;
-    padding: 40px;
-    border-radius: 24px;
-    border: 1px solid #2a2a35;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-.app-card.active {
-    display: block; /* Sirf active tab dikhega */
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-h2 {
-    margin-bottom: 25px;
-    font-size: 24px;
-    text-align: center;
-}
-
-/* Input & Glow Button */
-input {
-    width: 100%;
-    padding: 15px;
-    background: #0b0b0e;
-    border: 1px solid #333;
-    border-radius: 12px;
-    color: #39ff14;
-    margin-bottom: 20px;
-    outline: none;
-    font-size: 16px;
-}
-
-.glow-btn {
-    width: 100%;
-    padding: 15px;
-    background: #a855f7;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-    transition: 0.3s;
-}
-
-.glow-btn:hover {
-    box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
-    transform: scale(1.02);
-}
-
-/* Color Palette */
-.color-palette {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.color-palette button {
-    padding: 15px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* MOBILE RESPONSIVE (image_29ba60.png Fix) */
-@media (max-width: 768px) {
-    .dashboard {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        border-right: none;
-        border-bottom: 2px solid #39ff14;
-        padding: 20px;
-    }
-    .main-content {
-        margin-left: 0;
-        padding: 20px;
-    }
-    .nav-btn {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
+            <div id="timer" class="app-card">
+                <h2>Game Session Timer</h2>
+                <h1 id="timeDisp" style="font-size: 60px; text-align:center; margin: 20px 0;">00:00:00</h1>
+                <div style="display:flex; gap:10px;">
+                    <button class="glow-btn" onclick="startTimer()">Start</button>
+                    <button class="glow-btn" style="background:#444;" onclick="
