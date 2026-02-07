@@ -8,34 +8,7 @@
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root { --p: #00ff88; --bg: #0a0b0d; --card: #161b22; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        
-        /* Sidebar */
-        .sidebar { width: 260px; background: #0d1117; border-right: 1px solid #30363d; display: flex; flex-direction: column; padding: 20px; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--p); margin-bottom: 40px; text-align: center; }
-        .nav-btn { background: none; border: none; color: #8b949e; padding: 15px; text-align: left; font-size: 16px; cursor: pointer; border-radius: 8px; transition: 0.3s; margin-bottom: 10px; }
-        .nav-btn:hover, .nav-btn.active { background: #21262d; color: var(--p); }
-
-        /* Main Content */
-        .main { flex: 1; padding: 40px; overflow-y: auto; display: flex; justify-content: center; }
-        .app-card { background: var(--card); border-radius: 20px; padding: 30px; width: 100%; max-width: 600px; border: 1px solid #30363d; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .active { display: block; animation: fadeIn 0.5s; }
-
-        h2 { color: var(--p); margin-top: 0; }
-        input { width: 100%; padding: 12px; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; box-sizing: border-box; margin-bottom: 20px; }
-        button.action-btn { width: 100%; padding: 15px; background: var(--p); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; color: black; }
-        button.action-btn:hover { opacity: 0.8; transform: translateY(-2px); }
-
-        /* Color Grid */
-        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
-        .c-btn { padding: 10px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; }
-
-        #statusResult, #skinDisplay { margin-top: 25px; text-align: center; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -48,7 +21,6 @@
     </div>
 
     <div class="main">
-        
         <div id="status" class="app-card active">
             <h2>Check Server Status</h2>
             <input type="text" id="serverIP" placeholder="Enter Server IP (e.g. play.hypixel.net)">
@@ -75,18 +47,17 @@
                 <button class="c-btn" style="background:#FF5555; color:black" onclick="copyCode('§c')">§c</button>
                 <button class="c-btn" style="background:#FFFF55; color:black" onclick="copyCode('§e')">§e</button>
             </div>
-            <p id="copyMsg" style="text-align:center; color:var(--p); margin-top:15px;"></p>
+            <p id="copyMsg" style="text-align:center; color:#00ff88; margin-top:15px;"></p>
         </div>
 
         <div id="timer" class="app-card">
             <h2>Game Session Timer</h2>
-            <h1 id="timeDisp" style="font-size: 48px; text-align:center;">00:00:00</h1>
+            <h1 id="timeDisp" style="font-size: 48px; text-align:center; margin: 20px 0;">00:00:00</h1>
             <div style="display:flex; gap:10px;">
                 <button class="action-btn" onclick="startTimer()">Start</button>
                 <button class="action-btn" style="background:#555; color:white" onclick="stopTimer()">Stop</button>
             </div>
         </div>
-
     </div>
 
     <script src="script.js"></script>
