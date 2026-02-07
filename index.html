@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit | Pro Minecraft Tools</title>
+    <title>EnderKit | OP Minecraft Toolkit</title>
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -18,15 +18,12 @@
         .app-card { display: none; background: #16161f; padding: 40px; border-radius: 24px; border: 1px solid #2a2a35; width: 100%; max-width: 650px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .app-card.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Select & Input Styling */
-        select, input { width: 100%; padding: 15px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 15px; outline: none; font-size: 15px; }
+        select, input { width: 100%; padding: 15px; background: #0b0b0e; border: 1px solid #333; border-radius: 12px; color: #39ff14; margin-bottom: 15px; outline: none; }
         .glow-btn { width: 100%; padding: 15px; background: #a855f7; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); transition: 0.3s; }
         .glow-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 85, 247, 0.7); }
-        
-        .seed-result-box { background: #0b0b0e; padding: 20px; border-radius: 12px; border: 1px dashed #39ff14; margin-top: 20px; display: none; }
-        .seed-val { color: #a855f7; font-size: 20px; font-weight: 900; letter-spacing: 1px; }
-
+        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .c-btn { padding: 12px 5px; border-radius: 8px; border: none; cursor: pointer; font-weight: 800; font-size: 12px; text-align: center; }
+        .seed-box { margin-top: 20px; padding: 20px; background: #0b0b0e; border-radius: 15px; border: 1px dashed #39ff14; text-align: center; display: none; }
         @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid #39ff14; } .main-content { margin-left: 0; padding: 20px; } }
     </style>
 </head>
@@ -36,51 +33,63 @@
         <div class="sidebar">
             <div class="logo">ENDER<span>KIT</span></div>
             <button class="nav-btn active" onclick="switchTab(event, 'status')">📡 Server Status</button>
+            <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 OP Seed Finder</button>
+            <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
             <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
-            <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 Seed Finder</button>
-            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Session Timer</button>
+            <button class="nav-btn" onclick="switchTab(event, 'timer')">⏱️ Timer</button>
         </div>
 
         <div class="main-content">
             <div id="status" class="app-card active">
-                <h2>Server Status Checker</h2>
-                <input type="text" id="serverIP" placeholder="Example: play.hypixel.net">
-                <button class="glow-btn" onclick="checkServer()">Check Now</button>
+                <h2>Server Checker</h2>
+                <input type="text" id="serverIP" placeholder="play.hypixel.net">
+                <button class="glow-btn" onclick="checkServer()">Check Online</button>
                 <div id="statusResult" style="margin-top:20px; text-align:center;"></div>
             </div>
 
             <div id="seed" class="app-card">
-                <h2>Advanced Seed Finder</h2>
-                <p style="color:#aaa; text-align:center; margin-bottom:20px;">Find the perfect world for your next adventure.</p>
-                
-                <label>Choose Category:</label>
-                <select id="seedCategory">
-                    <option value="survival">Survival (Best Spawns)</option>
-                    <option value="manhunt">Manhunt (OP Speedrun)</option>
-                    <option value="biome">Rare Biomes (Cherry/Ice/Jungle)</option>
-                    <option value="structure">Structures (Mansion/Village)</option>
+                <h2>OP Seed Finder 1.21+</h2>
+                <label>Select Playstyle:</label>
+                <select id="seedType">
+                    <option value="survival">Survival (God Spawns)</option>
+                    <option value="manhunt">Speedrun/Manhunt (OP Nether)</option>
+                    <option value="village">Multiple Villages</option>
+                    <option value="rare">Rare Biomes/Structures</option>
                 </select>
-
                 <label>Edition:</label>
-                <select id="seedEdition">
+                <select id="seedEd">
                     <option value="java">Java Edition</option>
-                    <option value="bedrock">Bedrock / Pocket Edition</option>
+                    <option value="bedrock">Bedrock / PE</option>
                 </select>
-
-                <button class="glow-btn" onclick="generateSeed()">Get Best Seed</button>
-
-                <div id="seedResult" class="seed-result-box">
-                    <p style="margin-bottom:10px;">Your Custom Seed:</p>
-                    <div class="seed-val" id="finalSeed">-------</div>
-                    <p id="seedDesc" style="font-size:12px; color:#aaa; margin-top:10px;"></p>
-                    <button class="glow-btn" style="background:#333; margin-top:15px; padding:8px;" onclick="openChunkbase()">View Map</button>
+                <button class="glow-btn" onclick="getOpSeed()">Generate OP Seed</button>
+                
+                <div id="seedBox" class="seed-box">
+                    <p style="color:#aaa; font-size:12px;">Your OP Seed:</p>
+                    <h2 id="seedDisplay" style="color:#39ff14; margin:10px 0; font-size:24px;"></h2>
+                    <p id="seedInfo" style="font-size:14px; color:#a855f7;"></p>
+                    <button class="glow-btn" style="background:#333; margin-top:15px; height:40px; padding:0;" onclick="copySeed()">Copy Seed</button>
                 </div>
             </div>
 
+            <div id="colors" class="app-card">
+                <h2>OP Custom Colors</h2>
+                <div class="color-grid">
+                    <button class="c-btn" style="background:#55FF55;" onclick="copyCode('§a')">Neon</button>
+                    <button class="c-btn" style="background:#FF55FF;" onclick="copyCode('§d')">Pink</button>
+                    <button class="c-btn" style="background:#55FFFF;" onclick="copyCode('§b')">Aqua</button>
+                    <button class="c-btn" style="background:#FFAA00;" onclick="copyCode('§6')">Gold</button>
+                    <button class="c-btn" style="background:#39ff14; color:#000;" onclick="copyCode('§l§a')">Bold Neon</button>
+                    <button class="c-btn" style="background:#a855f7; color:#fff;" onclick="copyCode('§l§5')">Bold Purple</button>
+                    <button class="c-btn" style="background:#fff; color:#000;" onclick="copyCode('§k')">Magic</button>
+                    <button class="c-btn" style="background:#fff; color:#000;" onclick="copyCode('§n')">Line</button>
+                </div>
+                <p id="copyMsg" style="text-align:center; color:#39ff14;"></p>
+            </div>
+
             <div id="skin" class="app-card">
-                <h2>Skin Grabber</h2>
+                <h2>Skin Viewer</h2>
                 <input type="text" id="mcUser" placeholder="Username">
-                <button class="glow-btn" onclick="getSkin()">View Skin</button>
+                <button class="glow-btn" onclick="getSkin()">Grab Skin</button>
                 <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
             </div>
 
@@ -95,12 +104,109 @@
     <script>
         const adLink = "https://otieu.com/4/10581423";
 
-        function switchTab(event, tabId) {
+        function switchTab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            document.getElementById(id).classList.add('active');
+            e.currentTarget.classList.add('active');
         }
+
+        const seedDatabase = {
+            survival: {
+                java: [
+                    {s: "34088318464", d: "Island with 3 Villages & Stronghold!"},
+                    {s: "-81018388166280234", d: "Mansion & Outpost at Spawn"},
+                    {s: "743324534", d: "Cherry Grove + Exposed Dripstone"}
+                ],
+                bedrock: [
+                    {s: "22061", d: "Village with 5 Blacksmiths!"},
+                    {s: "16512740", d: "Desert Temple + Village + Outpost"}
+                ]
+            },
+            manhunt: {
+                java: [
+                    {s: "3285167357", d: "Fastest Bastion & Fortress Nether"},
+                    {s: "-501905305141203000", d: "Shipwreck with 32 Iron at Spawn"}
+                ],
+                bedrock: [
+                    {s: "640934442", d: "OP Loot Shipwreck + Ruined Portal"},
+                    {s: "13429", d: "Fastest Stronghold Access"}
+                ]
+            },
+            village: {
+                java: [
+                    {s: "86386325345717", d: "Desert Village inside Mangrove Swamp"},
+                    {s: "-402283201", d: "Plains Village + Spruce Village"}
+                ],
+                bedrock: [
+                    {s: "-7410250325400203000", d: "Village built on Ocean Monument!"}
+                ]
+            },
+            rare: {
+                java: [
+                    {s: "169125654352", d: "Triple Ancient City under Cherry Forest"},
+                    {s: "8624896", d: "Smallest Mushroom Island ever"}
+                ],
+                bedrock: [
+                    {s: "510928347", d: "Exposed Stronghold in Jungle"},
+                    {s: "69420", d: "Ice Spikes + Village Spawner"}
+                ]
+            }
+        };
+
+        function getOpSeed() {
+            window.open(adLink, '_blank');
+            const type = document.getElementById('seedType').value;
+            const ed = document.getElementById('seedEd').value;
+            const db = seedDatabase[type][ed];
+            const random = db[Math.floor(Math.random() * db.length)];
+            
+            document.getElementById('seedDisplay').innerText = random.s;
+            document.getElementById('seedInfo').innerText = "📍 " + random.d;
+            document.getElementById('seedBox').style.display = "block";
+        }
+
+        function copySeed() {
+            navigator.clipboard.writeText(document.getElementById('seedDisplay').innerText);
+            alert("Seed Copied!");
+        }
+
+        async function checkServer() {
+            const ip = document.getElementById('serverIP').value;
+            if(!ip) return;
+            window.open(adLink, '_blank');
+            const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+            const data = await res.json();
+            document.getElementById('statusResult').innerHTML = data.online ? `<p style="color:#39ff14">ONLINE | ${data.players.online} Players</p>` : `<p style="color:#ff5555">OFFLINE</p>`;
+        }
+
+        function copyCode(c) {
+            navigator.clipboard.writeText(c);
+            document.getElementById('copyMsg').innerText = "Copied: " + c;
+            setTimeout(() => document.getElementById('copyMsg').innerText="", 2000);
+        }
+
+        function getSkin() {
+            const user = document.getElementById('mcUser').value;
+            if(!user) return;
+            window.open(adLink, '_blank');
+            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${user}/150">`;
+        }
+
+        let timer, sec = 0;
+        function startTimer() {
+            if(timer) return;
+            timer = setInterval(() => {
+                sec++;
+                let h = Math.floor(sec/3600).toString().padStart(2,'0');
+                let m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+                let s = (sec%60).toString().padStart(2,'0');
+                document.getElementById('timeDisp').innerText = `${h}:${m}:${s}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
 
         // --- Advanced Seed Logic ---
         function generateSeed() {
@@ -229,4 +335,5 @@
     </script>
 </body>
 </html>
+
 
