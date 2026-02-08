@@ -1,60 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="google-site-verification" content="6m77o9z49m" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit | All-in-One Minecraft Tool</title>
+    <title>EnderKit | All Minecraft Tools Java & Bedrock</title>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&family=Space+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&display=swap');
 
         :root {
-            --bg: #030305;
-            --panel: #0a0a0f;
-            --glass: rgba(255, 255, 255, 0.03);
-            --primary: #a855f7;
+            --bg: #050508;
+            --panel: rgba(10, 10, 15, 0.98);
             --accent: #39ff14;
-            --text: #ffffff;
+            --primary: #a855f7;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow: hidden; }
-
-        /* RGB SIDEBAR */
-        .sidebar { width: 280px; height: 100vh; background: var(--panel); position: fixed; border-right: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; z-index: 1000; }
-        .logo { font-family: 'Syncopate', sans-serif; font-size: 26px; font-weight: 900; text-align: center; margin-bottom: 50px; background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rgb-text 8s linear infinite; }
         
-        .nav-btn { width: 100%; padding: 16px; margin-bottom: 15px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; color: #888; text-align: left; font-weight: 700; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
-        .nav-btn::before { content: ""; position: absolute; inset: 0; padding: 2px; background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: 0.4s; animation: rgb-text 4s linear infinite; }
-        .nav-btn:hover::before, .nav-btn.active::before { opacity: 1; }
-        .nav-btn:hover, .nav-btn.active { color: #fff; transform: scale(1.05); }
+        body { 
+            background: radial-gradient(circle at top right, #1a0b2e, #050508, #0a1a12);
+            background-attachment: fixed;
+            color: #fff; display: flex; min-height: 100vh; overflow: hidden; 
+        }
+
+        /* PREMIUM RGB SIDEBAR */
+        .sidebar { 
+            width: 280px; height: 100vh; background: var(--panel); 
+            position: fixed; border-right: 1px solid rgba(255,255,255,0.1); 
+            padding: 40px 20px; z-index: 1000; backdrop-filter: blur(20px);
+        }
+        
+        .logo { 
+            font-family: 'Syncopate', sans-serif; font-size: 24px; font-weight: 900; 
+            text-align: center; margin-bottom: 50px; 
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff00ff, #ff0000); 
+            background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: rgb-text 5s linear infinite;
+        }
+
+        .nav-btn { 
+            width: 100%; padding: 16px; margin-bottom: 15px; background: var(--glass); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; 
+            color: #bbb; text-align: left; font-weight: 700; cursor: pointer; 
+            transition: 0.4s; display: flex; align-items: center; gap: 12px;
+        }
+        
+        .nav-btn:hover, .nav-btn.active { color: #fff; background: rgba(255,255,255,0.15); border-color: var(--primary); transform: translateX(5px); }
 
         @keyframes rgb-text { 0% { background-position: 0%; } 100% { background-position: 400%; } }
 
         .wrapper { margin-left: 280px; width: calc(100% - 280px); padding: 50px; display: flex; justify-content: center; overflow-y: auto; }
-        .app-card { display: none; width: 100%; max-width: 950px; background: rgba(15, 15, 20, 0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; padding: 40px; backdrop-filter: blur(20px); box-shadow: 0 40px 100px rgba(0,0,0,0.7); }
-        .app-card.active { display: block; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } }
-
-        /* COLOR SECTION CATEGORIES */
-        .color-section { margin-bottom: 40px; }
-        .section-title { font-size: 13px; font-weight: 900; color: #666; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ""; height: 1px; flex: 1; background: rgba(255,255,255,0.1); }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-        
-        /* PREMIUM TEXTURED CHIPS */
-        .color-chip { 
-            padding: 20px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); 
-            cursor: pointer; font-weight: 800; font-size: 11px; text-align: center; 
-            transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            position: relative; overflow: hidden;
+        .app-card { 
+            display: none; width: 100%; max-width: 900px; 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; 
+            padding: 40px; backdrop-filter: blur(30px); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
         }
-        .color-chip::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 40%; background: rgba(255,255,255,0.1); pointer-events: none; }
-        .color-chip:hover { transform: translateY(-5px); border-color: #fff; filter: brightness(1.2); }
+        .app-card.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
 
-        input, select { width: 100%; padding: 18px; background: #000; border: 1px solid #222; border-radius: 15px; color: var(--accent); font-weight: 700; outline: none; margin-bottom: 20px; }
-        .cta { width: 100%; padding: 20px; background: linear-gradient(45deg, #8b5cf6, #d946ef); color: #fff; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .res-box { margin-top: 25px; padding: 25px; background: #000; border-radius: 20px; border: 1px solid #333; display: none; }
+        /* COLORS CATEGORIES */
+        .section-header { font-size: 13px; font-weight: 900; color: #888; text-transform: uppercase; margin: 25px 0 12px; border-left: 3px solid var(--accent); padding-left: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+        
+        .color-chip { 
+            padding: 22px 5px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); 
+            cursor: pointer; font-weight: 800; font-size: 11px; text-align: center; transition: 0.2s; 
+        }
+        .color-chip:hover { transform: scale(1.05); border-color: #fff; }
+
+        /* INPUTS & SELECTS WITH EMOJIS */
+        select, input { 
+            width: 100%; padding: 18px; background: rgba(0,0,0,0.7); 
+            border: 1px solid #333; border-radius: 15px; 
+            color: var(--accent); font-weight: 700; outline: none; margin-bottom: 20px; 
+        }
+        
+        .cta { 
+            width: 100%; padding: 22px; background: linear-gradient(45deg, #a855f7, #6366f1); 
+            color: #fff; border: none; border-radius: 18px; font-weight: 900; 
+            cursor: pointer; text-transform: uppercase; transition: 0.3s; 
+        }
+        .cta:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(168, 85, 247, 0.4); }
+
+        .res-box { margin-top: 25px; padding: 25px; background: #000; border-radius: 20px; border: 1px solid #444; display: none; }
 
         @media (max-width: 768px) { .sidebar { display: none; } .wrapper { margin-left: 0; padding: 20px; } }
     </style>
@@ -71,86 +105,77 @@
 
     <div class="wrapper">
         <div id="colors" class="app-card active">
-            <div id="pBox" style="background:#000; padding:40px; border-radius:20px; text-align:center; font-size:28px; font-weight:900; border:2px solid #222; margin-bottom:40px; color:#fff;">TEXT PREVIEW</div>
+            <div id="pBox" style="background:rgba(0,0,0,0.8); padding:35px; border-radius:20px; text-align:center; font-size:24px; font-weight:900; border:1px solid #333; margin-bottom:30px; color:#fff;">PREVIEW PANEL</div>
             
-            <div class="color-section">
-                <div class="section-title">Standard Minecraft Colors</div>
-                <div class="grid" id="stdGrid"></div>
-            </div>
-
-            <div class="color-section">
-                <div class="section-title">Dark/Deep Minecraft Colors</div>
-                <div class="grid" id="darkGrid"></div>
-            </div>
-
-            <div class="color-section">
-                <div class="section-title">Text Formatting (Styles)</div>
-                <div class="grid" id="formatGrid"></div>
-            </div>
-
-            <div class="color-section">
-                <div class="section-title">Premium Neon HEX Codes</div>
-                <div class="grid" id="neonGrid"></div>
-            </div>
+            <div class="section-header">✨ Standard 16 Colors</div>
+            <div class="grid" id="gridStd"></div>
+            <div class="section-header">🌑 Dark Deep Colors</div>
+            <div class="grid" id="gridDark"></div>
+            <div class="section-header">🛠️ Text Formatting</div>
+            <div class="grid" id="gridFormat"></div>
+            <div class="section-header">🌈 Premium Hex</div>
+            <div class="grid" id="gridHex"></div>
         </div>
 
         <div id="seeds" class="app-card">
-            <label>Edition</label><select id="ed"><option value="java">Java Edition (PC)</option><option value="bedrock">Bedrock/Pocket Edition</option></select>
-            <label>Category</label><select id="cat"><option value="rare">Rare Biomes (Cherry/Mushroom)</option><option value="loot">OP Loot (Ancient City)</option><option value="speedrun">Speedrun Seeds</option><option value="village">Rare Village Spawns</option></select>
-            <button class="cta" onclick="getSeed()">Generate OP Seed</button>
+            <label style="font-size:12px; font-weight:900; color:#888;">🎮 SELECT EDITION</label>
+            <select id="ed">
+                <option value="java">☕ Minecraft Java Edition</option>
+                <option value="bedrock">📱 Minecraft Bedrock / PE</option>
+            </select>
+            <label style="font-size:12px; font-weight:900; color:#888;">📂 CATEGORY OPTIONS</label>
+            <select id="cat">
+                <option value="rare">🌸 Rare Biomes (Cherry/Ice)</option>
+                <option value="loot">💎 OP Loot (Ancient City)</option>
+                <option value="speedrun">⚡ Speedrun Seeds</option>
+                <option value="village">🏘️ Rare Village Spawns</option>
+            </select>
+            <button class="cta" onclick="getSeed()">Find OP Seed</button>
             <div id="sRes" class="res-box">
                 <h1 id="sVal" style="color:var(--accent); font-size:40px;"></h1>
-                <p id="sDes" style="margin-top:10px; color:#888; font-weight:700;"></p>
+                <p id="sDes" style="margin-top:10px; color:#aaa; font-weight:700;"></p>
             </div>
         </div>
 
         <div id="skins" class="app-card">
-            <label>Username</label><input type="text" id="skU" placeholder="Dream">
-            <button class="cta" onclick="getSkin()">Instant Grab Skin</button>
-            <div id="skRes" class="res-box" style="background:transparent; border:none; text-align:center;">
-                <img id="skImg" src="" style="height:300px; filter: drop-shadow(0 0 30px var(--primary));">
-                <br><br><a id="skDl" href="#" target="_blank" class="cta" style="text-decoration:none; display:inline-block; width:auto; padding:15px 40px;">Download PNG</a>
+            <label style="font-size:12px; font-weight:900; color:#888;">👤 MINECRAFT USERNAME</label>
+            <input type="text" id="skU" placeholder="Dream">
+            <button class="cta" onclick="getSkin()">Download HD Skin</button>
+            <div id="skRes" class="res-box" style="text-align:center; background:none; border:none;">
+                <img id="skImg" src="" style="height:320px; filter: drop-shadow(0 0 30px var(--primary));">
+                <br><br>
+                <a id="skDl" href="#" target="_blank" class="cta" style="text-decoration:none; display:inline-block; width:auto; padding:15px 40px;">Download PNG</a>
             </div>
         </div>
 
         <div id="status" class="app-card">
-            <label>Server IP</label><input type="text" id="srv" placeholder="play.hypixel.net">
+            <label style="font-size:12px; font-weight:900; color:#888;">📡 SERVER ADDRESS</label>
+            <input type="text" id="srv" placeholder="play.hypixel.net">
             <button class="cta" onclick="getSrv()">Scan Server</button>
-            <div id="srvRes" class="res-box" style="text-align:left;"></div>
+            <div id="srvRes" class="res-box"></div>
         </div>
     </div>
 
     <script>
-        const AD = "https://otieu.com/4/10581423";
-        function ad() { window.open(AD, '_blank'); }
+        // AD SYSTEM DIRECT LINK
+        const AD_URL = "https://otieu.com/4/10581423";
+        function ad() { window.open(AD_URL, '_blank'); }
 
-        const standardColors = [
+        const cStd = [
             {n:"White", c:"§f", h:"#ffffff"}, {n:"Yellow", c:"§e", h:"#ffff55"}, {n:"Red", c:"§c", h:"#ff5555"},
             {n:"Aqua", c:"§b", h:"#55ffff"}, {n:"Green", c:"§a", h:"#55ff55"}, {n:"Light Purp", c:"§d", h:"#ff55ff"},
             {n:"Gray", c:"§7", h:"#aaaaaa"}, {n:"Gold", c:"§6", h:"#ffaa00"}
         ];
-        const darkColors = [
+        const cDark = [
             {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
             {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
             {n:"Indigo", c:"§9", h:"#5555ff"}, {n:"D. Gray", c:"§8", h:"#555555"}
         ];
-        const formatting = [
-            {n:"Magic/Obf", c:"§k", h:"#222"}, {n:"Bold", c:"§l", h:"#222"}, {n:"Strikethrough", c:"§m", h:"#222"},
-            {n:"Underline", c:"§n", h:"#222"}, {n:"Italic", c:"§o", h:"#222"}, {n:"RESET", c:"§r", h:"#ef4444"}
+        const cForm = [
+            {n:"Magic", c:"§k", h:"#444"}, {n:"Bold", c:"§l", h:"#444"}, {n:"Strike", c:"§m", h:"#444"},
+            {n:"Line", c:"§n", h:"#444"}, {n:"Italic", c:"§o", h:"#444"}, {n:"RESET", c:"§r", h:"#ff4"}
         ];
-        const neonHEX = ["#FF0000","#FF7F00","#FFFF00","#00FF00","#00FFFF","#0000FF","#8B00FF","#FF00FF","#EABFFF","#39FF14"];
-
-        function createChips(data, gridId) {
-            const grid = document.getElementById(gridId);
-            data.forEach(i => {
-                const b = document.createElement('button');
-                b.className = 'color-chip'; b.style.background = i.h;
-                b.style.color = (i.h==="#ffffff" || i.h==="#ffff55" || i.h==="#aaaaaa") ? "#000" : "#fff";
-                b.innerHTML = `${i.n}<br>${i.c}`;
-                b.onclick = () => cp(i.c, i.h);
-                grid.appendChild(b);
-            });
-        }
+        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF"];
 
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -162,35 +187,34 @@
         function cp(c, h) {
             navigator.clipboard.writeText(c);
             const p = document.getElementById('pBox');
-            if(c === "§r") { p.style = ""; p.innerText = "TEXT PREVIEW"; }
-            else { 
-                p.style.color = h; 
-                if(c === "§l") p.style.fontWeight = "900";
-                if(c === "§o") p.style.fontStyle = "italic";
-                if(c === "§n") p.style.textDecoration = "underline";
-                p.innerText = "Copied: " + c; 
-            }
+            p.style.color = h; p.innerText = "COPIED: " + c;
+            if(c === "§r") { p.style=""; p.innerText="PREVIEW PANEL"; }
         }
 
-        // Render Hex
-        const nGrid = document.getElementById('neonGrid');
-        neonHEX.forEach(hex => {
+        function fill(data, id) {
+            const g = document.getElementById(id);
+            data.forEach(i => {
+                const b = document.createElement('button');
+                b.className = 'color-chip'; b.style.background = i.h;
+                b.style.color = (i.h==="#ffffff"||i.h==="#ffff55"||i.h==="#aaaaaa")?"#000":"#fff";
+                b.innerHTML = `${i.n}<br><b>${i.c}</b>`;
+                b.onclick = () => { ad(); cp(i.c, i.h); };
+                g.appendChild(b);
+            });
+        }
+
+        fill(cStd, 'gridStd'); fill(cDark, 'gridDark'); fill(cForm, 'gridFormat');
+        cHex.forEach(x => {
             const b = document.createElement('button');
-            b.className = 'color-chip'; b.style.background = hex; b.style.color = "#000";
-            b.innerText = hex;
-            b.onclick = () => cp(hex, hex);
-            nGrid.appendChild(b);
+            b.className = 'color-chip'; b.style.background = x; b.style.color = "#000"; b.innerText = x;
+            b.onclick = () => { ad(); cp(x, x); };
+            document.getElementById('gridHex').appendChild(b);
         });
 
-        createChips(standardColors, 'stdGrid');
-        createChips(darkColors, 'darkGrid');
-        createChips(formatting, 'formatGrid');
-
-        // Other Tools (Fixed logic)
-        const seedDB = { java: { rare: {s:"34088318", d:"Cherry + Ice Spikes"}, loot: {s:"734081023", d:"Mansion + Ancient City"}, speedrun: {s:"-453063455", d:"12-Eye Portal Seed"}, village: {s:"1053097", d:"5 Blacksmith Village"} }, bedrock: { rare: {s:"1669320", d:"Frozen Mushroom Biome"}, loot: {s:"1000234", d:"Double Ancient City"}, speedrun: {s:"45357291", d:"Stronghold Under Spawn"}, village: {s:"906167", d:"Mountain Cliff Village"} } };
-        function getSeed() { ad(); const e=document.getElementById('ed').value, c=document.getElementById('cat').value, r=seedDB[e][c]; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
+        const sDB = { java: { rare:{s:"34088318", d:"Cherry Biome Spawn"}, loot:{s:"734081023", d:"Mansion & Ancient City"}, speedrun:{s:"-453063455", d:"12-Eye Portal"}, village:{s:"1053097", d:"5 Blacksmith Houses"} }, bedrock: { rare:{s:"1669320", d:"Frozen Mushroom Island"}, loot:{s:"1000234", d:"Double Ancient City"}, speedrun:{s:"45357291", d:"Stronghold Under Spawn"}, village:{s:"906167", d:"Cliff Village"} } };
+        function getSeed() { ad(); const e=document.getElementById('ed').value, c=document.getElementById('cat').value, r=sDB[e][c]; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
         function getSkin() { const u=document.getElementById('skU').value; if(!u) return; ad(); document.getElementById('skImg').src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; document.getElementById('skRes').style.display="block"; }
-        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const box=document.getElementById('srvRes'); box.style.display="block"; box.innerText="Scanning..."; const r=await fetch(`https://api.mcsrvstat.us/2/${i}`); const d=await r.json(); if(d.online){ box.innerHTML=`<h2 style="color:var(--accent)">● ONLINE</h2><p style="margin:10px 0"><b>MOTD:</b> ${d.motd.clean[0]||'No MOTD'}</p><p><b>Players:</b> ${d.players.online}/${d.players.max}</p><p><b>Software:</b> ${d.software||d.version}</p>`; } else { box.innerHTML=`<h2 style="color:red">● OFFLINE</h2>`; } }
+        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const box=document.getElementById('srvRes'); box.style.display="block"; box.innerText="Scanning..."; const r=await fetch(`https://api.mcsrvstat.us/2/${i}`); const d=await r.json(); if(d.online){ box.innerHTML=`<h2 style="color:var(--accent)">● ONLINE</h2><p><b>Players:</b> ${d.players.online}/${d.players.max}</p>`; } else { box.innerHTML=`<h2 style="color:red">● OFFLINE</h2>`; } }
     </script>
 </body>
 </html>
