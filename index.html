@@ -4,84 +4,94 @@
     <meta name="google-site-verification" content="6m77o9z49m" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit | Ultimate Minecraft Tools</title>
+    <title>EnderKit | Pro Minecraft Tools</title>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&display=swap');
 
         :root {
-            --bg: #08080a;
-            --panel: #111116;
+            --bg: #030305;
+            --panel: #0d0d12;
             --accent: #39ff14;
             --primary: #a855f7;
-            --btn: #1a1a24;
+            --btn: #161620;
+            --input-bg: #12121a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background: var(--bg); color: #fff; display: flex; min-height: 100vh; overflow-x: hidden; }
-
-        /* SIDEBAR */
-        .sidebar { 
-            width: 260px; height: 100vh; background: #0c0c10; 
-            position: fixed; border-right: 1px solid #1f1f27; padding: 30px 15px;
-        }
-        .logo { 
-            font-size: 22px; font-weight: 900; letter-spacing: 2px; text-align: center; margin-bottom: 40px;
-            background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .nav-btn { 
-            width: 100%; padding: 14px; margin-bottom: 10px; background: transparent; border: 1px solid transparent;
-            border-radius: 12px; color: #888; text-align: left; cursor: pointer; transition: 0.3s; font-weight: 600;
-        }
-        .nav-btn:hover, .nav-btn.active { background: var(--btn); color: #fff; border-color: var(--primary); }
-
-        /* MAIN AREA */
-        .wrapper { margin-left: 260px; width: 100%; padding: 40px; }
-        .app-card { display: none; animation: slideUp 0.4s ease; max-height: 90vh; overflow-y: auto; }
-        .app-card.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
-        .section-title { font-size: 14px; font-weight: 800; color: #555; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+        body { 
+            background: linear-gradient(135deg, #030305 0%, #0d061a 100%);
+            color: #fff; display: flex; min-height: 100vh; overflow-x: hidden; 
+        }
+
+        /* RPG NEON SIDEBAR */
+        .sidebar { 
+            width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.95); 
+            position: fixed; border-right: 1px solid #1f1f27; padding: 30px 15px; z-index: 100;
+        }
+
+        /* RPG LOGO ANIMATION */
+        .logo { 
+            font-family: 'Syncopate', sans-serif; font-size: 26px; font-weight: 900; 
+            text-align: center; margin-bottom: 40px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: rgb-move 8s linear infinite; text-transform: uppercase;
+        }
+        @keyframes rgb-move { 0% { background-position: 0%; } 100% { background-position: 400%; } }
+
+        .nav-btn { 
+            width: 100%; padding: 16px; margin-bottom: 12px; background: transparent; 
+            border: 1px solid transparent; border-radius: 15px; color: #888; 
+            text-align: left; cursor: pointer; transition: 0.4s; font-weight: 700;
+        }
+        .nav-btn:hover, .nav-btn.active { background: var(--btn); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+
+        /* MAIN CONTENT */
+        .wrapper { margin-left: 280px; width: 100%; padding: 40px; }
+        .app-card { display: none; animation: fadeIn 0.5s ease; }
+        .app-card.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+
+        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 25px; padding: 30px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .section-title { font-size: 14px; font-weight: 900; color: #666; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+
+        /* NO WHITE TEXTBOXES - DARK STYLE */
+        input, select { 
+            width: 100%; padding: 18px; background: var(--input-bg); 
+            border: 1px solid #222; border-radius: 12px; 
+            color: #fff; font-weight: 600; outline: none; margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        input:focus, select:focus { border-color: var(--accent); background: #000; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
         .color-chip { 
-            height: 60px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer; font-weight: 800; font-size: 11px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; transition: 0.2s;
+            height: 70px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer; font-weight: 900; font-size: 12px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; transition: 0.3s;
         }
-        .color-chip:hover { transform: scale(1.05); filter: brightness(1.2); }
+        .color-chip:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
 
-        .format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-        .format-btn { padding: 15px; background: #1a1a24; border: 1px solid #333; border-radius: 10px; cursor: pointer; text-align: center; font-weight: 700; }
-
-        /* INPUTS */
-        .srv-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        input, select { flex: 1; padding: 15px; background: #000; border: 1px solid #222; border-radius: 10px; color: var(--accent); font-weight: 700; outline: none; }
-        .cta-btn { padding: 0 30px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-weight: 900; cursor: pointer; }
-
-        /* SERVER STATUS BOX */
-        .srv-res { background: #000; padding: 25px; border-radius: 15px; border: 1px solid #222; display: none; }
-        .stat-line { margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #aaa; }
-        .stat-line span { color: #fff; }
-
-        /* SKIN GRABBER FIX - BUTTON ALWAYS VISIBLE */
-        .skin-display { 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; margin-top: 20px; gap: 15px; 
+        .cta-btn { 
+            width: 100%; padding: 18px; background: linear-gradient(45deg, #a855f7, #6366f1); 
+            border: none; border-radius: 15px; color: #fff; font-weight: 900; cursor: pointer;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .skin-img { 
-            max-height: 300px; width: auto; 
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4)); 
-            object-fit: contain;
-        }
-        .dl-btn { 
-            display: block; width: 100%; max-width: 250px; padding: 15px; 
-            background: #39ff14; color: #000; text-decoration: none; 
-            border-radius: 12px; font-weight: 900; text-transform: uppercase; text-align: center;
-        }
+        .cta-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
 
-        @media (max-width: 768px) { .sidebar { display: none; } .wrapper { margin-left: 0; } }
+        /* SERVER RES BOX */
+        .srv-res { background: #000; padding: 25px; border-radius: 20px; border: 1px solid #222; margin-top: 20px; display: none; }
+        .stat-line { margin-bottom: 10px; font-weight: 700; color: #888; }
+        .stat-line span { color: var(--accent); }
+
+        /* SKIN FIX */
+        .skin-display { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px; }
+        .skin-img { height: 320px; filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.3)); }
+        .dl-btn { padding: 15px 50px; background: var(--accent); color: #000; text-decoration: none; border-radius: 15px; font-weight: 900; }
+
+        @media (max-width: 800px) { .sidebar { display: none; } .wrapper { margin-left: 0; } }
     </style>
 </head>
 <body>
@@ -97,64 +107,61 @@
     <div class="wrapper">
         <div id="colors" class="app-card active">
             <div class="box-container">
-                <div class="section-title">✨ Standard Colors</div>
+                <div class="section-title">✨ Standard 16 Colors</div>
                 <div class="grid" id="gridStd"></div>
             </div>
             <div class="box-container">
-                <div class="section-title">🌑 Dark Deep Colors</div>
+                <div class="section-title">🌑 Dark & Formatting</div>
                 <div class="grid" id="gridDark"></div>
             </div>
             <div class="box-container">
-                <div class="section-title">🛠️ Chat Formatting</div>
-                <div class="format-grid" id="gridFormat"></div>
-            </div>
-            <div class="box-container">
-                <div class="section-title">🌈 Premium Neon HEX</div>
+                <div class="section-title">🌈 Neon Premium HEX</div>
                 <div class="grid" id="gridHex"></div>
             </div>
         </div>
 
         <div id="seeds" class="app-card">
             <div class="box-container">
-                <div class="section-title">🌍 OP World Seeds</div>
-                <select id="ed" style="margin-bottom:15px;">
+                <div class="section-title">🌍 Select Your Dream World</div>
+                <select id="ed">
                     <option value="java">☕ Java Edition</option>
                     <option value="bedrock">📱 Bedrock / PE</option>
                 </select>
-                <select id="cat" style="margin-bottom:15px;">
-                    <option value="rare">🌸 Cherry Grove / Ice</option>
-                    <option value="loot">💎 OP Loot / Ancient City</option>
-                    <option value="speedrun">⚡ Speedrun Spawn</option>
+                <select id="cat">
+                    <option value="cherry">🌸 Cherry Grove Spawn</option>
+                    <option value="mushroom">🍄 Rare Mushroom Island</option>
+                    <option value="ancient">💎 Ancient City Under Spawn</option>
+                    <option value="mansion">🏰 Woodland Mansion Close</option>
+                    <option value="jungle">🌴 Jungle Temple + Bamboo</option>
+                    <option value="village">🏘️ 5x Blacksmith Village</option>
+                    <option value="ice">❄️ Ice Spikes Rare Biome</option>
+                    <option value="speedrun">⚡ God Seed (Fortress + Bastion)</option>
                 </select>
-                <button class="cta-btn" style="height:55px; width:100%;" onclick="getSeed()">Generate</button>
-                <div id="sRes" class="srv-res" style="margin-top:20px;">
-                    <h1 id="sVal" style="color:var(--accent)"></h1>
-                    <p id="sDes"></p>
+                <button class="cta-btn" onclick="getSeed()">Generate Seed</button>
+                <div id="sRes" class="srv-res">
+                    <h1 id="sVal" style="color:var(--accent); font-size: 35px;"></h1>
+                    <p id="sDes" style="margin-top:10px; font-weight: 700;"></p>
                 </div>
             </div>
         </div>
 
         <div id="skins" class="app-card">
             <div class="box-container">
-                <div class="section-title">👤 HD Skin Grabber</div>
-                <div class="srv-input-group">
-                    <input type="text" id="skU" placeholder="Dream">
-                    <button class="cta-btn" onclick="getSkin()">Grab</button>
-                </div>
+                <div class="section-title">👤 Minecraft Skin Grabber</div>
+                <input type="text" id="skU" placeholder="Type Username (e.g. Dream)">
+                <button class="cta-btn" onclick="getSkin()">Grab HD Skin</button>
                 <div id="skRes" class="skin-display" style="display:none;">
                     <img id="skImg" src="" class="skin-img">
-                    <a id="skDl" href="#" target="_blank" class="dl-btn">Download Skin</a>
+                    <a id="skDl" href="#" target="_blank" class="dl-btn">Download PNG</a>
                 </div>
             </div>
         </div>
 
         <div id="status" class="app-card">
             <div class="box-container">
-                <div class="section-title">📡 Server Scanner</div>
-                <div class="srv-input-group">
-                    <input type="text" id="srv" placeholder="play.hypixel.net">
-                    <button class="cta-btn" onclick="getSrv()">Scan</button>
-                </div>
+                <div class="section-title">📡 Server Status Scanner</div>
+                <input type="text" id="srv" placeholder="play.hypixel.net">
+                <button class="cta-btn" onclick="getSrv()">Scan Server</button>
                 <div id="srvRes" class="srv-res">
                     <h2 id="srvStatus" style="margin-bottom:15px;"></h2>
                     <div class="stat-line">MOTD: <span id="srvMotd"></span></div>
@@ -176,15 +183,11 @@
             {n:"Gray", c:"§7", h:"#aaaaaa"}, {n:"Gold", c:"§6", h:"#ffaa00"}
         ];
         const cDark = [
-            {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
+            {n:"Black", c:"§0", h:"#000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
             {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
-            {n:"Indigo", c:"§9", h:"#5555ff"}, {n:"D. Gray", c:"§8", h:"#555555"}
+            {n:"Bold", c:"§l", h:"#222"}, {n:"Magic", c:"§k", h:"#222"}, {n:"Reset", c:"§r", h:"#f00"}
         ];
-        const cForm = [
-            {n:"Bold Text", c:"§l"}, {n:"Italic", c:"§o"}, {n:"Magic", c:"§k"}, 
-            {n:"Underline", c:"§n"}, {n:"Strikethrough", c:"§m"}, {n:"RESET", c:"§r"}
-        ];
-        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF","#55EF61","#F6C90E","#FF5733","#C70039","#900C3F","#581845"];
+        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF","#55EF61","#F6C90E","#FF5733","#8b00ff"];
 
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -194,23 +197,29 @@
         }
 
         function fill() {
-            const s = document.getElementById('gridStd'), d = document.getElementById('gridDark'), f = document.getElementById('gridFormat'), h = document.getElementById('gridHex');
+            const s = document.getElementById('gridStd'), d = document.getElementById('gridDark'), h = document.getElementById('gridHex');
             cStd.forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}; color:${(i.h==="#ffffff"||i.h==="#ffff55")?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
             cDark.forEach(i => d.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
-            cForm.forEach(i => f.innerHTML += `<div class="format-btn" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n} (${i.c})</div>`);
-            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}'); alert('Copied ${x}')">${x}</div>`);
+            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
         }
         fill();
 
-        function getSeed() { ad(); const r={s:"34088318", d:"Cherry Biome Spawn"}; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
+        const sDB = {
+            cherry: {s:"34088318", d:"Spawn in a massive Cherry Grove biome!"},
+            mushroom: {s:"1669320", d:"Rare Mushroom Island at spawn coordinates."},
+            ancient: {s:"734081023", d:"Directly above a massive Ancient City."},
+            mansion: {s:"1053097", d:"Woodland Mansion within 200 blocks."},
+            speedrun: {s:"-453063455", d:"12-Eye End Portal and nearby Fortress."},
+            village: {s:"906167", d:"Huge village with 5 Blacksmiths."}
+        };
+
+        function getSeed() { ad(); const c=document.getElementById('cat').value; const r=sDB[c] || sDB['cherry']; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
         
         function getSkin() { 
             const u=document.getElementById('skU').value; if(!u) return; 
             ad(); 
             const img = document.getElementById('skImg');
-            img.onload = function() {
-                document.getElementById('skRes').style.display="flex";
-            };
+            img.onload = () => document.getElementById('skRes').style.display="flex";
             img.src=`https://mc-heads.net/body/${u}/250`; 
             document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; 
         }
@@ -228,7 +237,6 @@
                 document.getElementById('srvType').innerText = data.software || "Vanilla/Custom";
             } else {
                 document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red";
-                document.getElementById('srvMotd').innerText = "N/A"; document.getElementById('srvPlayers').innerText = "0/0";
             }
         }
     </script>
