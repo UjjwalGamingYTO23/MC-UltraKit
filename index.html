@@ -141,104 +141,206 @@
                 <div id="sRes" class="srv-res">
                     <h1 id="sVal" style="color:var(--accent); font-size: 35px;"></h1>
                     <p id="sDes" style="margin-top:10px; font-weight: 700;"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="6m77o9z49m" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EnderKit | Hybrid Pro Tools</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&display=swap');
+
+        :root {
+            --bg: #050508;
+            --panel: #0f0f14;
+            --accent: #39ff14;
+            --primary: #a855f7;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        
+        body { 
+            background: radial-gradient(circle at top right, #1a0b2e, #050508);
+            color: #fff; min-height: 100vh; overflow-x: hidden;
+        }
+
+        /* HEADER & LOGO */
+        .top-bar {
+            padding: 20px; text-align: center; background: rgba(0,0,0,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { 
+            font-family: 'Syncopate', sans-serif; font-size: 22px; font-weight: 900; 
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff00ff, #ff0000);
+            background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: rgb-move 8s linear infinite; text-transform: uppercase;
+        }
+        @keyframes rgb-move { 0% { background-position: 0%; } 100% { background-position: 400%; } }
+
+        /* NAVIGATION CONTROL (DESKTOP) */
+        .sidebar { 
+            width: 260px; height: 100vh; background: rgba(10, 10, 15, 0.98); 
+            position: fixed; border-right: 1px solid rgba(255,255,255,0.1); padding: 30px 15px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+
+        /* MOBILE DOCK */
+        .bottom-nav {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #0a0a0f; border-top: 1px solid #1f1f27; padding: 10px; z-index: 1000;
+            justify-content: space-around;
+        }
+
+        .nav-btn { 
+            padding: 15px; background: var(--glass); border: 1px solid transparent;
+            border-radius: 12px; color: #888; cursor: pointer; transition: 0.3s; 
+            font-weight: 700; font-size: 14px; text-align: left;
+        }
+        .nav-btn.active { background: var(--primary); color: #fff; box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
+
+        /* CONTENT ADAPTATION */
+        .wrapper { margin-left: 260px; padding: 40px; }
+        .app-card { display: none; max-width: 800px; margin: 0 auto; animation: fadeInUp 0.4s ease forwards; }
+        .app-card.active { display: block; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .title { font-size: 12px; font-weight: 900; color: #555; text-transform: uppercase; margin-bottom: 15px; }
+
+        input, select { 
+            width: 100%; padding: 15px; background: #000; border: 1px solid #222; border-radius: 12px; 
+            color: var(--accent); font-weight: 700; outline: none; margin-bottom: 12px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+        .chip { 
+            height: 55px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 11px;
+            display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .chip:hover { transform: scale(1.05); }
+
+        .cta { 
+            width: 100%; padding: 18px; background: linear-gradient(45deg, #a855f7, #6366f1); 
+            border: none; border-radius: 12px; color: #fff; font-weight: 900; cursor: pointer; text-transform: uppercase;
+        }
+
+        /* SERVER & SKIN RESPONSIVE */
+        .res-box { background: #000; padding: 20px; border-radius: 15px; border: 1px solid #222; margin-top: 15px; display: none; }
+        .skin-img { max-height: 250px; width: auto; max-width: 100%; filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4)); }
+
+        /* BREAKPOINTS FOR MOBILE FIT */
+        @media (max-width: 850px) {
+            .sidebar { display: none; }
+            .bottom-nav { display: flex; }
+            .wrapper { margin-left: 0; padding: 15px; padding-bottom: 100px; }
+            .nav-btn { text-align: center; font-size: 10px; padding: 8px 5px; flex: 1; }
+            .grid { grid-template-columns: repeat(3, 1fr); }
+            .logo { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar"><div class="logo">ENDERKIT</div></div>
+
+    <div class="sidebar" id="sideNav">
+        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seeds</button>
+        <button class="nav-btn" onclick="tab(event, 'skins')">👤 Skin Grabber</button>
+        <button class="nav-btn" onclick="tab(event, 'status')">📡 Server Status</button>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨<br>Colors</button>
+        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍<br>Seeds</button>
+        <button class="nav-btn" onclick="tab(event, 'skins')">👤<br>Skins</button>
+        <button class="nav-btn" onclick="tab(event, 'status')">📡<br>Status</button>
+    </div>
+
+    <div class="wrapper">
+        <div id="colors" class="app-card active">
+            <div class="container"><div class="title">Standard Colors</div><div class="grid" id="gStd"></div></div>
+            <div class="container"><div class="title">Dark & Styling</div><div class="grid" id="gDrk"></div></div>
+            <div class="container"><div class="title">Neon HEX</div><div class="grid" id="gHex"></div></div>
+        </div>
+
+        <div id="seeds" class="app-card">
+            <div class="container">
+                <div class="title">Select Category</div>
+                <select id="sCat">
+                    <option value="cherry">🌸 Cherry Grove Spawn</option>
+                    <option value="mushroom">🍄 Mushroom Island</option>
+                    <option value="ancient">💎 Ancient City</option>
+                    <option value="village">🏘️ 5x Blacksmith Village</option>
+                    <option value="speedrun">⚡ Speedrun God Seed</option>
+                </select>
+                <button class="cta" onclick="getSeed()">Generate</button>
+                <div id="sRes" class="res-box" style="text-align:center;">
+                    <h1 id="sV" style="color:var(--accent); margin-bottom:10px;"></h1>
+                    <p id="sD" style="font-size:14px; color:#aaa;"></p>
                 </div>
             </div>
         </div>
 
         <div id="skins" class="app-card">
-            <div class="box-container">
-                <div class="section-title">👤 Minecraft Skin Grabber</div>
-                <input type="text" id="skU" placeholder="Type Username (e.g. Dream)">
-                <button class="cta-btn" onclick="getSkin()">Grab HD Skin</button>
-                <div id="skRes" class="skin-display" style="display:none;">
-                    <img id="skImg" src="" class="skin-img">
-                    <a id="skDl" href="#" target="_blank" class="dl-btn">Download PNG</a>
+            <div class="container" style="text-align:center;">
+                <div class="title">Skin Preview</div>
+                <input type="text" id="skUser" placeholder="Username (e.g. Dream)">
+                <button class="cta" onclick="getSkin()">Grab Skin</button>
+                <div id="skDisplay" class="res-box" style="flex-direction:column; align-items:center; gap:20px;">
+                    <img id="skI" src="" class="skin-img">
+                    <a id="skD" href="#" target="_blank" style="background:var(--accent); color:#000; padding:12px 30px; text-decoration:none; border-radius:10px; font-weight:900; width:100%;">DOWNLOAD PNG</a>
                 </div>
             </div>
         </div>
 
         <div id="status" class="app-card">
-            <div class="box-container">
-                <div class="section-title">📡 Server Status Scanner</div>
-                <input type="text" id="srv" placeholder="play.hypixel.net">
-                <button class="cta-btn" onclick="getSrv()">Scan Server</button>
-                <div id="srvRes" class="srv-res">
-                    <h2 id="srvStatus" style="margin-bottom:15px;"></h2>
-                    <div class="stat-line">MOTD: <span id="srvMotd"></span></div>
-                    <div class="stat-line">Players: <span id="srvPlayers"></span></div>
-                    <div class="stat-line">Version: <span id="srvVer"></span></div>
-                    <div class="stat-line">Software: <span id="srvType"></span></div>
+            <div class="container">
+                <div class="title">Live Scan</div>
+                <input type="text" id="srvIP" placeholder="mc.hypixel.net">
+                <button class="cta" onclick="getSrv()">Check Status</button>
+                <div id="srvRes" class="res-box">
+                    <h2 id="srvSt" style="margin-bottom:10px;"></h2>
+                    <p id="srvM" style="font-size:13px; color:#fff;"></p>
+                    <p id="srvP" style="font-size:13px; color:#aaa; margin-top:5px;"></p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const AD_URL = "https://otieu.com/4/10581423";
-        function ad() { window.open(AD_URL, '_blank'); }
+        const AD_LINK = "https://otieu.com/4/10581423";
+        function ad() { window.open(AD_LINK, '_blank'); }
 
-        const cStd = [
-            {n:"White", c:"§f", h:"#ffffff"}, {n:"Yellow", c:"§e", h:"#ffff55"}, {n:"Red", c:"§c", h:"#ff5555"},
-            {n:"Aqua", c:"§b", h:"#55ffff"}, {n:"Green", c:"§a", h:"#55ff55"}, {n:"Light Purp", c:"§d", h:"#ff55ff"},
-            {n:"Gray", c:"§7", h:"#aaaaaa"}, {n:"Gold", c:"§6", h:"#ffaa00"}
-        ];
-        const cDark = [
-            {n:"Black", c:"§0", h:"#000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
-            {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
-            {n:"Bold", c:"§l", h:"#222"}, {n:"Magic", c:"§k", h:"#222"}, {n:"Reset", c:"§r", h:"#f00"}
-        ];
-        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF","#55EF61","#F6C90E","#FF5733","#8b00ff"];
+        const colors = {
+            std: [{n:"White",c:"§f",h:"#fff"},{n:"Yellow",c:"§e",h:"#ff5"},{n:"Red",c:"§c",h:"#f55"},{n:"Aqua",c:"§b",h:"#5ff"},{n:"Green",c:"§a",h:"#5f5"},{n:"Gold",c:"§6",h:"#fa0"}],
+            drk: [{n:"Black",c:"§0",h:"#000"},{n:"D.Blue",c:"§1",h:"#00a"},{n:"Bold",c:"§l",h:"#333"},{n:"Reset",c:"§r",h:"#f44"}],
+            hex: ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#0000FF"]
+        };
 
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            e.currentTarget.classList.add('active');
+            const btns = document.querySelectorAll(`button[onclick*="${id}"]`);
+            btns.forEach(b => b.classList.add('active'));
         }
 
-        function fill() {
-            const s = document.getElementById('gridStd'), d = document.getElementById('gridDark'), h = document.getElementById('gridHex');
-            cStd.forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}; color:${(i.h==="#ffffff"||i.h==="#ffff55")?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
-            cDark.forEach(i => d.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
-            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
+        function init() {
+            const s=document.getElementById('gStd'), d=document.getElementById('gDrk'), h=document.getElementById('gHex');
+            colors.std.forEach(i => s.innerHTML += `<div class="chip" style="background:${i.h}; color:${i.h==='#fff'?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}')">${i.c}</div>`);
+            colors.drk.forEach(i => d.innerHTML += `<div class="chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}')">${i.c}</div>`);
+            colors.hex.forEach(x => h.innerHTML += `<div class="chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
         }
-        fill();
+        init();
 
-        const sDB = {
-            cherry: {s:"34088318", d:"Spawn in a massive Cherry Grove biome!"},
-            mushroom: {s:"1669320", d:"Rare Mushroom Island at spawn coordinates."},
-            ancient: {s:"734081023", d:"Directly above a massive Ancient City."},
-            mansion: {s:"1053097", d:"Woodland Mansion within 200 blocks."},
-            speedrun: {s:"-453063455", d:"12-Eye End Portal and nearby Fortress."},
-            village: {s:"906167", d:"Huge village with 5 Blacksmiths."}
-        };
-
-        function getSeed() { ad(); const c=document.getElementById('cat').value; const r=sDB[c] || sDB['cherry']; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
-        
-        function getSkin() { 
-            const u=document.getElementById('skU').value; if(!u) return; 
-            ad(); 
-            const img = document.getElementById('skImg');
-            img.onload = () => document.getElementById('skRes').style.display="flex";
-            img.src=`https://mc-heads.net/body/${u}/250`; 
-            document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; 
-        }
-        
-        async function getSrv() { 
-            const i=document.getElementById('srv').value; if(!i) return; ad();
-            const res = await fetch(`https://api.mcsrvstat.us/2/${i}`);
-            const data = await res.json();
-            document.getElementById('srvRes').style.display = "block";
-            if(data.online) {
-                document.getElementById('srvStatus').innerHTML = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14";
-                document.getElementById('srvMotd').innerText = data.motd.clean ? data.motd.clean[0] : "Minecraft Server";
-                document.getElementById('srvPlayers').innerText = `${data.players.online} / ${data.players.max}`;
-                document.getElementById('srvVer').innerText = data.version;
-                document.getElementById('srvType').innerText = data.software || "Vanilla/Custom";
-            } else {
-                document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red";
-            }
-        }
+        const sDB = { cherry:{s:"34088318", d:"Cherry Grove"}, mushroom:{s:"1669320", d:"Mushroom Island"}, ancient:{s:"734081023", d:"Ancient City"}, speedrun:{s:"-453063455", d:"End Portal Near"}, village:{s:"906167", d:"5 Blacksmiths"} };
+        function getSeed() { ad(); const c=document.getElementById('sCat').value; const r=sDB[c]; document.getElementById('sV').innerText=r.s; document.getElementById('sD').innerText=r.d; document.getElementById('sRes').style.display="block"; }
+        function getSkin() { const u=document.getElementById('skUser').value; if(!u) return; ad(); const img=document.getElementById('skI'); img.onload=()=>document.getElementById('skDisplay').style.display="flex"; img.src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skD').href=`https://mc-heads.net/download/${u}`; }
+        async function getSrv() { const i=document.getElementById('srvIP').value; if(!i) return; ad(); const r=await fetch(`https://api.mcsrvstat.us/2/${i}`); const d=await r.json(); const b=document.getElementById('srvRes'); b.style.display="block"; if(d.online){ document.getElementById('srvSt').innerText="● ONLINE"; document.getElementById('srvSt').style.color="#39ff14"; document.getElementById('srvM').innerText=d.motd.clean[0]; document.getElementById('srvP').innerText=`Players: ${d.players.online}/${d.players.max}`; } else { document.getElementById('srvSt').innerText="● OFFLINE"; document.getElementById('srvSt').style.color="red"; } }
     </script>
 </body>
-</html>
+            </html>
