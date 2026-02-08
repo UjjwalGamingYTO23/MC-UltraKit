@@ -2,202 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>EnderKit | Best Minecraft Seed Finder, Color Codes & Tools 2026</title>
-    <meta name="description" content="EnderKit is the ultimate Minecraft utility tool. Find OP seeds for Java & Bedrock, copy Minecraft color codes, grab player skins, and check server status instantly. Best Minecraft 1.21+ tool.">
-    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber, Best Minecraft Tools, Ender Kit Minecraft">
+    <title>EnderKit | Minecraft OP Seeds & Color Codes Finder 2026</title>
+    <meta name="description" content="EnderKit is a Minecraft utility tool for finding OP Seeds, copying Minecraft color codes, checking server status, and grabbing skins. Best Minecraft 1.21+ tools.">
+    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber">
     <meta name="author" content="EnderKit">
     
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
-    <meta property="og:title" content="EnderKit | Ultimate Minecraft Tools">
-    <meta property="og:description" content="Get OP Seeds and Color Codes for Minecraft instantly!">
-    <meta property="og:url" content="https://enderkit.vercel.app">
-    <meta property="og:type" content="website">
-
     <script src="https://alwingulla.com/88/tag.min.js" data-zone="123456" async data-cfasync="false"></script>
 
     <style>
-        /* --- PRO CSS SECTION --- */
-        :root {
-            --primary: #55ff55;
-            --bg: #0d0d0d;
-            --card: #161616;
-            --text: #ffffff;
-            --accent: #222;
-        }
-
-        * { box-sizing: border-box; }
-
+        /* --- TERA PURANA DESIGN START --- */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            text-align: center;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-
-        .container { max-width: 600px; width: 100%; }
-
-        h1 { 
-            color: var(--primary); 
-            text-align: center; 
-            font-size: 3rem; 
-            margin-bottom: 5px;
-            text-shadow: 0 0 15px rgba(85, 255, 85, 0.4);
-        }
-
-        .tagline { text-align: center; color: #888; margin-bottom: 30px; font-size: 0.9rem; }
-
-        .card {
-            background: var(--card);
-            border-radius: 15px;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #2d2d2d;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-            transition: 0.3s;
+            border: 2px solid #55ff55;
+            border-radius: 10px;
         }
-
-        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(85, 255, 85, 0.1); }
-
-        h2 { color: var(--primary); font-size: 1.2rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 8px;
-            margin: 10px 0;
-            outline: none;
+        h1 { color: #55ff55; }
+        .tool-box {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-bottom: 1px solid #444;
         }
-
         button {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
+            background-color: #55ff55;
             color: #000;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 10px 20px;
             cursor: pointer;
-            transition: 0.2s;
-            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
         }
-
-        button:active { transform: scale(0.98); }
-
-        .result-box {
-            background: #000;
-            padding: 15px;
-            border-radius: 8px;
+        button:hover { background-color: #3fcf3f; }
+        input {
+            padding: 8px;
+            width: 80%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        #result, #server-status, #skin-result {
             margin-top: 15px;
-            font-family: monospace;
-            border-left: 4px solid var(--primary);
-            font-size: 0.9rem;
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
         }
-
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-
-        .color-btn { font-size: 0.8rem; padding: 10px; color: white; border: 1px solid rgba(255,255,255,0.1); }
-
-        footer { text-align: center; color: #444; font-size: 0.8rem; margin-top: 40px; }
+        .color-btns button {
+            margin: 5px;
+            font-size: 12px;
+        }
+        /* --- TERA PURANA DESIGN END --- */
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>ENDERKIT</h1>
-    <div class="tagline">The Most Powerful Minecraft Utility Hub</div>
+    <p>Minecraft Utility Hub | Seeds, Colors & More</p>
 
-    <div class="card">
-        <h2>💎 OP Seed Finder</h2>
-        <button onclick="generateSeed()">Find Lucky Seed</button>
-        <div id="seedResult" class="result-box">Click to find God seeds...</div>
+    <div class="tool-box">
+        <h3>💎 OP Seed Finder</h3>
+        <button onclick="generateSeed()">Find Seed</button>
+        <div id="result">Seed will appear here...</div>
     </div>
 
-    <div class="card">
-        <h2>🎨 Color Codes (Copy)</h2>
-        <div class="grid">
-            <button class="color-btn" style="background: #be0000;" onclick="copyCode('§4')">Dark Red (§4)</button>
-            <button class="color-btn" style="background: #3fb33f;" onclick="copyCode('§a')">Green (§a)</button>
-            <button class="color-btn" style="background: #3f3fb3;" onclick="copyCode('§9')">Blue (§9)</button>
-            <button class="color-btn" style="background: #d1d100;" onclick="copyCode('§e')">Yellow (§e)</button>
-            <button class="color-btn" style="background: #d100d1;" onclick="copyCode('§d')">Pink (§d)</button>
-            <button class="color-btn" style="background: #00d1d1;" onclick="copyCode('§b')">Aqua (§b)</button>
+    <div class="tool-box">
+        <h3>🎨 Minecraft Color Codes</h3>
+        <div class="color-btns">
+            <button style="background:#aa0000;color:white" onclick="copyCode('§4')">Dark Red (§4)</button>
+            <button style="background:#55ff55;color:black" onclick="copyCode('§a')">Green (§a)</button>
+            <button style="background:#5555ff;color:white" onclick="copyCode('§9')">Blue (§9)</button>
+            <button style="background:#ffff55;color:black" onclick="copyCode('§e')">Yellow (§e)</button>
         </div>
     </div>
 
-    <div class="card">
-        <h2>🌐 Server Status</h2>
-        <input type="text" id="serverIP" placeholder="Server IP (e.g. hypixel.net)">
-        <button onclick="checkServer()">Check Online</button>
-        <div id="serverResult" class="result-box">Waiting for IP...</div>
+    <div class="tool-box">
+        <h3>🌐 Server Status</h3>
+        <input type="text" id="ip" placeholder="Server IP (play.hypixel.net)">
+        <button onclick="checkServer()">Check</button>
+        <div id="server-status">Status...</div>
     </div>
 
-    <div class="card">
-        <h2>👤 Skin Grabber</h2>
-        <input type="text" id="playerName" placeholder="Enter Username">
-        <button onclick="getSkin()">Grab Skin</button>
-        <div id="skinDisplay" style="text-align:center; margin-top:15px;"></div>
+    <div class="tool-box">
+        <h3>👤 Skin Grabber</h3>
+        <input type="text" id="username" placeholder="Minecraft Username">
+        <button onclick="getSkin()">Get Skin</button>
+        <div id="skin-result"></div>
     </div>
 
-    <footer>
-        ENDERKIT &copy; 2026 | Built for Performance<br>
-        #Minecraft #Coding #EnderKit
+    <footer style="margin-top:20px; font-size:12px; color:#777;">
+        ENDERKIT &copy; 2026 - All Rights Reserved
     </footer>
 </div>
 
 <script>
-    /* --- JS LOGIC SECTION --- */
+    // --- TERA ORIGINAL LOGIC ---
 
-    // Seeds Database
     const seeds = [
-        "Seed: -741008547 (4 Blacksmiths)",
-        "Seed: 8624896 (Cherry Grove Village)",
-        "Seed: 548301 (Mansion Spawn)",
-        "Seed: -1996184033 (All Biomes)",
-        "Seed: 22061 (Mushroom Island)",
-        "Seed: 34821550415951832 (Trial Chambers)",
-        "Seed: 69420 (Nice Village)"
+        "-741008547 (4 Blacksmiths)",
+        "8624896 (Cherry Grove)",
+        "548301 (Mansion Spawn)",
+        "22061 (Mushroom Island)"
     ];
 
     function generateSeed() {
-        const random = seeds[Math.floor(Math.random() * seeds.length)];
-        document.getElementById('seedResult').innerText = random;
+        const s = seeds[Math.floor(Math.random() * seeds.length)];
+        document.getElementById('result').innerText = s;
     }
 
-    function copyCode(code) {
-        navigator.clipboard.writeText(code);
-        alert("Code " + code + " Copied!");
+    function copyCode(c) {
+        navigator.clipboard.writeText(c);
+        alert("Copied: " + c);
     }
 
     async function checkServer() {
-        const ip = document.getElementById('serverIP').value;
-        const res = document.getElementById('serverResult');
-        if(!ip) return alert("Enter IP first!");
-        res.innerText = "Connecting...";
+        const ip = document.getElementById('ip').value;
+        const out = document.getElementById('server-status');
+        if(!ip) return;
+        out.innerText = "Checking...";
         try {
-            const response = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-            const data = await response.json();
-            res.innerHTML = data.online 
-                ? `✅ Online | Players: ${data.players.online}/${data.players.max}` 
-                : "❌ Offline or Invalid IP";
-        } catch (e) {
-            res.innerText = "API Error!";
-        }
+            const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+            const data = await res.json();
+            out.innerText = data.online ? `Online | Players: ${data.players.online}` : "Server Offline";
+        } catch(e) { out.innerText = "Error!"; }
     }
 
     function getSkin() {
-        const user = document.getElementById('playerName').value;
-        const display = document.getElementById('skinDisplay');
-        if(!user) return alert("Enter Username!");
-        display.innerHTML = `<img src="https://mc-heads.net/body/${user}" style="width: 120px; filter: drop-shadow(0 0 10px #55ff55);">`;
+        const u = document.getElementById('username').value;
+        const res = document.getElementById('skin-result');
+        if(u) res.innerHTML = `<img src="https://mc-heads.net/body/${u}" width="100">`;
     }
 </script>
 
