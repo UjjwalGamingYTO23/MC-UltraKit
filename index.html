@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>EnderKit | Ultimate Minecraft Hub</title>
-    <meta name="description" content="OP Minecraft Seeds, Color Codes, Server Status, and Skin Grabber.">
+    <meta name="description" content="OP Minecraft Seeds, Categorized Color Codes, and Skin Grabber.">
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <style>
@@ -39,10 +39,12 @@
 
         /* Main Content */
         .main-content { margin-left: 260px; padding: 40px; width: 100%; display: flex; justify-content: center; }
-        .app-card { display: none; width: 100%; max-width: 600px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
+        .app-card { display: none; width: 100%; max-width: 650px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
         .app-card.active { display: block; animation: fadeIn 0.3s ease; }
 
         h2 { margin-bottom: 20px; color: #fff; border-left: 4px solid var(--primary); padding-left: 10px; }
+        h3 { font-size: 16px; margin: 20px 0 10px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        
         label { display: block; margin: 15px 0 5px; font-size: 13px; color: #888; }
         input, select { width: 100%; padding: 12px; background: #08080a; border: 1px solid #333; border-radius: 8px; color: var(--accent); margin-bottom: 10px; outline: none; }
 
@@ -54,8 +56,9 @@
         .glow-btn:hover { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
 
         /* Color Grid */
-        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 10px; }
-        .color-item { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; text-align: center; font-size: 12px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+        .color-item { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; text-align: center; font-size: 11px; transition: 0.2s; }
+        .color-item:hover { transform: translateY(-2px); filter: brightness(1.2); }
 
         @media (max-width: 768px) {
             .sidebar { display: none; }
@@ -69,16 +72,16 @@
     <div class="sidebar">
         <div class="logo">ENDER<span>KIT</span></div>
         <button class="nav-btn active" onclick="switchTab(event, 'seed')">🌍 OP Seeds</button>
+        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
         <button class="nav-btn" onclick="switchTab(event, 'status')">📡 Server Status</button>
         <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
-        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
     </div>
 
     <div class="mobile-nav">
         <button class="nav-btn active" onclick="switchTab(event, 'seed')">Seeds</button>
+        <button class="nav-btn" onclick="switchTab(event, 'colors')">Colors</button>
         <button class="nav-btn" onclick="switchTab(event, 'status')">Status</button>
         <button class="nav-btn" onclick="switchTab(event, 'skin')">Skin</button>
-        <button class="nav-btn" onclick="switchTab(event, 'colors')">Colors</button>
     </div>
 
     <div class="main-content">
@@ -95,9 +98,25 @@
             </select>
             <button class="glow-btn" onclick="getSeed()">Generate & Check Now</button>
             <div id="seedOutput" style="display:none; margin-top:20px; color:var(--accent); text-align:center; border:1px dashed #444; padding:15px; border-radius:10px;">
-                <h3 id="seedVal" style="font-family:monospace; font-size:20px;"></h3>
+                <h3 id="seedVal" style="font-family:monospace; font-size:20px; color:var(--accent);"></h3>
                 <p id="seedDesc" style="color:#aaa; font-size:13px; margin-top:5px;"></p>
             </div>
+        </div>
+
+        <div id="colors" class="app-card">
+            <h2>🎨 Minecraft Color Codes</h2>
+            
+            <h3>✨ Normal Colors</h3>
+            <div class="color-grid" id="normalColors"></div>
+
+            <h3>🌙 Dark Colors</h3>
+            <div class="color-grid" id="darkColors"></div>
+
+            <h3>🔥 Neon & Custom (Hex)</h3>
+            <div class="color-grid" id="neonColors"></div>
+
+            <h3>⚙️ Formatting</h3>
+            <div class="color-grid" id="formatCodes"></div>
         </div>
 
         <div id="status" class="app-card">
@@ -109,69 +128,58 @@
 
         <div id="skin" class="app-card">
             <h2>👤 Skin Grabber</h2>
-            <input type="text" id="mcUser" placeholder="Enter Minecraft Username">
+            <input type="text" id="mcUser" placeholder="Username">
             <button class="glow-btn" onclick="getSkin()">View & Download</button>
             <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
-        </div>
-
-        <div id="colors" class="app-card">
-            <h2>🎨 Minecraft Color Codes</h2>
-            <p style="font-size:12px; color:#888; margin-bottom:15px;">Click any color to copy code!</p>
-            <div class="color-grid" id="colorGrid"></div>
         </div>
     </div>
 
     <script>
         const adLink = "https://otieu.com/4/10581423"; 
 
-        // --- FULL SEED DATA ---
         const seedData = {
-            village: [
-                {s:"10530", d:"Desert Village with 3 Blacksmiths"},
-                {s:"90616782", d:"Cliffside Village"},
-                {s:"-416545455", d:"Island Village"}
+            village: [{s:"10530", d:"Desert Village (3 Blacksmiths)"}, {s:"90616782", d:"Cliff Village"}, {s:"-416545455", d:"Island Village"}],
+            survival: [{s:"548301", d:"Triple Village Spawn"}, {s:"22061", d:"Mushroom Island"}, {s:"8624896", d:"Mansion Spawn"}],
+            biomes: [{s:"-1849767326", d:"Ice Spikes"}, {s:"34088318464", d:"Cherry Grove"}, {s:"1669320484", d:"Jungle & Mesa"}],
+            speedrun: [{s:"-4530634556500121041", d:"Fastest 1.16 Seed"}, {s:"4535729138181", d:"Stronghold Village"}]
+        };
+
+        const colorCats = {
+            normal: [
+                {n:"Green", c:"§a", hex:"#55FF55", t:"#000"}, {n:"Aqua", c:"§b", hex:"#55FFFF", t:"#000"},
+                {n:"Red", c:"§c", hex:"#FF5555", t:"#fff"}, {n:"Pink", c:"§d", hex:"#FF55FF", t:"#000"},
+                {n:"Yellow", c:"§e", hex:"#FFFF55", t:"#000"}, {n:"White", c:"§f", hex:"#FFFFFF", t:"#000"},
+                {n:"Blue", c:"§9", hex:"#5555FF", t:"#fff"}, {n:"Gold", c:"§6", hex:"#FFAA00", t:"#fff"}
             ],
-            survival: [
-                {s:"548301", d:"Triple Village & Ruined Portal"},
-                {s:"22061", d:"Mushroom Island & Jungle"},
-                {s:"8624896", d:"Woodland Mansion Spawn"}
+            dark: [
+                {n:"D. Blue", c:"§1", hex:"#0000AA", t:"#fff"}, {n:"D. Green", c:"§2", hex:"#00AA00", t:"#fff"},
+                {n:"D. Aqua", c:"§3", hex:"#00AAAA", t:"#fff"}, {n:"D. Red", c:"§4", hex:"#AA0000", t:"#fff"},
+                {n:"D. Purple", c:"§5", hex:"#AA00AA", t:"#fff"}, {n:"D. Gray", c:"§8", hex:"#555555", t:"#fff"},
+                {n:"Black", c:"§0", hex:"#000000", t:"#fff"}
             ],
-            biomes: [
-                {s:"-1849767326", d:"Ice Spikes & Frozen Peaks"},
-                {s:"34088318464", d:"Huge Cherry Blossom Forest"},
-                {s:"1669320484", d:"Jungle Temple & Badlands"}
+            neon: [
+                {n:"Neon Green", c:"#39FF14", hex:"#39FF14", t:"#000"}, {n:"Electric Blue", c:"#7DF9FF", hex:"#7DF9FF", t:"#000"},
+                {n:"Neon Pink", c:"#FF007F", hex:"#FF007F", t:"#fff"}, {n:"Cyber Yellow", c:"#FFD300", hex:"#FFD300", t:"#000"},
+                {n:"Vivid Orange", c:"#FF5F1F", hex:"#FF5F1F", t:"#fff"}, {n:"Toxic Purple", c:"#BF00FF", hex:"#BF00FF", t:"#fff"}
             ],
-            speedrun: [
-                {s:"-4530634556500121041", d:"1.16+ Speedrun Seed"},
-                {s:"4535729138181", d:"Stronghold Under Village Spawn"}
+            format: [
+                {n:"Bold", c:"§l", hex:"#333", t:"#fff"}, {n:"Italic", c:"§o", hex:"#333", t:"#fff"},
+                {n:"Underline", c:"§n", hex:"#333", t:"#fff"}, {n:"Reset", c:"§r", hex:"#333", t:"#fff"},
+                {n:"Obfuscated", c:"§k", hex:"#333", t:"#fff"}
             ]
         };
 
-        // --- ALL COLOR CODES (30+) ---
-        const colors = [
-            {n:"Black", c:"§0", hex:"#000", t:"#fff"}, {n:"Dark Blue", c:"§1", hex:"#00A", t:"#fff"},
-            {n:"Dark Green", c:"§2", hex:"#0A0", t:"#fff"}, {n:"Dark Aqua", c:"§3", hex:"#0AA", t:"#fff"},
-            {n:"Dark Red", c:"§4", hex:"#A00", t:"#fff"}, {n:"Dark Purple", c:"§5", hex:"#A0A", t:"#fff"},
-            {n:"Gold", c:"§6", hex:"#FA0", t:"#fff"}, {n:"Gray", c:"§7", hex:"#AAA", t:"#000"},
-            {n:"Dark Gray", c:"§8", hex:"#555", t:"#fff"}, {n:"Blue", c:"§9", hex:"#55F", t:"#fff"},
-            {n:"Green", c:"§a", hex:"#5F5", t:"#000"}, {n:"Aqua", c:"§b", hex:"#5FF", t:"#000"},
-            {n:"Red", c:"§c", hex:"#F55", t:"#fff"}, {n:"Light Purple", c:"§d", hex:"#F5F", t:"#000"},
-            {n:"Yellow", c:"§e", hex:"#FF5", t:"#000"}, {n:"White", c:"§f", hex:"#FFF", t:"#000"},
-            {n:"Minecoin Gold", c:"§g", hex:"#DDD605", t:"#000"}, {n:"Obfuscated", c:"§k", hex:"#222", t:"#fff"},
-            {n:"Bold", c:"§l", hex:"#222", t:"#fff"}, {n:"Strikethrough", c:"§m", hex:"#222", t:"#fff"},
-            {n:"Underline", c:"§n", hex:"#222", t:"#fff"}, {n:"Italic", c:"§o", hex:"#222", t:"#fff"},
-            {n:"Reset", c:"§r", hex:"#222", t:"#fff"}
-        ];
-
-        // Render Colors
-        const grid = document.getElementById('colorGrid');
-        colors.forEach(i => {
-            const b = document.createElement('button');
-            b.className = 'color-item';
-            b.style.background = i.hex; b.style.color = i.t;
-            b.innerText = `${i.n} (${i.c})`;
-            b.onclick = () => copy(i.c);
-            grid.appendChild(b);
+        // Render Colors by Category
+        Object.keys(colorCats).forEach(cat => {
+            const container = document.getElementById(cat + 'Colors');
+            colorCats[cat].forEach(i => {
+                const b = document.createElement('button');
+                b.className = 'color-item';
+                b.style.background = i.hex; b.style.color = i.t;
+                b.innerText = `${i.n} (${i.c})`;
+                b.onclick = () => copy(i.c);
+                container.appendChild(b);
+            });
         });
 
         function switchTab(e, id) {
@@ -200,7 +208,7 @@
             try {
                 const r = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
                 const d = await r.json();
-                res.innerHTML = d.online ? `<span style='color:var(--accent)'>✅ ONLINE (${d.players.online} Players)</span>` : `<span style='color:red'>❌ OFFLINE</span>`;
+                res.innerHTML = d.online ? "<span style='color:var(--accent)'>✅ ONLINE</span>" : "<span style='color:red'>❌ OFFLINE</span>";
             } catch(e) { res.innerText = "Error!"; }
         }
 
