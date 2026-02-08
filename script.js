@@ -60,3 +60,55 @@ function startTimer() {
     }, 1000);
 }
 function stopTimer() { clearInterval(timer); timer = null; }
+const adLink = "https://otieu.com/4/10581423";
+        let lastAdTime = 0; // Timer track karne ke liye
+
+        // --- COMMON AD TRIGGER FUNCTION ---
+        function triggerAd() {
+            const currentTime = new Date().getTime();
+            // Agar pichle ad ko 30 second (30000ms) se zyada ho gaye hain, tabhi naya khulega
+            if (currentTime - lastAdTime > 30000) { 
+                window.open(adLink, '_blank');
+                lastAdTime = currentTime;
+            }
+        }
+
+        // --- UPDATED FUNCTIONS ---
+        function getSeed() {
+            triggerAd(); // Isme timer laga hai
+            const cat = document.getElementById('seedCat').value;
+            const ed = document.getElementById('seedEd').value;
+            const list = seeds[cat][ed];
+            const random = list[Math.floor(Math.random() * list.length)];
+            document.getElementById('seedVal').innerText = random.s;
+            document.getElementById('seedDesc').innerText = "Feature: " + random.d;
+            document.getElementById('seedOutput').style.display = "block";
+        }
+
+        async function checkServer() {
+            const ip = document.getElementById('serverIP').value;
+            if(!ip) return;
+            triggerAd();
+            const resDiv = document.getElementById('statusResult');
+            resDiv.innerHTML = "🔍 Scanning...";
+            try {
+                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+                const data = await res.json();
+                if(data.online) {
+                    resDiv.innerHTML = `<span style="color:#39ff14">✅ ONLINE</span><br><span style="color:#aaa; font-size:12px;">Players: ${data.players.online}/${data.players.max}</span>`;
+                } else {
+                    resDiv.innerHTML = `<span style="color:#ff5555">❌ OFFLINE</span>`;
+                }
+            } catch { resDiv.innerHTML = "Error!"; }
+        }
+
+        function getSkin() {
+            const user = document.getElementById('mcUser').value;
+            if(!user) return;
+            triggerAd();
+            document.getElementById('skinDisplay').innerHTML = `
+                <img src="https://mc-heads.net/body/${user}/150" style="margin-bottom:10px;">
+                <br>
+                <a href="https://mc-heads.net/download/${user}" target="_blank" style="color:#39ff14; text-decoration:none; font-size:12px;">Download Skin</a>
+            `;
+        }
