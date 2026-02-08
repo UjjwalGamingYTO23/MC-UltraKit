@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>EnderKit | Minecraft Pro Tools</title>
-    <meta name="description" content="OP Minecraft Seeds, Server Status, and Skin Grabber.">
+    <title>EnderKit | Ultimate Minecraft Tools</title>
+    <meta name="description" content="OP Minecraft Seeds, Color Codes, Server Status, and Skin Grabber.">
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <style>
@@ -24,7 +24,7 @@
         /* Sidebar */
         .sidebar {
             width: 260px; background: var(--sidebar); height: 100vh; position: fixed;
-            border-right: 1px solid #222; padding: 25px; z-index: 1000;
+            border-right: 2px solid var(--primary); padding: 25px; z-index: 1000;
         }
 
         .logo { font-size: 26px; font-weight: 900; color: var(--primary); text-align: center; margin-bottom: 40px; }
@@ -37,12 +37,14 @@
         }
         .nav-btn.active, .nav-btn:hover { background: rgba(168, 85, 247, 0.1); color: var(--primary); }
 
-        /* Content */
+        /* Main Content */
         .main-content { margin-left: 260px; padding: 40px; width: 100%; display: flex; justify-content: center; }
-        .app-card { display: none; width: 100%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
-        .app-card.active { display: block; }
+        .app-card { display: none; width: 100%; max-width: 550px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
+        .app-card.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h2 { margin-bottom: 20px; color: #fff; border-left: 4px solid var(--primary); padding-left: 10px; }
+        label { display: block; margin: 15px 0 5px; font-size: 13px; color: #888; }
         input, select { width: 100%; padding: 12px; background: #08080a; border: 1px solid #333; border-radius: 8px; color: var(--accent); margin-bottom: 10px; outline: none; }
 
         .glow-btn {
@@ -52,12 +54,12 @@
         }
         .glow-btn:hover { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
 
-        /* Mobile Bottom Nav */
+        #skinDisplay img { border: 2px solid var(--primary); border-radius: 10px; padding: 10px; background: #000; }
+
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .main-content { margin-left: 0; padding: 20px; }
-            .mobile-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar); display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #333; }
-            .mobile-nav .nav-btn { padding: 10px; font-size: 12px; width: auto; }
+            .mobile-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar); display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #333; z-index: 2000; }
         }
     </style>
 </head>
@@ -80,10 +82,18 @@
     <div class="main-content">
         <div id="seed" class="app-card active">
             <h2>🌍 OP Seed Finder</h2>
-            <select id="seedEd"><option value="java">Java Edition</option><option value="bedrock">Bedrock</option></select>
+            <label>Edition</label>
+            <select id="seedEd"><option value="java">Java Edition</option><option value="bedrock">Bedrock / PE</option></select>
+            <label>Category</label>
+            <select id="seedCat">
+                <option value="survival">Survival Spawns</option>
+                <option value="biomes">Rare Biomes</option>
+                <option value="villages">Villages / Structures</option>
+            </select>
             <button class="glow-btn" onclick="getSeed()">Generate & Check Now</button>
             <div id="seedOutput" style="display:none; margin-top:20px; color:var(--accent); text-align:center; border:1px dashed #444; padding:15px;">
-                <h3 id="seedVal"></h3>
+                <h3 id="seedVal" style="font-family:monospace; font-size:20px;"></h3>
+                <p id="seedDesc" style="color:#aaa; font-size:12px; margin-top:5px;"></p>
             </div>
         </div>
 
@@ -96,25 +106,30 @@
 
         <div id="skin" class="app-card">
             <h2>👤 Skin Grabber</h2>
-            <input type="text" id="mcUser" placeholder="Username">
-            <button class="glow-btn" onclick="getSkin()">View & Download Skin</button>
+            <input type="text" id="mcUser" placeholder="Enter Minecraft Username">
+            <button class="glow-btn" onclick="getSkin()">View & Download</button>
             <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
         </div>
 
         <div id="colors" class="app-card">
             <h2>🎨 Color Codes</h2>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                <button class="glow-btn" style="background:#333;" onclick="copy('§4')">Red (§4)</button>
-                <button class="glow-btn" style="background:#333;" onclick="copy('§a')">Green (§a)</button>
-                <button class="glow-btn" style="background:#333;" onclick="copy('§b')">Aqua (§b)</button>
-                <button class="glow-btn" style="background:#333;" onclick="copy('§e')">Gold (§e)</button>
+                <button class="glow-btn" style="background:#444;" onclick="copy('§4')">Red (§4)</button>
+                <button class="glow-btn" style="background:#444;" onclick="copy('§a')">Green (§a)</button>
+                <button class="glow-btn" style="background:#444;" onclick="copy('§b')">Aqua (§b)</button>
+                <button class="glow-btn" style="background:#444;" onclick="copy('§e')">Gold (§e)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 💰 APKA AD LINK 💰 ---
         const adLink = "https://otieu.com/4/10581423"; 
+
+        const seedData = {
+            survival: ["548301 (Village)", "22061 (Mushroom)", "8624896 (Woodland)"],
+            biomes: ["-1849767326 (Ice Spikes)", "34088318464 (Cherry Grove)", "1669320484 (Jungle)"],
+            villages: ["10530 (Desert Village)", "90616782 (Plains Village)", "20000 (Ocean Monument)"]
+        };
 
         function switchTab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -123,35 +138,33 @@
             e.currentTarget.classList.add('active');
         }
 
-        // 1. SEED AD
         function getSeed() {
             window.open(adLink, '_blank'); 
-            const seeds = ["548301", "22061", "8624896", "34088318464", "-1849767326"];
-            document.getElementById('seedVal').innerText = "Seed: " + seeds[Math.floor(Math.random()*seeds.length)];
+            const cat = document.getElementById('seedCat').value;
+            const list = seedData[cat];
+            document.getElementById('seedVal').innerText = list[Math.floor(Math.random()*list.length)];
             document.getElementById('seedOutput').style.display = "block";
         }
 
-        // 2. SERVER STATUS AD
         async function checkServer() {
             const ip = document.getElementById('serverIP').value;
             if(!ip) return;
-            window.open(adLink, '_blank'); // Ad Trigger
+            window.open(adLink, '_blank'); 
             document.getElementById('statusResult').innerText = "🔍 Scanning...";
             try {
                 const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
                 const data = await res.json();
-                document.getElementById('statusResult').innerHTML = data.online ? "✅ ONLINE" : "❌ OFFLINE";
+                document.getElementById('statusResult').innerHTML = data.online ? "<span style='color:var(--accent)'>✅ ONLINE</span>" : "<span style='color:red'>❌ OFFLINE</span>";
             } catch(e) { document.getElementById('statusResult').innerText = "Error!"; }
         }
 
-        // 3. SKIN AD
         function getSkin() {
             const u = document.getElementById('mcUser').value;
             if(!u) return;
-            window.open(adLink, '_blank'); // Ad Trigger
+            window.open(adLink, '_blank'); 
             document.getElementById('skinDisplay').innerHTML = `
                 <img src="https://mc-heads.net/body/${u}/150" style="margin-bottom:10px;"><br>
-                <a href="https://mc-heads.net/download/${u}" target="_blank" style="color:var(--accent); text-decoration:none;">Download Skin</a>
+                <a href="https://mc-heads.net/download/${u}" target="_blank" style="color:var(--accent); text-decoration:underline; font-weight:bold;">DOWNLOAD THIS SKIN</a>
             `;
         }
 
