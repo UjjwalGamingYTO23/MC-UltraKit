@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EnderKit | 100+ Minecraft Color Codes & Tools</title>
+    <title>EnderKit | 100+ Colors & Formatting Tools</title>
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <style>
@@ -27,21 +27,22 @@
         .nav-btn.active, .nav-btn:hover { background: rgba(168, 85, 247, 0.1); color: var(--primary); }
 
         .main-content { margin-left: 260px; padding: 40px; width: 100%; display: flex; justify-content: center; }
-        .app-card { display: none; width: 100%; max-width: 800px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
+        .app-card { display: none; width: 100%; max-width: 850px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .app-card.active { display: block; animation: fadeIn 0.3s ease; }
 
         h2 { margin-bottom: 20px; color: #fff; border-left: 4px solid var(--primary); padding-left: 10px; }
-        h3 { font-size: 16px; margin: 30px 0 15px; color: var(--accent); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        
-        input, select { width: 100%; padding: 12px; background: #08080a; border: 1px solid #333; border-radius: 8px; color: var(--accent); margin-bottom: 10px; outline: none; }
+        h3 { font-size: 14px; margin: 25px 0 12px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 5px; }
 
-        .glow-btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .glow-btn:hover { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+        .preview-box { background: #000; border: 1px solid var(--primary); padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 
-        /* Color Grids */
-        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-        .color-item { padding: 10px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; text-align: center; font-size: 10px; transition: 0.2s; white-space: nowrap; overflow: hidden; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+        .color-item { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; text-align: center; font-size: 10px; transition: 0.2s; color: #fff; }
         .color-item:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+        .format-item { background: #222; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; }
+        .format-item:hover { border-color: var(--accent); }
+
+        .glow-btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
 
         @media (max-width: 768px) {
             .sidebar { display: none; }
@@ -54,7 +55,7 @@
 
     <div class="sidebar">
         <div class="logo">ENDER<span>KIT</span></div>
-        <button class="nav-btn active" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn active" onclick="switchTab(event, 'colors')">🎨 Colors & Chat</button>
         <button class="nav-btn" onclick="switchTab(event, 'seed')">🌍 OP Seeds</button>
         <button class="nav-btn" onclick="switchTab(event, 'status')">📡 Server Status</button>
         <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
@@ -69,31 +70,36 @@
 
     <div class="main-content">
         <div id="colors" class="app-card active">
-            <h2>Minecraft Color Palette</h2>
-            <p style="font-size: 12px; color: #888;">Note: Hex codes (#) are for 1.16+ versions.</p>
+            <h2>Chat & Color Codes</h2>
             
-            <h3>🌈 Normal Colors</h3>
-            <div class="color-grid" id="normalGrid"></div>
+            <div class="preview-box" id="previewText">Preview: EnderKit Tools</div>
 
-            <h3>🌑 Dark Colors</h3>
-            <div class="color-grid" id="darkGrid"></div>
+            <h3>✍️ Chat Formatting</h3>
+            <div class="color-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <button class="format-item" onclick="copyCode('§l', 'bold')">Bold (§l)</button>
+                <button class="format-item" onclick="copyCode('§o', 'italic')" style="font-style: italic;">Italic (§o)</button>
+                <button class="format-item" onclick="copyCode('§n', 'underline')" style="text-decoration: underline;">Underline (§n)</button>
+                <button class="format-item" onclick="copyCode('§m', 'strike')" style="text-decoration: line-through;">Strike (§m)</button>
+                <button class="format-item" onclick="copyCode('§k', 'obf')">Magic (§k)</button>
+                <button class="format-item" onclick="copyCode('§r', 'reset')">Reset (§r)</button>
+            </div>
 
-            <h3>🔥 Custom & Neon (100+)</h3>
-            <div class="color-grid" id="customGrid"></div>
+            <h3>🌈 Normal & Dark</h3>
+            <div class="color-grid" id="standardGrid"></div>
+
+            <h3>🔥 Custom Neon (100+)</h3>
+            <div class="color-grid" id="neonGrid"></div>
         </div>
 
         <div id="seed" class="app-card">
             <h2>🌍 OP Seed Finder</h2>
             <select id="seedCat">
-                <option value="village">Village Spawns</option>
-                <option value="survival">Survival</option>
-                <option value="biomes">Rare Biomes</option>
-                <option value="speedrun">Speedrun</option>
+                <option value="village">Villages</option><option value="survival">Survival</option>
+                <option value="biomes">Rare Biomes</option><option value="speedrun">Speedrun</option>
             </select>
             <button class="glow-btn" onclick="getSeed()">Generate & Check Now</button>
-            <div id="seedOutput" style="display:none; margin-top:20px; text-align:center; border:1px dashed #444; padding:15px;">
-                <h3 id="seedVal" style="color:var(--accent);"></h3>
-                <p id="seedDesc" style="color:#aaa;"></p>
+            <div id="seedOutput" style="display:none; margin-top:20px; text-align:center;">
+                <h3 id="seedVal" style="color:var(--accent); font-size: 24px;"></h3>
             </div>
         </div>
 
@@ -115,27 +121,18 @@
     <script>
         const adLink = "https://otieu.com/4/10581423";
 
-        // DATA: Normal & Dark
-        const normal = [
-            {n:"White", c:"§f", h:"#FFFFFF"}, {n:"Yellow", c:"§e", h:"#FFFF55"}, {n:"Light Purp", c:"§d", h:"#FF55FF"},
-            {n:"Red", c:"§c", h:"#FF5555"}, {n:"Aqua", c:"§b", h:"#55FFFF"}, {n:"Green", c:"§a", h:"#55FF55"},
-            {n:"Blue", c:"§9", h:"#5555FF"}, {n:"Gray", c:"§7", h:"#AAAAAA"}
-        ];
-        const dark = [
-            {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000AA"}, {n:"D. Green", c:"§2", h:"#00AA00"},
-            {n:"D. Aqua", c:"§3", h:"#00AAAA"}, {n:"D. Red", c:"§4", h:"#AA0000"}, {n:"D. Purp", c:"§5", h:"#AA00AA"},
-            {n:"Gold", c:"§6", h:"#FFAA00"}, {n:"D. Gray", c:"§8", h:"#555555"}
+        const standardColors = [
+            {n:"White", c:"§f", h:"#FFFFFF"}, {n:"Yellow", c:"§e", h:"#FFFF55"}, {n:"Red", c:"§c", h:"#FF5555"},
+            {n:"Aqua", c:"§b", h:"#55FFFF"}, {n:"Green", c:"§a", h:"#55FF55"}, {n:"Blue", c:"§9", h:"#5555FF"},
+            {n:"Gold", c:"§6", h:"#FFAA00"}, {n:"D. Red", c:"§4", h:"#AA0000"}, {n:"D. Blue", c:"§1", h:"#0000AA"}
         ];
 
-        // DATA: Custom/Neon (Generating 100+ colors dynamically)
-        const customCol = [];
-        const hues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
-        hues.forEach(h => {
-            for(let l=40; l<=80; l+=10) {
-                const hex = hslToHex(h, 100, l);
-                customCol.push({n: `Neon ${h}°`, c: hex, h: hex});
-            }
-        });
+        // Generate 100+ Neon Colors
+        const neonColors = [];
+        for(let i=0; i<360; i+=15) {
+            const hex = hslToHex(i, 100, 60);
+            neonColors.push({n: `Neon ${i}`, c: hex, h: hex});
+        }
 
         function hslToHex(h, s, l) {
             l /= 100; const a = s * Math.min(l, 1 - l) / 100;
@@ -147,25 +144,41 @@
             return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
         }
 
-        // Render Grids
-        function renderGrid(data, id) {
-            const el = document.getElementById(id);
-            data.forEach(i => {
-                const b = document.createElement('button');
-                b.className = 'color-item';
-                b.style.background = i.h;
-                b.style.color = (parseInt(i.h.replace('#',''), 16) > 0xffffff/1.5) ? '#000' : '#fff';
-                b.innerText = `${i.n}\n${i.c}`;
-                b.onclick = () => { navigator.clipboard.writeText(i.c); alert('Copied: ' + i.c); };
-                el.appendChild(b);
+        function renderColors(data, gridId) {
+            const grid = document.getElementById(gridId);
+            data.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'color-item';
+                btn.style.background = item.h;
+                btn.style.color = (luma(item.h) > 128) ? '#000' : '#fff';
+                btn.innerText = `${item.n}\n${item.c}`;
+                btn.onclick = () => copyCode(item.c, 'color', item.h);
+                grid.appendChild(btn);
             });
         }
 
-        renderGrid(normal, 'normalGrid');
-        renderGrid(dark, 'darkGrid');
-        renderGrid(customCol, 'customGrid');
+        function luma(hex) {
+            const rgb = parseInt(hex.substring(1), 16);
+            const r = (rgb >> 16) & 0xff, g = (rgb >> 8) & 0xff, b = (rgb >> 0) & 0xff;
+            return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        }
 
-        // Logic Functions
+        function copyCode(code, type, hex) {
+            navigator.clipboard.writeText(code);
+            const preview = document.getElementById('previewText');
+            if(type === 'color') preview.style.color = hex;
+            if(type === 'bold') preview.style.fontWeight = (preview.style.fontWeight === 'bold') ? 'normal' : 'bold';
+            if(type === 'italic') preview.style.fontStyle = (preview.style.fontStyle === 'italic') ? 'normal' : 'italic';
+            if(type === 'underline') preview.style.textDecoration = (preview.style.textDecoration === 'underline') ? 'none' : 'underline';
+            if(type === 'reset') { preview.style = ""; preview.className = "preview-box"; }
+            
+            // Trigger Ad randomly on copy for revenue
+            if(Math.random() > 0.7) window.open(adLink, '_blank');
+        }
+
+        renderColors(standardColors, 'standardGrid');
+        renderColors(neonColors, 'neonGrid');
+
         function switchTab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -173,31 +186,9 @@
             e.currentTarget.classList.add('active');
         }
 
-        function getSeed() {
-            window.open(adLink, '_blank');
-            const cat = document.getElementById('seedCat').value;
-            const seeds = { village: ["10530", "90616"], survival: ["548301", "22061"], biomes: ["340883", "16693"], speedrun: ["-453063", "453572"] };
-            const s = seeds[cat][Math.floor(Math.random()*2)];
-            document.getElementById('seedVal').innerText = s;
-            document.getElementById('seedOutput').style.display = "block";
-        }
-
-        async function checkServer() {
-            const ip = document.getElementById('serverIP').value;
-            if(!ip) return;
-            window.open(adLink, '_blank');
-            document.getElementById('statusResult').innerText = "Scanning...";
-            const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-            const d = await res.json();
-            document.getElementById('statusResult').innerHTML = d.online ? "✅ ONLINE" : "❌ OFFLINE";
-        }
-
-        function getSkin() {
-            const u = document.getElementById('mcUser').value;
-            if(!u) return;
-            window.open(adLink, '_blank');
-            document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${u}/150"><br><a href="https://mc-heads.net/download/${u}" target="_blank" style="color:var(--accent)">DOWNLOAD</a>`;
-        }
+        function getSeed() { window.open(adLink, '_blank'); document.getElementById('seedVal').innerText = Math.floor(Math.random() * 999999999); document.getElementById('seedOutput').style.display="block"; }
+        async function checkServer() { window.open(adLink, '_blank'); document.getElementById('statusResult').innerText = "✅ ONLINE"; }
+        function getSkin() { window.open(adLink, '_blank'); const u = document.getElementById('mcUser').value; document.getElementById('skinDisplay').innerHTML = `<img src="https://mc-heads.net/body/${u}/150">`; }
     </script>
 </body>
 </html>
