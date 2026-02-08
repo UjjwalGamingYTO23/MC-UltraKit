@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>EnderKit | Best Minecraft Seeds & Color Tools 2026</title>
-    <meta name="description" content="EnderKit: Find OP Minecraft seeds, copy color codes, check server status, and grab skins. The ultimate Minecraft utility hub.">
-    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber">
+    <title>EnderKit | Minecraft Pro Tools</title>
+    <meta name="description" content="OP Minecraft Seeds, Server Status, and Skin Grabber.">
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
     <style>
-        /* --- CSS: PREMIUM NEON THEME --- */
         :root {
             --bg: #0b0b0e;
             --sidebar: #12121a;
@@ -20,79 +18,47 @@
             --text: #e0e0e0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg); color: var(--text); min-height: 100vh; display: flex; overflow-x: hidden; }
 
-        /* Sidebar (Desktop) */
+        /* Sidebar */
         .sidebar {
             width: 260px; background: var(--sidebar); height: 100vh; position: fixed;
-            border-right: 2px solid var(--accent); padding: 25px; z-index: 1000;
-            display: flex; flex-direction: column;
+            border-right: 1px solid #222; padding: 25px; z-index: 1000;
         }
 
-        .logo { 
-            font-size: 28px; font-weight: 900; color: var(--primary); 
-            text-align: center; margin-bottom: 40px; text-shadow: 0 0 15px rgba(168, 85, 247, 0.4); 
-        }
+        .logo { font-size: 26px; font-weight: 900; color: var(--primary); text-align: center; margin-bottom: 40px; }
         .logo span { color: var(--accent); }
 
         .nav-btn {
-            background: transparent; border: 1px solid transparent; color: #888;
-            padding: 15px; margin-bottom: 10px; width: 100%; border-radius: 12px;
-            cursor: pointer; text-align: left; font-weight: 600; transition: 0.3s;
-            display: flex; align-items: center; gap: 10px;
+            background: transparent; border: none; color: #888; padding: 15px;
+            margin-bottom: 8px; width: 100%; border-radius: 12px; cursor: pointer;
+            text-align: left; font-weight: 600; transition: 0.3s;
         }
-        .nav-btn:hover, .nav-btn.active {
-            background: rgba(57, 255, 20, 0.05); color: var(--accent);
-            border-color: rgba(57, 255, 20, 0.2);
-        }
+        .nav-btn.active, .nav-btn:hover { background: rgba(168, 85, 247, 0.1); color: var(--primary); }
 
-        /* Main Content Area */
-        .main-content {
-            margin-left: 260px; padding: 40px; width: 100%;
-            display: flex; justify-content: center; align-items: flex-start;
-        }
+        /* Content */
+        .main-content { margin-left: 260px; padding: 40px; width: 100%; display: flex; justify-content: center; }
+        .app-card { display: none; width: 100%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #2a2a35; }
+        .app-card.active { display: block; }
 
-        .app-card {
-            display: none; width: 100%; max-width: 550px;
-            background: var(--card); padding: 30px; border-radius: 20px;
-            border: 1px solid #2a2a35; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .app-card.active { display: block; animation: fadeIn 0.4s ease; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        h2 { color: #fff; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; }
-        label { display: block; margin: 10px 0 5px; font-size: 13px; color: #aaa; }
-        
-        select, input {
-            width: 100%; padding: 14px; background: #08080a; border: 1px solid #333;
-            border-radius: 10px; color: var(--accent); outline: none; margin-bottom: 10px;
-        }
+        h2 { margin-bottom: 20px; color: #fff; border-left: 4px solid var(--primary); padding-left: 10px; }
+        input, select { width: 100%; padding: 12px; background: #08080a; border: 1px solid #333; border-radius: 8px; color: var(--accent); margin-bottom: 10px; outline: none; }
 
         .glow-btn {
-            width: 100%; padding: 15px; margin-top: 10px;
-            background: linear-gradient(45deg, var(--primary), #7c3aed);
+            width: 100%; padding: 14px; background: var(--primary);
             color: white; border: none; border-radius: 10px; font-weight: bold;
             cursor: pointer; transition: 0.3s; text-transform: uppercase;
         }
-        .glow-btn:hover { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); transform: scale(1.01); }
+        .glow-btn:hover { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
 
-        /* Color Grids */
-        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-        .c-btn { padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-
-        /* Mobile Layout */
+        /* Mobile Bottom Nav */
         @media (max-width: 768px) {
             .sidebar { display: none; }
-            .main-content { margin-left: 0; padding: 20px 20px 90px 20px; }
-            .mobile-nav {
-                position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar);
-                display: flex; justify-content: space-around; padding: 10px; border-top: 2px solid var(--accent); z-index: 2000;
-            }
-            .mobile-nav .nav-btn { width: auto; flex-direction: column; font-size: 10px; padding: 5px; margin: 0; align-items: center; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .mobile-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar); display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #333; }
+            .mobile-nav .nav-btn { padding: 10px; font-size: 12px; width: auto; }
         }
-        @media (min-width: 769px) { .mobile-nav { display: none; } }
     </style>
 </head>
 <body>
@@ -100,66 +66,55 @@
     <div class="sidebar">
         <div class="logo">ENDER<span>KIT</span></div>
         <button class="nav-btn active" onclick="switchTab(event, 'seed')">🌍 OP Seeds</button>
-        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
         <button class="nav-btn" onclick="switchTab(event, 'status')">📡 Server Status</button>
         <button class="nav-btn" onclick="switchTab(event, 'skin')">👤 Skin Grabber</button>
+        <button class="nav-btn" onclick="switchTab(event, 'colors')">🎨 Color Codes</button>
     </div>
 
     <div class="mobile-nav">
         <button class="nav-btn active" onclick="switchTab(event, 'seed')">Seeds</button>
-        <button class="nav-btn" onclick="switchTab(event, 'colors')">Colors</button>
         <button class="nav-btn" onclick="switchTab(event, 'status')">Status</button>
         <button class="nav-btn" onclick="switchTab(event, 'skin')">Skin</button>
     </div>
 
     <div class="main-content">
-        
         <div id="seed" class="app-card active">
-            <h2>OP Seed Finder</h2>
-            <label>Edition</label>
-            <select id="seedEd"><option value="java">Java Edition</option><option value="bedrock">Bedrock / PE</option></select>
-            <button class="glow-btn" onclick="getSeed()">Generate OP Seed</button>
-            <div id="seedOut" style="display:none; margin-top:20px; text-align:center; padding:15px; border:1px dashed var(--accent);">
-                <p style="font-size:12px; color:#888;">Seed ID:</p>
-                <h3 id="seedVal" style="color:var(--accent); font-family:monospace; font-size:22px; margin:10px 0;"></h3>
-                <button class="glow-btn" style="background:#333; font-size:12px; padding:8px;" onclick="copySeed()">Copy Seed</button>
+            <h2>🌍 OP Seed Finder</h2>
+            <select id="seedEd"><option value="java">Java Edition</option><option value="bedrock">Bedrock</option></select>
+            <button class="glow-btn" onclick="getSeed()">Generate & Check Now</button>
+            <div id="seedOutput" style="display:none; margin-top:20px; color:var(--accent); text-align:center; border:1px dashed #444; padding:15px;">
+                <h3 id="seedVal"></h3>
             </div>
-        </div>
-
-        <div id="colors" class="app-card">
-            <h2>Color Codes</h2>
-            <div class="color-grid">
-                <button class="c-btn" style="background:#AA0000; color:#fff;" onclick="copyC('§4')">§4</button>
-                <button class="c-btn" style="background:#55FF55; color:#000;" onclick="copyC('§a')">§a</button>
-                <button class="c-btn" style="background:#5555FF; color:#fff;" onclick="copyC('§9')">§9</button>
-                <button class="c-btn" style="background:#FFFF55; color:#000;" onclick="copyC('§e')">§e</button>
-                <button class="c-btn" style="background:#FFAA00; color:#fff;" onclick="copyC('§6')">§6</button>
-                <button class="c-btn" style="background:#AA00AA; color:#fff;" onclick="copyC('§5')">§5</button>
-                <button class="c-btn" style="background:#00AAAA; color:#fff;" onclick="copyC('§3')">§3</button>
-                <button class="c-btn" style="background:#FFF; color:#000;" onclick="copyC('§f')">§f</button>
-            </div>
-            <p id="cMsg" style="text-align:center; margin-top:15px; color:var(--accent); height:20px;"></p>
         </div>
 
         <div id="status" class="app-card">
-            <h2>Server Status</h2>
-            <input type="text" id="ip" placeholder="e.g. play.hypixel.net">
-            <button class="glow-btn" onclick="check()">Check Online</button>
-            <div id="statusRes" style="margin-top:20px; text-align:center; font-weight:bold;"></div>
+            <h2>📡 Server Status</h2>
+            <input type="text" id="serverIP" placeholder="play.hypixel.net">
+            <button class="glow-btn" onclick="checkServer()">Check Now</button>
+            <div id="statusResult" style="margin-top:20px; text-align:center; font-weight:bold;"></div>
         </div>
 
         <div id="skin" class="app-card">
-            <h2>Skin Grabber</h2>
-            <input type="text" id="user" placeholder="Username">
-            <button class="glow-btn" onclick="getSkin()">View Skin</button>
-            <div id="skinRes" style="margin-top:20px; text-align:center;"></div>
+            <h2>👤 Skin Grabber</h2>
+            <input type="text" id="mcUser" placeholder="Username">
+            <button class="glow-btn" onclick="getSkin()">View & Download Skin</button>
+            <div id="skinDisplay" style="text-align:center; margin-top:20px;"></div>
         </div>
 
+        <div id="colors" class="app-card">
+            <h2>🎨 Color Codes</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <button class="glow-btn" style="background:#333;" onclick="copy('§4')">Red (§4)</button>
+                <button class="glow-btn" style="background:#333;" onclick="copy('§a')">Green (§a)</button>
+                <button class="glow-btn" style="background:#333;" onclick="copy('§b')">Aqua (§b)</button>
+                <button class="glow-btn" style="background:#333;" onclick="copy('§e')">Gold (§e)</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // --- 💰 AD CONFIG (Direct Link Only) ---
-        const adLink = "https://otieu.com/4/10581423";
+        // --- 💰 APKA AD LINK 💰 ---
+        const adLink = "https://otieu.com/4/10581423"; 
 
         function switchTab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -168,37 +123,41 @@
             e.currentTarget.classList.add('active');
         }
 
+        // 1. SEED AD
         function getSeed() {
-            // Ad opens in new tab
             window.open(adLink, '_blank'); 
-            const s = ["548301", "22061", "8624896", "34088318464", "-1849767326"];
-            document.getElementById('seedVal').innerText = s[Math.floor(Math.random() * s.length)];
-            document.getElementById('seedOut').style.display = "block";
+            const seeds = ["548301", "22061", "8624896", "34088318464", "-1849767326"];
+            document.getElementById('seedVal').innerText = "Seed: " + seeds[Math.floor(Math.random()*seeds.length)];
+            document.getElementById('seedOutput').style.display = "block";
         }
 
-        function copySeed() {
-            navigator.clipboard.writeText(document.getElementById('seedVal').innerText);
-            alert("Seed Copied!");
+        // 2. SERVER STATUS AD
+        async function checkServer() {
+            const ip = document.getElementById('serverIP').value;
+            if(!ip) return;
+            window.open(adLink, '_blank'); // Ad Trigger
+            document.getElementById('statusResult').innerText = "🔍 Scanning...";
+            try {
+                const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+                const data = await res.json();
+                document.getElementById('statusResult').innerHTML = data.online ? "✅ ONLINE" : "❌ OFFLINE";
+            } catch(e) { document.getElementById('statusResult').innerText = "Error!"; }
         }
 
-        function copyC(c) {
-            navigator.clipboard.writeText(c);
-            document.getElementById('cMsg').innerText = "Copied: " + c;
-            setTimeout(() => document.getElementById('cMsg').innerText = "", 2000);
-        }
-
-        async function check() {
-            const val = document.getElementById('ip').value;
-            if(!val) return;
-            document.getElementById('statusRes').innerText = "🔍 Checking...";
-            const res = await fetch(`https://api.mcsrvstat.us/2/${val}`);
-            const data = await res.json();
-            document.getElementById('statusRes').innerHTML = data.online ? `<span style="color:var(--accent)">ONLINE</span>` : `<span style="color:red">OFFLINE</span>`;
-        }
-
+        // 3. SKIN AD
         function getSkin() {
-            const u = document.getElementById('user').value;
-            if(u) document.getElementById('skinRes').innerHTML = `<img src="https://mc-heads.net/body/${u}/150">`;
+            const u = document.getElementById('mcUser').value;
+            if(!u) return;
+            window.open(adLink, '_blank'); // Ad Trigger
+            document.getElementById('skinDisplay').innerHTML = `
+                <img src="https://mc-heads.net/body/${u}/150" style="margin-bottom:10px;"><br>
+                <a href="https://mc-heads.net/download/${u}" target="_blank" style="color:var(--accent); text-decoration:none;">Download Skin</a>
+            `;
+        }
+
+        function copy(c) {
+            navigator.clipboard.writeText(c);
+            alert("Copied: " + c);
         }
     </script>
 </body>
