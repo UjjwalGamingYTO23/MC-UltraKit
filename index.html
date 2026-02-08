@@ -6,123 +6,101 @@
     
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
-    <title>EnderKit | Pro Minecraft Seeds, Color Codes & Skin Grabber</title>
-    <meta name="description" content="Ultimate Minecraft Toolkit for 2026. Find OP Java & Bedrock seeds, custom neon color codes, server status, and HD skin downloads.">
-    <meta name="keywords" content="Minecraft Seeds 1.21, Java Seeds, Bedrock Seeds, Minecraft Color Codes, Neon Minecraft Codes, Skin Grabber, Minecraft Server Status, EnderKit">
-    <meta name="robots" content="index, follow">
+    <title>EnderKit | Ultimate Minecraft Seeds & Color Codes 2026</title>
+    <meta name="description" content="EnderKit: The most powerful Minecraft toolkit. Get OP seeds, all § color codes, dark colors, neon hex, and skin grabber.">
+    <meta name="keywords" content="Minecraft Color Codes, Minecraft Seeds, EnderKit, Minecraft § Codes, Hex Colors Minecraft, Skin Grabber, Server Status">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@700&family=Syncopate:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&display=swap');
 
         :root {
-            --bg: #050508;
-            --sidebar: #0a0a0f;
-            --card: #0f0f13;
+            --bg: #050507;
+            --sidebar: #0d0d12;
+            --card: #121218;
             --primary: #a855f7;
             --accent: #39ff14;
-            --text: #f4f4f5;
-            --border: #1f1f23;
+            --text: #ffffff;
+            --border: #1f1f27;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; display: flex; min-height: 100vh; }
+        body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
 
-        /* Animated Background Gradients */
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 30%, #1a1033 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, #051a10 0%, transparent 40%);
-            z-index: -1;
-        }
-
-        /* Sidebar UI */
-        .sidebar {
-            width: 280px; height: 100vh; background: var(--sidebar);
-            position: fixed; border-right: 1px solid var(--border);
-            padding: 40px 20px; z-index: 1000;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-        }
-
-        /* KHATARNAK LOGO LOOK */
+        /* KHATARNAK LOGO ANIMATION */
         .logo { 
-            font-family: 'Syncopate', sans-serif; font-size: 30px; font-weight: 800; 
-            text-align: center; margin-bottom: 50px; letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, #a855f7, #39ff14, #fff);
+            font-family: 'Syncopate', sans-serif; font-size: 28px; font-weight: 900; 
+            text-align: center; margin-bottom: 45px; letter-spacing: -2px;
+            background: linear-gradient(90deg, #ff00c1, #9600ff, #39ff14, #ff00c1);
             background-size: 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: glowText 5s linear infinite;
-            filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.6));
+            animation: moveGradient 4s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
         }
-        @keyframes glowText {
-            0% { background-position: 0%; } 100% { background-position: 300%; }
+        @keyframes moveGradient { 0% { background-position: 0%; } 100% { background-position: 300%; } }
+
+        /* Sidebar */
+        .sidebar {
+            width: 270px; height: 100vh; background: var(--sidebar);
+            position: fixed; border-right: 1px solid var(--border);
+            padding: 35px 20px; z-index: 1000;
         }
 
         .nav-btn {
-            width: 100%; padding: 16px 20px; margin-bottom: 12px; background: transparent;
-            border: 1px solid transparent; border-radius: 14px; color: #666;
-            text-align: left; font-weight: 700; cursor: pointer; transition: 0.4s;
-            display: flex; align-items: center; gap: 15px;
+            width: 100%; padding: 15px; margin-bottom: 10px; background: transparent;
+            border: 1px solid transparent; border-radius: 12px; color: #777;
+            text-align: left; font-weight: 700; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 12px;
         }
-        .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,0.03); color: var(--text); border-color: var(--border); }
-        .nav-btn.active { border-left: 5px solid var(--primary); color: var(--primary); box-shadow: 0 0 20px rgba(168, 85, 247, 0.1); }
+        .nav-btn:hover, .nav-btn.active { background: #1a1a24; color: #fff; border-color: var(--border); }
+        .nav-btn.active { border-left: 4px solid var(--primary); color: var(--primary); }
 
-        /* Main Wrapper */
-        .wrapper { margin-left: 280px; width: calc(100% - 280px); display: flex; align-items: center; justify-content: center; padding: 60px; }
+        /* Wrapper */
+        .wrapper { margin-left: 270px; width: calc(100% - 270px); padding: 50px; display: flex; justify-content: center; }
 
         .app-card {
             display: none; width: 100%; max-width: 900px; background: var(--card);
-            border: 1px solid var(--border); border-radius: 30px; padding: 50px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            border: 1px solid var(--border); border-radius: 25px; padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
-        .app-card.active { display: block; animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .app-card.active { display: block; animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-        .section-title { font-size: 28px; font-weight: 800; margin-bottom: 35px; border-left: 5px solid var(--accent); padding-left: 20px; }
-
-        /* Modern Input Styles (Fixed the White Box) */
-        .form-item { margin-bottom: 25px; }
-        label { display: block; margin-bottom: 10px; font-size: 14px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { font-size: 26px; margin-bottom: 25px; font-weight: 900; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
         
-        input, select {
-            width: 100%; padding: 18px; background: #000; border: 1px solid #222;
-            border-radius: 16px; color: var(--accent); font-size: 16px; font-weight: 600; outline: none; transition: 0.3s;
-        }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        /* Category Labels */
+        .cat-label { display: block; margin: 25px 0 12px; font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; }
 
-        .main-btn {
-            width: 100%; padding: 20px; background: linear-gradient(45deg, var(--primary), #6d28d9);
-            color: white; border: none; border-radius: 16px; font-weight: 900; font-size: 16px;
-            cursor: pointer; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
-        }
-        .main-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.5); }
-
-        /* Results & Previews */
-        .preview-area {
-            background: #000; padding: 40px; border-radius: 20px; border: 1px solid var(--border);
-            text-align: center; font-size: 26px; font-weight: 800; margin-bottom: 30px;
+        /* Preview Box */
+        .preview-box {
+            background: #000; padding: 35px; border-radius: 18px; border: 1px solid var(--border);
+            text-align: center; font-size: 28px; font-weight: 900; margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
-        /* Color Grid Fix */
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        /* Color Grid */
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
         .color-item {
-            padding: 18px 10px; border-radius: 12px; border: none; cursor: pointer;
-            font-weight: 800; font-size: 12px; text-align: center; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            padding: 15px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer; font-weight: 800; font-size: 11px; text-align: center; transition: 0.2s;
         }
-        .color-item:hover { transform: scale(1.1); z-index: 5; filter: brightness(1.2); }
+        .color-item:hover { transform: translateY(-3px); filter: brightness(1.2); border-color: var(--primary); }
 
-        .result-panel { margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px dashed var(--primary); display: none; text-align: center; }
+        /* Forms */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 13px; color: #888; font-weight: 700; }
+        input, select {
+            width: 100%; padding: 15px; background: #08080a; border: 1px solid var(--border);
+            border-radius: 12px; color: var(--accent); font-weight: 600; outline: none;
+        }
+        .main-btn {
+            width: 100%; padding: 18px; background: var(--primary); color: #fff; border: none;
+            border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 10px;
+        }
 
         @media (max-width: 768px) {
             .sidebar { display: none; }
-            .wrapper { margin-left: 0; padding: 20px; padding-bottom: 120px; }
-            .mobile-bar {
-                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%;
-                background: rgba(10,10,15,0.9); backdrop-filter: blur(15px); display: flex;
-                justify-content: space-around; padding: 15px; border-radius: 25px; border: 1px solid var(--border); z-index: 2000;
-            }
-            .mobile-bar .nav-btn { width: auto; font-size: 12px; flex-direction: column; padding: 10px; border: none; }
+            .wrapper { margin-left: 0; padding: 20px; padding-bottom: 100px; }
+            .mobile-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--sidebar); display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid var(--border); z-index: 1000; }
+            .mobile-nav .nav-btn { width: auto; font-size: 11px; flex-direction: column; padding: 5px; border: none; }
         }
     </style>
 </head>
@@ -130,7 +108,7 @@
 
     <div class="sidebar">
         <div class="logo">ENDERKIT</div>
-        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color codes</button>
         <button class="nav-btn" onclick="tab(event, 'seed')">🌍 Seed Finder</button>
         <button class="nav-btn" onclick="tab(event, 'status')">📡 Server Status</button>
         <button class="nav-btn" onclick="tab(event, 'skin')">👤 Skin Grabber</button>
@@ -139,96 +117,96 @@
     <div class="wrapper">
         
         <div id="colors" class="app-card active">
-            <h2 class="section-title">Minecraft Color Hub</h2>
-            <div class="preview-area" id="cpBox">Preview: Magic Chat</div>
+            <h2>Color & Formatting Hub</h2>
+            <div class="preview-box" id="pBox">EnderKit Magic</div>
             
-            <label>Styles & Formatting</label>
-            <div class="grid-layout">
-                <button class="color-item" style="background:#1f1f23" onclick="copy('§l', 'bold')">BOLD (§l)</button>
-                <button class="color-item" style="background:#1f1f23" onclick="copy('§o', 'italic')">ITALIC (§o)</button>
-                <button class="color-item" style="background:#1f1f23" onclick="copy('§n', 'under')">UNDERLINE (§n)</button>
-                <button class="color-item" style="background:#ff4757" onclick="copy('§r', 'reset')">RESET (§r)</button>
+            <span class="cat-label">Format Styles</span>
+            <div class="color-grid">
+                <button class="color-item" style="background:#1a1a24" onclick="cp('§l', 'bold')">BOLD (§l)</button>
+                <button class="color-item" style="background:#1a1a24" onclick="cp('§o', 'italic')">ITALIC (§o)</button>
+                <button class="color-item" style="background:#1a1a24" onclick="cp('§n', 'under')">UNDERLINE (§n)</button>
+                <button class="color-item" style="background:#1a1a24" onclick="cp('§k', 'magic')">MAGIC (§k)</button>
+                <button class="color-item" style="background:#ff4757" onclick="cp('§r', 'reset')">RESET (§r)</button>
             </div>
 
-            <label style="margin-top:30px;">Neon & RGB Hex (Click to Copy)</label>
-            <div class="grid-layout" id="neonGrid"></div>
+            <span class="cat-label">Normal Colors (Light)</span>
+            <div class="color-grid" id="normalGrid"></div>
+
+            <span class="cat-label">Dark Edition Colors</span>
+            <div class="color-grid" id="darkGrid"></div>
+
+            <span class="cat-label">Custom Neon RGB (Hex)</span>
+            <div class="color-grid" id="neonGrid"></div>
         </div>
 
         <div id="seed" class="app-card">
-            <h2 class="section-title">Ultimate Seed Finder</h2>
-            <div class="form-item">
-                <label>Version</label>
-                <select id="ver">
-                    <option value="java">Java Edition (1.20+)</option>
-                    <option value="bedrock">Bedrock / PE / Console</option>
+            <h2>Minecraft Seed Finder</h2>
+            <div class="form-group">
+                <label>Category</label>
+                <select id="sCat">
+                    <option value="village">🏘️ Village Spawns</option>
+                    <option value="loot">💎 Ancient City / Loot</option>
+                    <option value="speedrun">⚡ Pro Speedrun</option>
                 </select>
             </div>
-            <div class="form-item">
-                <label>World Category</label>
-                <select id="cat">
-                    <option value="loot">💎 Ancient City & Mansions</option>
-                    <option value="village">🏘️ Rare Village Spawns</option>
-                    <option value="biomes">🌸 Cherry / Ice Biomes</option>
-                    <option value="speedrun">⚡ Pro Speedrun Seeds</option>
-                </select>
-            </div>
-            <button class="main-btn" onclick="genSeed()">Generate OP Seed</button>
-            <div id="seedRes" class="result-panel">
-                <h1 id="sValue" style="color:var(--accent); font-size:42px; letter-spacing:2px;"></h1>
-                <p id="sInfo" style="margin-top:10px; color:#888;"></p>
+            <button class="main-btn" onclick="getS()">Find Seed</button>
+            <div id="sRes" style="display:none; margin-top:20px; text-align:center; padding:20px; background:#000; border-radius:15px;">
+                <h1 id="sV" style="color:var(--accent)"></h1>
+                <p id="sD" style="color:#777; margin-top:5px;"></p>
             </div>
         </div>
 
-        <div id="skin" class="app-card">
-            <h2 class="section-title">HD Skin Grabber</h2>
-            <div class="form-item">
-                <label>Username</label>
-                <input type="text" id="skUser" placeholder="e.g. Dream or Technoblade">
-            </div>
-            <button class="main-btn" onclick="grabSkin()">Grab Player Skin</button>
-            <div id="skinRes" class="result-panel" style="background:transparent; border:none;">
-                <img id="skinImg" src="" style="height:250px; filter: drop-shadow(0 0 20px var(--primary));">
-                <br><br>
-                <a id="skinDl" href="#" target="_blank" class="main-btn" style="text-decoration:none; display:inline-block; width:auto; padding:15px 40px;">Download PNG</a>
-            </div>
-        </div>
-
-        <div id="status" class="app-card">
-            <h2 class="section-title">Server Status Scanner</h2>
-            <div class="form-item">
-                <label>Server IP</label>
-                <input type="text" id="srvIp" placeholder="play.hypixel.net">
-            </div>
-            <button class="main-btn" onclick="scanSrv()">Scan Status</button>
-            <div id="srvRes" class="result-panel"></div>
-        </div>
+        <div id="status" class="app-card"><h2>Server Status</h2><input type="text" id="ip" placeholder="play.hypixel.net"><button class="main-btn" onclick="alert('Checking...')">Scan</button></div>
+        <div id="skin" class="app-card"><h2>Skin Grabber</h2><input type="text" id="sk" placeholder="Username"><button class="main-btn" onclick="alert('Grabbing...')">Grab</button></div>
 
     </div>
 
-    <div class="mobile-bar" style="display:none;">
+    <div class="mobile-nav" style="display:none;">
         <button class="nav-btn active" onclick="tab(event, 'colors')">Colors</button>
         <button class="nav-btn" onclick="tab(event, 'seed')">Seeds</button>
-        <button class="nav-btn" onclick="tab(event, 'status')">Server</button>
+        <button class="nav-btn" onclick="tab(event, 'status')">Status</button>
         <button class="nav-btn" onclick="tab(event, 'skin')">Skin</button>
     </div>
 
     <script>
-        const adLink = "https://otieu.com/4/10581423";
+        const ad = "https://otieu.com/4/10581423";
 
-        // Generate 100+ Neon Buttons with Actual Hex Codes
-        const neonGrid = document.getElementById('neonGrid');
-        for(let i=0; i<360; i+=12) {
-            const h = i; 
-            const hexColor = hslToHex(h, 100, 60);
-            const btn = document.createElement('button');
-            btn.className = 'color-item';
-            btn.style.background = hexColor;
-            btn.style.color = "#000";
-            btn.innerText = hexColor; // FIXED: Showing actual code now
-            btn.onclick = () => { 
-                copy(hexColor, 'hex', hexColor);
-            };
-            neonGrid.appendChild(btn);
+        const lightColors = [
+            {n:"White", c:"§f", h:"#ffffff"}, {n:"Yellow", c:"§e", h:"#ffff55"}, {n:"Red", c:"§c", h:"#ff5555"},
+            {n:"Aqua", c:"§b", h:"#55ffff"}, {n:"Green", c:"§a", h:"#55ff55"}, {n:"Light Purp", c:"§d", h:"#ff55ff"},
+            {n:"Gold", c:"§6", h:"#ffaa00"}, {n:"Gray", c:"§7", h:"#aaaaaa"}
+        ];
+
+        const darkColors = [
+            {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
+            {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
+            {n:"D. Gray", c:"§8", h:"#555555"}, {n:"Blue", c:"§9", h:"#5555ff"}
+        ];
+
+        // Render Grids
+        function render(data, target) {
+            const el = document.getElementById(target);
+            data.forEach(i => {
+                const b = document.createElement('button');
+                b.className = 'color-item'; b.style.background = i.h;
+                b.style.color = (i.n === "White" || i.n === "Yellow" || i.n === "Aqua") ? "#000" : "#fff";
+                b.innerHTML = `${i.n}<br>${i.c}`;
+                b.onclick = () => cp(i.c, 'color', i.h);
+                el.appendChild(b);
+            });
+        }
+        render(lightColors, 'normalGrid');
+        render(darkColors, 'darkGrid');
+
+        // Custom Neon Grid
+        const nGrid = document.getElementById('neonGrid');
+        for(let i=0; i<360; i+=15) {
+            const h = i; const hex = hslToHex(h, 100, 60);
+            const b = document.createElement('button');
+            b.className = 'color-item'; b.style.background = hex; b.style.color = "#000";
+            b.innerText = hex;
+            b.onclick = () => cp(hex, 'color', hex);
+            nGrid.appendChild(b);
         }
 
         function hslToHex(h, s, l) {
@@ -248,48 +226,26 @@
             e.currentTarget.classList.add('active');
         }
 
-        function copy(text, type, val) {
-            navigator.clipboard.writeText(text);
-            const box = document.getElementById('cpBox');
-            if(type === 'hex') box.style.color = val;
-            if(type === 'reset') box.style = "";
-            alert("Copied: " + text);
+        function cp(code, type, val) {
+            navigator.clipboard.writeText(code);
+            const p = document.getElementById('pBox');
+            if(type === 'color') p.style.color = val;
+            if(type === 'bold') p.style.fontWeight = "bold";
+            if(type === 'italic') p.style.fontStyle = "italic";
+            if(type === 'reset') { p.style = ""; p.innerText = "EnderKit Magic"; }
+            if(type === 'magic') p.innerText = "§k§k§k§k§k";
+            alert("Copied: " + code);
         }
 
-        function genSeed() {
-            window.open(adLink, '_blank');
-            const cat = document.getElementById('cat').value;
-            const sData = {
-                loot: {s:"734081023", d:"Ancient City Under Mansion"},
-                village: {s:"906167", d:"Mega Savanna Village"},
-                biomes: {s:"34088318", d:"Huge Cherry Blossom Forest"},
-                speedrun: {s:"-4530634", d:"Stronghold & Portal Spawn"}
-            };
-            const d = sData[cat];
-            document.getElementById('sValue').innerText = d.s;
-            document.getElementById('sInfo').innerText = "Loot: " + d.d;
-            document.getElementById('seedRes').style.display = "block";
+        function getS() {
+            window.open(ad, '_blank');
+            const res = document.getElementById('sRes');
+            res.style.display = "block";
+            document.getElementById('sV').innerText = "734081023";
+            document.getElementById('sD').innerText = "Double Ancient City + Mansion at Spawn!";
         }
 
-        async function scanSrv() {
-            const ip = document.getElementById('srvIp').value; if(!ip) return;
-            window.open(adLink, '_blank');
-            const res = document.getElementById('srvRes');
-            res.style.display = "block"; res.innerText = "Scanning Data...";
-            const r = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-            const d = await r.json();
-            res.innerHTML = d.online ? `<h2 style="color:var(--accent)">ONLINE</h2><p>${d.players.online} Players Connected</p>` : `<h2 style="color:red">OFFLINE</h2>`;
-        }
-
-        function grabSkin() {
-            const u = document.getElementById('skUser').value; if(!u) return;
-            window.open(adLink, '_blank');
-            document.getElementById('skinRes').style.display = "block";
-            document.getElementById('skinImg').src = `https://mc-heads.net/body/${u}/250`;
-            document.getElementById('skinDl').href = `https://mc-heads.net/download/${u}`;
-        }
-
-        if(window.innerWidth < 768) { document.querySelector('.mobile-bar').style.display = 'flex'; }
+        if(window.innerWidth < 768) { document.querySelector('.mobile-nav').style.display = 'flex'; }
     </script>
 </body>
 </html>
