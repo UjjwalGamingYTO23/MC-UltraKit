@@ -35,12 +35,22 @@
         .app-card.active { display: block; animation: slideUp 0.5s ease; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } }
 
-        /* COLOR SECTION GRID */
-        .color-section { margin-bottom: 35px; }
-        .section-title { font-size: 14px; font-weight: 900; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-        .color-chip { padding: 18px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; font-weight: 800; font-size: 11px; text-align: center; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .color-chip:hover { transform: translateY(-3px); border-color: #fff; }
+        /* COLOR SECTION CATEGORIES */
+        .color-section { margin-bottom: 40px; }
+        .section-title { font-size: 13px; font-weight: 900; color: #666; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ""; height: 1px; flex: 1; background: rgba(255,255,255,0.1); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        
+        /* PREMIUM TEXTURED CHIPS */
+        .color-chip { 
+            padding: 20px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); 
+            cursor: pointer; font-weight: 800; font-size: 11px; text-align: center; 
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: relative; overflow: hidden;
+        }
+        .color-chip::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 40%; background: rgba(255,255,255,0.1); pointer-events: none; }
+        .color-chip:hover { transform: translateY(-5px); border-color: #fff; filter: brightness(1.2); }
 
         input, select { width: 100%; padding: 18px; background: #000; border: 1px solid #222; border-radius: 15px; color: var(--accent); font-weight: 700; outline: none; margin-bottom: 20px; }
         .cta { width: 100%; padding: 20px; background: linear-gradient(45deg, #8b5cf6, #d946ef); color: #fff; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
@@ -61,52 +71,52 @@
 
     <div class="wrapper">
         <div id="colors" class="app-card active">
-            <div id="pBox" style="background:#000; padding:35px; border-radius:20px; text-align:center; font-size:24px; font-weight:900; border:1px solid #222; margin-bottom:30px; color:#fff;">PREVIEW: SELECT A STYLE</div>
+            <div id="pBox" style="background:#000; padding:40px; border-radius:20px; text-align:center; font-size:28px; font-weight:900; border:2px solid #222; margin-bottom:40px; color:#fff;">TEXT PREVIEW</div>
             
             <div class="color-section">
-                <div class="section-title">Standard Colors</div>
+                <div class="section-title">Standard Minecraft Colors</div>
                 <div class="grid" id="stdGrid"></div>
             </div>
 
             <div class="color-section">
-                <div class="section-title">Dark Colors</div>
+                <div class="section-title">Dark/Deep Minecraft Colors</div>
                 <div class="grid" id="darkGrid"></div>
             </div>
 
             <div class="color-section">
-                <div class="section-title">Formatting & Special</div>
+                <div class="section-title">Text Formatting (Styles)</div>
                 <div class="grid" id="formatGrid"></div>
             </div>
 
             <div class="color-section">
-                <div class="section-title">Premium Neon HEX</div>
+                <div class="section-title">Premium Neon HEX Codes</div>
                 <div class="grid" id="neonGrid"></div>
             </div>
         </div>
 
         <div id="seeds" class="app-card">
-            <label>Edition</label><select id="ed"><option value="java">Java Edition</option><option value="bedrock">Bedrock/PE</option></select>
-            <label>Category</label><select id="cat"><option value="rare">Rare Biomes</option><option value="loot">OP Loot</option><option value="speedrun">Speedrun</option><option value="village">Rare Village</option></select>
+            <label>Edition</label><select id="ed"><option value="java">Java Edition (PC)</option><option value="bedrock">Bedrock/Pocket Edition</option></select>
+            <label>Category</label><select id="cat"><option value="rare">Rare Biomes (Cherry/Mushroom)</option><option value="loot">OP Loot (Ancient City)</option><option value="speedrun">Speedrun Seeds</option><option value="village">Rare Village Spawns</option></select>
             <button class="cta" onclick="getSeed()">Generate OP Seed</button>
             <div id="sRes" class="res-box">
-                <h1 id="sVal" style="color:var(--accent); font-size:35px;"></h1>
+                <h1 id="sVal" style="color:var(--accent); font-size:40px;"></h1>
                 <p id="sDes" style="margin-top:10px; color:#888; font-weight:700;"></p>
             </div>
         </div>
 
         <div id="skins" class="app-card">
             <label>Username</label><input type="text" id="skU" placeholder="Dream">
-            <button class="cta" onclick="getSkin()">Grab Skin HD</button>
+            <button class="cta" onclick="getSkin()">Instant Grab Skin</button>
             <div id="skRes" class="res-box" style="background:transparent; border:none; text-align:center;">
-                <img id="skImg" src="" style="height:250px; filter: drop-shadow(0 0 20px var(--primary));">
-                <br><br><a id="skDl" href="#" target="_blank" class="cta" style="text-decoration:none; display:inline-block; width:auto;">Download PNG</a>
+                <img id="skImg" src="" style="height:300px; filter: drop-shadow(0 0 30px var(--primary));">
+                <br><br><a id="skDl" href="#" target="_blank" class="cta" style="text-decoration:none; display:inline-block; width:auto; padding:15px 40px;">Download PNG</a>
             </div>
         </div>
 
         <div id="status" class="app-card">
-            <label>Server IP</label><input type="text" id="srv" placeholder="mc.hypixel.net">
+            <label>Server IP</label><input type="text" id="srv" placeholder="play.hypixel.net">
             <button class="cta" onclick="getSrv()">Scan Server</button>
-            <div id="srvRes" class="res-box"></div>
+            <div id="srvRes" class="res-box" style="text-align:left;"></div>
         </div>
     </div>
 
@@ -122,13 +132,13 @@
         const darkColors = [
             {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
             {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
-            {n:"D. Blue", c:"§9", h:"#5555ff"}, {n:"D. Gray", c:"§8", h:"#555555"}
+            {n:"Indigo", c:"§9", h:"#5555ff"}, {n:"D. Gray", c:"§8", h:"#555555"}
         ];
         const formatting = [
-            {n:"Obfuscated", c:"§k", h:"#111"}, {n:"Bold", c:"§l", h:"#111"}, {n:"Strikethrough", c:"§m", h:"#111"},
-            {n:"Underline", c:"§n", h:"#111"}, {n:"Italic", c:"§o", h:"#111"}, {n:"Reset", c:"§r", h:"#ef4444"}
+            {n:"Magic/Obf", c:"§k", h:"#222"}, {n:"Bold", c:"§l", h:"#222"}, {n:"Strikethrough", c:"§m", h:"#222"},
+            {n:"Underline", c:"§n", h:"#222"}, {n:"Italic", c:"§o", h:"#222"}, {n:"RESET", c:"§r", h:"#ef4444"}
         ];
-        const neonHEX = ["#FF0000","#FF7F00","#FFFF00","#00FF00","#00FFFF","#0000FF","#8B00FF","#FF00FF"];
+        const neonHEX = ["#FF0000","#FF7F00","#FFFF00","#00FF00","#00FFFF","#0000FF","#8B00FF","#FF00FF","#EABFFF","#39FF14"];
 
         function createChips(data, gridId) {
             const grid = document.getElementById(gridId);
@@ -152,12 +162,17 @@
         function cp(c, h) {
             navigator.clipboard.writeText(c);
             const p = document.getElementById('pBox');
-            p.style.color = h;
-            p.innerText = "Copied: " + c;
-            if(c === "§r") { p.style = ""; p.innerText = "PREVIEW: SELECT A STYLE"; }
+            if(c === "§r") { p.style = ""; p.innerText = "TEXT PREVIEW"; }
+            else { 
+                p.style.color = h; 
+                if(c === "§l") p.style.fontWeight = "900";
+                if(c === "§o") p.style.fontStyle = "italic";
+                if(c === "§n") p.style.textDecoration = "underline";
+                p.innerText = "Copied: " + c; 
+            }
         }
 
-        // Logic for Neon HEX
+        // Render Hex
         const nGrid = document.getElementById('neonGrid');
         neonHEX.forEach(hex => {
             const b = document.createElement('button');
@@ -171,11 +186,11 @@
         createChips(darkColors, 'darkGrid');
         createChips(formatting, 'formatGrid');
 
-        // Other Tools (Seed, Skin, Status - SAME LOGIC)
-        const seedDB = { java: { rare: {s:"34088318", d:"Cherry + Ice Spikes"}, loot: {s:"734081023", d:"Mansion + Ancient City"}, speedrun: {s:"-453063455", d:"12-Eye Seed"}, village: {s:"1053097", d:"5 Blacksmith"} }, bedrock: { rare: {s:"1669320", d:"Frozen Mushroom"}, loot: {s:"1000234", d:"Double Ancient City"}, speedrun: {s:"45357291", d:"Stronghold Under Spawn"}, village: {s:"906167", d:"Mountain Cliff Village"} } };
+        // Other Tools (Fixed logic)
+        const seedDB = { java: { rare: {s:"34088318", d:"Cherry + Ice Spikes"}, loot: {s:"734081023", d:"Mansion + Ancient City"}, speedrun: {s:"-453063455", d:"12-Eye Portal Seed"}, village: {s:"1053097", d:"5 Blacksmith Village"} }, bedrock: { rare: {s:"1669320", d:"Frozen Mushroom Biome"}, loot: {s:"1000234", d:"Double Ancient City"}, speedrun: {s:"45357291", d:"Stronghold Under Spawn"}, village: {s:"906167", d:"Mountain Cliff Village"} } };
         function getSeed() { ad(); const e=document.getElementById('ed').value, c=document.getElementById('cat').value, r=seedDB[e][c]; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
         function getSkin() { const u=document.getElementById('skU').value; if(!u) return; ad(); document.getElementById('skImg').src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; document.getElementById('skRes').style.display="block"; }
-        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const box=document.getElementById('srvRes'); box.style.display="block"; box.innerText="Scanning..."; const r=await fetch(`https://api.mcsrvstat.us/2/${i}`); const d=await r.json(); if(d.online){ box.innerHTML=`<h2 style="color:var(--accent)">● ONLINE</h2><p><b>MOTD:</b> ${d.motd.clean[0]||'No MOTD'}</p><p><b>Players:</b> ${d.players.online}/${d.players.max}</p><p><b>Software:</b> ${d.software||d.version}</p>`; } else { box.innerHTML=`<h2 style="color:red">● OFFLINE</h2>`; } }
+        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const box=document.getElementById('srvRes'); box.style.display="block"; box.innerText="Scanning..."; const r=await fetch(`https://api.mcsrvstat.us/2/${i}`); const d=await r.json(); if(d.online){ box.innerHTML=`<h2 style="color:var(--accent)">● ONLINE</h2><p style="margin:10px 0"><b>MOTD:</b> ${d.motd.clean[0]||'No MOTD'}</p><p><b>Players:</b> ${d.players.online}/${d.players.max}</p><p><b>Software:</b> ${d.software||d.version}</p>`; } else { box.innerHTML=`<h2 style="color:red">● OFFLINE</h2>`; } }
     </script>
 </body>
 </html>
