@@ -37,11 +37,10 @@
 
         /* MAIN AREA */
         .wrapper { margin-left: 260px; width: 100%; padding: 40px; }
-        .app-card { display: none; animation: slideUp 0.4s ease; }
+        .app-card { display: none; animation: slideUp 0.4s ease; max-height: 90vh; overflow-y: auto; }
         .app-card.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* COLOR GRID BOXES */
         .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
         .section-title { font-size: 14px; font-weight: 800; color: #555; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         
@@ -53,23 +52,34 @@
         }
         .color-chip:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        /* CHAT FORMATS */
         .format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
         .format-btn { padding: 15px; background: #1a1a24; border: 1px solid #333; border-radius: 10px; cursor: pointer; text-align: center; font-weight: 700; }
 
-        /* SERVER STATUS DESIGN */
+        /* INPUTS */
         .srv-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
         input, select { flex: 1; padding: 15px; background: #000; border: 1px solid #222; border-radius: 10px; color: var(--accent); font-weight: 700; outline: none; }
         .cta-btn { padding: 0 30px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-weight: 900; cursor: pointer; }
 
+        /* SERVER STATUS BOX */
         .srv-res { background: #000; padding: 25px; border-radius: 15px; border: 1px solid #222; display: none; }
         .stat-line { margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #aaa; }
         .stat-line span { color: #fff; }
 
-        /* SKIN GRABBER FIX */
-        .skin-display { text-align: center; margin-top: 20px; }
-        .skin-img { height: 350px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4)); }
-        .dl-btn { display: inline-block; padding: 15px 40px; background: #39ff14; color: #000; text-decoration: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; }
+        /* SKIN GRABBER FIX - BUTTON ALWAYS VISIBLE */
+        .skin-display { 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; margin-top: 20px; gap: 15px; 
+        }
+        .skin-img { 
+            max-height: 300px; width: auto; 
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4)); 
+            object-fit: contain;
+        }
+        .dl-btn { 
+            display: block; width: 100%; max-width: 250px; padding: 15px; 
+            background: #39ff14; color: #000; text-decoration: none; 
+            border-radius: 12px; font-weight: 900; text-transform: uppercase; text-align: center;
+        }
 
         @media (max-width: 768px) { .sidebar { display: none; } .wrapper { margin-left: 0; } }
     </style>
@@ -87,39 +97,36 @@
     <div class="wrapper">
         <div id="colors" class="app-card active">
             <div class="box-container">
-                <div class="section-title">✨ Standard Colors (Java & Bedrock)</div>
+                <div class="section-title">✨ Standard Colors</div>
                 <div class="grid" id="gridStd"></div>
             </div>
-
             <div class="box-container">
                 <div class="section-title">🌑 Dark Deep Colors</div>
                 <div class="grid" id="gridDark"></div>
             </div>
-
             <div class="box-container">
-                <div class="section-title">🛠️ Chat Formatting Styles</div>
+                <div class="section-title">🛠️ Chat Formatting</div>
                 <div class="format-grid" id="gridFormat"></div>
             </div>
-
             <div class="box-container">
-                <div class="section-title">🌈 Premium Neon HEX Codes</div>
+                <div class="section-title">🌈 Premium Neon HEX</div>
                 <div class="grid" id="gridHex"></div>
             </div>
         </div>
 
         <div id="seeds" class="app-card">
             <div class="box-container">
-                <div class="section-title">🌍 Generate Rare Seeds</div>
-                <select id="ed" style="margin-bottom: 15px;">
-                    <option value="java">☕ Minecraft Java Edition</option>
-                    <option value="bedrock">📱 Minecraft Bedrock / PE</option>
+                <div class="section-title">🌍 OP World Seeds</div>
+                <select id="ed" style="margin-bottom:15px;">
+                    <option value="java">☕ Java Edition</option>
+                    <option value="bedrock">📱 Bedrock / PE</option>
                 </select>
-                <select id="cat" style="margin-bottom: 15px;">
-                    <option value="rare">🌸 Cherry Grove / Ice Spikes</option>
-                    <option value="loot">💎 Mansion / Ancient City</option>
+                <select id="cat" style="margin-bottom:15px;">
+                    <option value="rare">🌸 Cherry Grove / Ice</option>
+                    <option value="loot">💎 OP Loot / Ancient City</option>
                     <option value="speedrun">⚡ Speedrun Spawn</option>
                 </select>
-                <button class="cta-btn" style="height: 55px; width: 100%;" onclick="getSeed()">Generate</button>
+                <button class="cta-btn" style="height:55px; width:100%;" onclick="getSeed()">Generate</button>
                 <div id="sRes" class="srv-res" style="margin-top:20px;">
                     <h1 id="sVal" style="color:var(--accent)"></h1>
                     <p id="sDes"></p>
@@ -129,13 +136,13 @@
 
         <div id="skins" class="app-card">
             <div class="box-container">
-                <div class="section-title">👤 Minecraft Skin Grabber</div>
+                <div class="section-title">👤 HD Skin Grabber</div>
                 <div class="srv-input-group">
-                    <input type="text" id="skU" placeholder="Enter Username (e.g. Dream)">
+                    <input type="text" id="skU" placeholder="Dream">
                     <button class="cta-btn" onclick="getSkin()">Grab</button>
                 </div>
                 <div id="skRes" class="skin-display" style="display:none;">
-                    <img id="skImg" src="" class="skin-img"><br>
+                    <img id="skImg" src="" class="skin-img">
                     <a id="skDl" href="#" target="_blank" class="dl-btn">Download Skin</a>
                 </div>
             </div>
@@ -143,7 +150,7 @@
 
         <div id="status" class="app-card">
             <div class="box-container">
-                <div class="section-title">📡 Live Server Scanner</div>
+                <div class="section-title">📡 Server Scanner</div>
                 <div class="srv-input-group">
                     <input type="text" id="srv" placeholder="play.hypixel.net">
                     <button class="cta-btn" onclick="getSrv()">Scan</button>
@@ -153,7 +160,7 @@
                     <div class="stat-line">MOTD: <span id="srvMotd"></span></div>
                     <div class="stat-line">Players: <span id="srvPlayers"></span></div>
                     <div class="stat-line">Version: <span id="srvVer"></span></div>
-                    <div class="stat-line">Type: <span id="srvType"></span></div>
+                    <div class="stat-line">Software: <span id="srvType"></span></div>
                 </div>
             </div>
         </div>
@@ -170,13 +177,14 @@
         ];
         const cDark = [
             {n:"Black", c:"§0", h:"#000000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"D. Green", c:"§2", h:"#00aa00"},
-            {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"}
+            {n:"D. Aqua", c:"§3", h:"#00aaaa"}, {n:"D. Red", c:"§4", h:"#aa0000"}, {n:"D. Purp", c:"§5", h:"#aa00aa"},
+            {n:"Indigo", c:"§9", h:"#5555ff"}, {n:"D. Gray", c:"§8", h:"#555555"}
         ];
         const cForm = [
             {n:"Bold Text", c:"§l"}, {n:"Italic", c:"§o"}, {n:"Magic", c:"§k"}, 
             {n:"Underline", c:"§n"}, {n:"Strikethrough", c:"§m"}, {n:"RESET", c:"§r"}
         ];
-        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF","#55EF61","#F6C90E"];
+        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#FF7F00","#0000FF","#EABFFF","#55EF61","#F6C90E","#FF5733","#C70039","#900C3F","#581845"];
 
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -190,12 +198,22 @@
             cStd.forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}; color:${(i.h==="#ffffff"||i.h==="#ffff55")?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
             cDark.forEach(i => d.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n}<br>${i.c}</div>`);
             cForm.forEach(i => f.innerHTML += `<div class="format-btn" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.n} (${i.c})</div>`);
-            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
+            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}'); alert('Copied ${x}')">${x}</div>`);
         }
         fill();
 
         function getSeed() { ad(); const r={s:"34088318", d:"Cherry Biome Spawn"}; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
-        function getSkin() { const u=document.getElementById('skU').value; if(!u) return; ad(); document.getElementById('skImg').src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; document.getElementById('skRes').style.display="block"; }
+        
+        function getSkin() { 
+            const u=document.getElementById('skU').value; if(!u) return; 
+            ad(); 
+            const img = document.getElementById('skImg');
+            img.onload = function() {
+                document.getElementById('skRes').style.display="flex";
+            };
+            img.src=`https://mc-heads.net/body/${u}/250`; 
+            document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; 
+        }
         
         async function getSrv() { 
             const i=document.getElementById('srv').value; if(!i) return; ad();
@@ -204,12 +222,13 @@
             document.getElementById('srvRes').style.display = "block";
             if(data.online) {
                 document.getElementById('srvStatus').innerHTML = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14";
-                document.getElementById('srvMotd').innerText = data.motd.clean[0] || "None";
+                document.getElementById('srvMotd').innerText = data.motd.clean ? data.motd.clean[0] : "Minecraft Server";
                 document.getElementById('srvPlayers').innerText = `${data.players.online} / ${data.players.max}`;
                 document.getElementById('srvVer').innerText = data.version;
-                document.getElementById('srvType').innerText = data.software || "Vanilla/Other";
+                document.getElementById('srvType').innerText = data.software || "Vanilla/Custom";
             } else {
                 document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red";
+                document.getElementById('srvMotd').innerText = "N/A"; document.getElementById('srvPlayers').innerText = "0/0";
             }
         }
     </script>
