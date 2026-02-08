@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EnderKit | Ultimate Minecraft Tools</title>
+    
+    <title>EnderKit | Best Minecraft Seed Finder & Tools 2026</title>
+    <meta name="description" content="EnderKit is the ultimate Minecraft utility. Find OP Seeds (Java/Bedrock), Copy Color Codes, Check Server Status, and Grab Skins. Best Minecraft 1.21+ Tools.">
+    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber, Best Minecraft Seeds 2026, Hypixel Status, Gamer Tools">
+    <meta name="author" content="EnderKit">
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
 
+    <meta property="og:title" content="EnderKit | Ultimate Minecraft Tools">
+    <meta property="og:description" content="Get God Seeds, Color Codes & Skins instantly!">
+    <meta property="og:type" content="website">
+
+    <script src="https://alwingulla.com/88/tag.min.js" data-zone="123456" async data-cfasync="false"></script>
+
     <style>
-        /* --- CSS: ULTIMATE DARK NEON THEME --- */
+        /* --- CSS: ULTIMATE DARK NEON THEME (DO NOT TOUCH) --- */
         :root {
             --bg: #0b0b0e;
             --sidebar: #12121a;
@@ -213,21 +223,15 @@
     </div>
 
     <script>
+        // --- 💰 AD LINK VARIABLE (Buttons isko open karenge) ---
         const adLink = "https://otieu.com/4/10581423";
 
         // Tab Switching Logic
         function switchTab(e, tabId) {
-            // Hide all cards
             document.querySelectorAll('.app-card').forEach(card => card.classList.remove('active'));
-            // Show selected card
             document.getElementById(tabId).classList.add('active');
-            
-            // Update buttons (Desktop & Mobile)
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            // Highlight clicked button
             if(e.currentTarget) e.currentTarget.classList.add('active');
-            
-            // Sync mobile/desktop active states manually if needed
             const mobileBtns = document.getElementById('mobileNav').children;
             const index = ['status', 'seed', 'colors', 'skin'].indexOf(tabId);
             if(index >= 0) mobileBtns[index].classList.add('active');
@@ -281,7 +285,9 @@
         };
 
         function getSeed() {
-            window.open(adLink, '_blank');
+            // 🔥 AD TRIGGER ON CLICK
+            window.open(adLink, '_blank'); 
+            
             const cat = document.getElementById('seedCat').value;
             const ed = document.getElementById('seedEd').value;
             const list = seeds[cat][ed];
@@ -309,7 +315,9 @@
         async function checkServer() {
             const ip = document.getElementById('serverIP').value;
             if(!ip) return;
+            // 🔥 AD TRIGGER ON CLICK
             window.open(adLink, '_blank');
+
             const resDiv = document.getElementById('statusResult');
             resDiv.innerHTML = "🔍 Scanning...";
             try {
@@ -329,7 +337,9 @@
         function getSkin() {
             const user = document.getElementById('mcUser').value;
             if(!user) return;
+            // 🔥 AD TRIGGER ON CLICK
             window.open(adLink, '_blank');
+
             document.getElementById('skinDisplay').innerHTML = `
                 <img src="https://mc-heads.net/body/${user}/150" style="margin-bottom:10px;">
                 <br>
