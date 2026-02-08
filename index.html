@@ -2,237 +2,202 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>EnderKit | Best Minecraft Seed Finder & Color Codes 2026</title>
-    <meta name="description" content="EnderKit: Find OP Minecraft seeds, copy color codes, check server status, and grab skins. The ultimate 1.21+ Minecraft tool hub.">
-    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber">
+    <title>EnderKit | Best Minecraft Seed Finder, Color Codes & Tools 2026</title>
+    <meta name="description" content="EnderKit is the ultimate Minecraft utility tool. Find OP seeds for Java & Bedrock, copy Minecraft color codes, grab player skins, and check server status instantly. Best Minecraft 1.21+ tool.">
+    <meta name="keywords" content="Minecraft, Minecraft Seeds, OP Seeds, Minecraft Color Codes, Minecraft Skin Viewer, Minecraft Server Status, EnderKit, Minecraft Bedrock Seeds, Minecraft Java Seeds, God Seeds Minecraft, Minecraft 1.21 Seeds, Minecraft PE Seeds, Minecraft Utility Tool, Minecraft Code Copy, Minecraft Skin Grabber, Best Minecraft Tools, Ender Kit Minecraft">
+    <meta name="author" content="EnderKit">
+    
     <meta name="google-site-verification" content="b2rhb0y_E0mSSEmR0dYrb_l4I4Cv4sajCa5chWECSa4" />
+
+    <meta property="og:title" content="EnderKit | Ultimate Minecraft Tools">
+    <meta property="og:description" content="Get OP Seeds and Color Codes for Minecraft instantly!">
+    <meta property="og:url" content="https://enderkit.vercel.app">
+    <meta property="og:type" content="website">
 
     <script src="https://alwingulla.com/88/tag.min.js" data-zone="123456" async data-cfasync="false"></script>
 
     <style>
-        /* --- PREMIUM DARK MINECRAFT THEME --- */
+        /* --- PRO CSS SECTION --- */
         :root {
-            --primary: #4ade80; /* Emerald Green */
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --input-bg: #0f172a;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
+            --primary: #55ff55;
+            --bg: #0d0d0d;
+            --card: #161616;
+            --text: #ffffff;
+            --accent: #222;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
-        }
-
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 2.8rem;
-            margin: 0;
-            color: var(--primary);
-            letter-spacing: -1px;
-            text-transform: uppercase;
-            font-weight: 900;
-            text-shadow: 0 10px 20px rgba(74, 222, 128, 0.2);
-        }
-
-        header p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .tool-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            margin: 0 0 15px 0;
-            color: var(--primary);
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
         }
+
+        .container { max-width: 600px; width: 100%; }
+
+        h1 { 
+            color: var(--primary); 
+            text-align: center; 
+            font-size: 3rem; 
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(85, 255, 85, 0.4);
+        }
+
+        .tagline { text-align: center; color: #888; margin-bottom: 30px; font-size: 0.9rem; }
+
+        .card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(85, 255, 85, 0.1); }
+
+        h2 { color: var(--primary); font-size: 1.2rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
 
         input {
             width: 100%;
-            padding: 14px;
-            background: var(--input-bg);
-            border: 1px solid #334155;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
             color: white;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            font-size: 1rem;
+            border-radius: 8px;
+            margin: 10px 0;
             outline: none;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: var(--primary);
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: #064e3b;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
-        }
-
-        .result-area {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            border-left: 4px solid var(--primary);
-            word-break: break-all;
-        }
-
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .color-btn {
             padding: 12px;
-            font-size: 0.85rem;
-            border-radius: 10px;
-            color: white;
+            background: var(--primary);
+            color: #000;
             border: none;
+            border-radius: 8px;
+            font-weight: bold;
             cursor: pointer;
-            font-weight: 600;
+            transition: 0.2s;
+            text-transform: uppercase;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #475569;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+        button:active { transform: scale(0.98); }
+
+        .result-box {
+            background: #000;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
         }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+        .color-btn { font-size: 0.8rem; padding: 10px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+
+        footer { text-align: center; color: #444; font-size: 0.8rem; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <header>
-        <h1>ENDERKIT</h1>
-        <p>Advanced Minecraft Utility Hub</p>
-    </header>
+<div class="container">
+    <h1>ENDERKIT</h1>
+    <div class="tagline">The Most Powerful Minecraft Utility Hub</div>
 
-    <div class="tool-card">
+    <div class="card">
         <h2>💎 OP Seed Finder</h2>
-        <button onclick="getLuckySeed()">Find God Seed</button>
-        <div id="seedDisp" class="result-area">Ready to find seeds...</div>
+        <button onclick="generateSeed()">Find Lucky Seed</button>
+        <div id="seedResult" class="result-box">Click to find God seeds...</div>
     </div>
 
-    <div class="tool-card">
-        <h2>🎨 Color Codes (Click to Copy)</h2>
-        <div class="color-grid">
-            <button class="color-btn" style="background: #e11d48;" onclick="copyMe('§4')">Dark Red (§4)</button>
-            <button class="color-btn" style="background: #22c55e;" onclick="copyMe('§a')">Green (§a)</button>
-            <button class="color-btn" style="background: #2563eb;" onclick="copyMe('§9')">Blue (§9)</button>
-            <button class="color-btn" style="background: #ca8a04;" onclick="copyMe('§e')">Yellow (§e)</button>
+    <div class="card">
+        <h2>🎨 Color Codes (Copy)</h2>
+        <div class="grid">
+            <button class="color-btn" style="background: #be0000;" onclick="copyCode('§4')">Dark Red (§4)</button>
+            <button class="color-btn" style="background: #3fb33f;" onclick="copyCode('§a')">Green (§a)</button>
+            <button class="color-btn" style="background: #3f3fb3;" onclick="copyCode('§9')">Blue (§9)</button>
+            <button class="color-btn" style="background: #d1d100;" onclick="copyCode('§e')">Yellow (§e)</button>
+            <button class="color-btn" style="background: #d100d1;" onclick="copyCode('§d')">Pink (§d)</button>
+            <button class="color-btn" style="background: #00d1d1;" onclick="copyCode('§b')">Aqua (§b)</button>
         </div>
     </div>
 
-    <div class="tool-card">
+    <div class="card">
         <h2>🌐 Server Status</h2>
-        <input type="text" id="srvIp" placeholder="e.g. play.hypixel.net">
-        <button onclick="checkSrv()">Check Status</button>
-        <div id="srvDisp" class="result-area">Waiting for IP...</div>
+        <input type="text" id="serverIP" placeholder="Server IP (e.g. hypixel.net)">
+        <button onclick="checkServer()">Check Online</button>
+        <div id="serverResult" class="result-box">Waiting for IP...</div>
     </div>
 
-    <div class="tool-card">
+    <div class="card">
         <h2>👤 Skin Grabber</h2>
-        <input type="text" id="mcUser" placeholder="Minecraft Username">
-        <button onclick="fetchSkin()">Grab Skin</button>
-        <div id="skinDisp" style="text-align: center; margin-top: 15px;"></div>
+        <input type="text" id="playerName" placeholder="Enter Username">
+        <button onclick="getSkin()">Grab Skin</button>
+        <div id="skinDisplay" style="text-align:center; margin-top:15px;"></div>
     </div>
 
     <footer>
-        ENDERKIT CREATOR EDITION &copy; 2026
+        ENDERKIT &copy; 2026 | Built for Performance<br>
+        #Minecraft #Coding #EnderKit
     </footer>
 </div>
 
 <script>
-    // 1. Seed Logic
-    const opSeeds = [
-        "-741008547 (4 Blacksmiths at spawn)",
-        "8624896 (Cherry Grove & Village)",
-        "548301 (Mansion next to Outpost)",
-        "-1996184033 (All Biomes within 1k blocks)",
-        "22061 (Smallest Mushroom Island)"
+    /* --- JS LOGIC SECTION --- */
+
+    // Seeds Database
+    const seeds = [
+        "Seed: -741008547 (4 Blacksmiths)",
+        "Seed: 8624896 (Cherry Grove Village)",
+        "Seed: 548301 (Mansion Spawn)",
+        "Seed: -1996184033 (All Biomes)",
+        "Seed: 22061 (Mushroom Island)",
+        "Seed: 34821550415951832 (Trial Chambers)",
+        "Seed: 69420 (Nice Village)"
     ];
-    function getLuckySeed() {
-        const s = opSeeds[Math.floor(Math.random() * opSeeds.length)];
-        document.getElementById('seedDisp').innerText = s;
+
+    function generateSeed() {
+        const random = seeds[Math.floor(Math.random() * seeds.length)];
+        document.getElementById('seedResult').innerText = random;
     }
 
-    // 2. Copy Logic
-    function copyMe(val) {
-        navigator.clipboard.writeText(val);
-        alert("Copied Code: " + val);
+    function copyCode(code) {
+        navigator.clipboard.writeText(code);
+        alert("Code " + code + " Copied!");
     }
 
-    // 3. Server Logic
-    async function checkSrv() {
-        const ip = document.getElementById('srvIp').value;
-        const disp = document.getElementById('srvDisp');
-        if(!ip) return;
-        disp.innerText = "Connecting to API...";
+    async function checkServer() {
+        const ip = document.getElementById('serverIP').value;
+        const res = document.getElementById('serverResult');
+        if(!ip) return alert("Enter IP first!");
+        res.innerText = "Connecting...";
         try {
-            const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-            const data = await res.json();
-            disp.innerHTML = data.online ? 
-                `<span style="color:#4ade80">● Online</span> | Players: ${data.players.online}/${data.players.max}` : 
-                `<span style="color:#ef4444">● Offline</span>`;
-        } catch(e) { disp.innerText = "Error checking server."; }
+            const response = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+            const data = await response.json();
+            res.innerHTML = data.online 
+                ? `✅ Online | Players: ${data.players.online}/${data.players.max}` 
+                : "❌ Offline or Invalid IP";
+        } catch (e) {
+            res.innerText = "API Error!";
+        }
     }
 
-    // 4. Skin Logic
-    function fetchSkin() {
-        const user = document.getElementById('mcUser').value;
-        const disp = document.getElementById('skinDisp');
-        if(user) {
-            disp.innerHTML = `<img src="https://mc-heads.net/body/${user}" width="120" style="filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));">`;
-        }
+    function getSkin() {
+        const user = document.getElementById('playerName').value;
+        const display = document.getElementById('skinDisplay');
+        if(!user) return alert("Enter Username!");
+        display.innerHTML = `<img src="https://mc-heads.net/body/${user}" style="width: 120px; filter: drop-shadow(0 0 10px #55ff55);">`;
     }
 </script>
 
