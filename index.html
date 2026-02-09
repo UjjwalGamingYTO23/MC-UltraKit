@@ -1,3 +1,6 @@
+/body>
+</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnderKit ULTIMATE | Pro Tools</title>
     <style>
+        /* Pehle wala CSS carry forward ho raha hai + Naya CSS niche hai */
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Outfit:wght@300;500;800&family=Syncopate:wght@700&display=swap');
 
         :root {
@@ -19,7 +23,7 @@
         .main-container { display: flex; min-height: 100vh; }
         .sidebar { 
             width: 260px; background: var(--panel); border-right: 1px solid var(--panel-border);
-            padding: 20px; position: fixed; height: 100vh; overflow-y: auto; z-index: 100;
+            padding: 20px; position: fixed; height: 100vh; overflow-y: auto;
         }
         .content-area { flex: 1; margin-left: 260px; padding: 40px; }
 
@@ -35,39 +39,16 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
-        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; }
-        input:focus { border-color: var(--primary); }
+        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 15px; }
 
-        /* --- RECIPE STYLES --- */
-        .category-tabs { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 10px; }
-        .tab-btn { padding: 8px 15px; background: #1a1a24; border: 1px solid #333; color: #fff; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 13px; }
-        .tab-btn.active { background: var(--primary); border-color: var(--primary); }
-
-        .recipe-list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; }
-        .item-icon-card { 
-            background: #1a1a24; border: 1px solid #333; border-radius: 12px; padding: 15px; 
-            text-align: center; cursor: pointer; transition: 0.2s;
-        }
-        .item-icon-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-        .item-icon-card span { font-size: 30px; display: block; margin-bottom: 5px; }
-        .item-icon-card p { font-size: 11px; color: #aaa; text-transform: capitalize; }
-
-        .crafting-viewer { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            background: #2b2b2b; padding: 30px; border-radius: 12px; border: 4px solid #1e1e1e;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5); margin-top: 20px;
-        }
-        .recipe-grid { display: grid; grid-template-columns: repeat(3, 60px); gap: 4px; background: #8b8b8b; padding: 4px; border: 3px solid #373737; }
-        .recipe-slot { 
-            width: 60px; height: 60px; background: #8b8b8b; border: 2px solid #373737; 
-            box-shadow: inset -3px -3px 0 #5a5a5a, inset 3px 3px 0 #ffffff44;
-            display: flex; align-items: center; justify-content: center; font-size: 28px;
-        }
-
-        .result-arrow { font-size: 30px; margin: 0 20px; color: #373737; }
-
-        /* Pehle wale Canvas aur tools ka CSS */
+        /* --- CIRCLE GENERATOR CANVAS --- */
         #circleCanvas { background: #111; border: 1px solid #444; display: block; margin: 20px auto; max-width: 100%; border-radius: 8px; }
+
+        /* --- RECIPE GRID --- */
+        .recipe-grid { display: grid; grid-template-columns: 120px 120px 120px; gap: 5px; background: #333; padding: 10px; border-radius: 8px; width: fit-content; margin: 0 auto; }
+        .recipe-slot { width: 35px; height: 35px; background: #8b8b8b; border: 2px solid #373737; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+        /* --- POTION CHART --- */
         .potion-step { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; }
 
         @media (max-width: 900px) {
@@ -81,49 +62,19 @@
 <div class="main-container">
     <div class="sidebar">
         <h2 style="font-family:'Syncopate'; font-size:18px; color:var(--primary); margin-bottom:20px;">ENDERKIT</h2>
-        <button class="nav-btn" onclick="switchTab('circle')">🏗️ Circle Gen</button>
+        <button class="nav-btn active" onclick="switchTab('circle')">🏗️ Circle Gen</button>
         <button class="nav-btn" onclick="switchTab('op')">🔥 OP Item Gen</button>
-        <button class="nav-btn active" onclick="switchTab('recipes')">📚 Recipe Book</button>
+        <button class="nav-btn" onclick="switchTab('recipes')">📚 Recipe Book</button>
         <button class="nav-btn" onclick="switchTab('brew')">🧪 Potion Guide</button>
         <button class="nav-btn" onclick="location.reload()">🔙 Back to Home</button>
     </div>
 
     <div class="content-area">
         
-        <div id="recipes" class="app-card active">
-            <div class="card">
-                <h3>Minecraft Recipe Encyclopedia</h3>
-                <input type="text" id="recipeSearch" placeholder="Search any item (e.g. Shield, TNT, Bed)..." oninput="filterRecipes()">
-                
-                <div class="category-tabs">
-                    <button class="tab-btn active" onclick="filterCat('all')">All</button>
-                    <button class="tab-btn" onclick="filterCat('basic')">Basic</button>
-                    <button class="tab-btn" onclick="filterCat('tools')">Tools</button>
-                    <button class="tab-btn" onclick="filterCat('combat')">Combat</button>
-                    <button class="tab-btn" onclick="filterCat('redstone')">Redstone</button>
-                </div>
-
-                <div class="recipe-list-grid" id="mainItemList">
-                    </div>
-            </div>
-
-            <div id="recipePreview" class="card" style="display:none; text-align: center;">
-                <h4 id="selectedItemName" style="color:var(--accent); margin-bottom: 15px;">Item Name</h4>
-                <div class="crafting-viewer">
-                    <div style="display:flex; align-items:center;">
-                        <div class="recipe-grid" id="visualCraftGrid">
-                            </div>
-                        <div class="result-arrow">➜</div>
-                        <div class="recipe-slot" id="resultSlot" style="transform: scale(1.2); background: #999;"></div>
-                    </div>
-                </div>
-                <button onclick="document.getElementById('recipePreview').style.display='none'" style="margin-top:20px; background:none; border:none; color:#88a; cursor:pointer;">✖ Close Preview</button>
-            </div>
-        </div>
-
-        <div id="circle" class="app-card">
+        <div id="circle" class="app-card active">
             <div class="card">
                 <h3>Pixel Circle/Oval Generator</h3>
+                <p style="color:#88a; font-size:12px; margin-bottom:15px;">Enter diameter to get a pixel-perfect guide.</p>
                 <div style="display:flex; gap:10px;">
                     <input type="number" id="circWidth" placeholder="Width" value="20" oninput="drawCircle()">
                     <input type="number" id="circHeight" placeholder="Height" value="20" oninput="drawCircle()">
@@ -140,24 +91,37 @@
                     <option value="netherite_pickaxe">Netherite Pickaxe</option>
                     <option value="bow">Bow</option>
                 </select>
-                <input type="text" id="opName" placeholder="Item Name">
+                <input type="text" id="opName" placeholder="Item Name (e.g. Ender Slayer)">
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                     <div>Sharpness: <input type="number" id="en1" value="5"></div>
                     <div>Unbreaking: <input type="number" id="en2" value="3"></div>
                 </div>
                 <button onclick="genCommand()" style="width:100%; padding:15px; background:var(--primary); border:none; border-radius:8px; color:#fff; font-weight:800; cursor:pointer;">GENERATE COMMAND</button>
-                <textarea id="cmdRes" readonly style="width:100%; margin-top:15px; background:#000; color:var(--accent); border:1px solid #333; border-radius:8px; padding:10px; height:80px;"></textarea>
+                <textarea id="cmdRes" readonly style="width:100%; margin-top:15px; background:#000; color:var(--accent); border:1px solid #333; border-radius:8px; padding:10px; height:100px;"></textarea>
+            </div>
+        </div>
+
+        <div id="recipes" class="app-card">
+            <div class="card">
+                <h3>Quick Recipe Search</h3>
+                <input type="text" id="recipeSearch" placeholder="Search item (e.g. TNT, Bed, Shield)..." oninput="searchRecipe()">
+                <div id="recipeDisplay" style="text-align:center; padding:20px;">
+                    <p id="recipeTitle" style="font-weight:bold; margin-bottom:10px;"></p>
+                    <div class="recipe-grid" id="craftGrid">
+                        </div>
+                </div>
             </div>
         </div>
 
         <div id="brew" class="app-card">
             <div class="card">
-                <h3>Brewing Guide</h3>
-                <div class="potion-step">🟤 Awkward = Nether Wart + Bottle</div>
+                <h3>Visual Brewing Guide</h3>
+                <div class="potion-step">🟤 Awkward Potion = Nether Wart + Water Bottle</div>
                 <div class="potion-step">💪 Strength = Blaze Powder + Awkward</div>
                 <div class="potion-step">⚡ Swiftness = Sugar + Awkward</div>
                 <div class="potion-step">🍎 Healing = Glistering Melon + Awkward</div>
-                <div class="potion-step">👁️ Invisibility = Night Vision + Spider Eye</div>
+                <div class="potion-step">🔥 Fire Resistance = Magma Cream + Awkward</div>
+                <div class="potion-step">👁️ Invisibility = Night Vision + Fermented Spider Eye</div>
             </div>
         </div>
 
@@ -165,96 +129,70 @@
 </div>
 
 <script>
-    // RECIPE DATABASE (Expanded based on your images)
-    const recipeDb = [
-        { name: "TNT", icon: "🧨", cat: "redstone", grid: ["S","G","S","G","G","G","S","G","S"], ingredients: {S:"Sand", G:"Gunpowder"} },
-        { name: "Chest", icon: "📦", cat: "basic", grid: ["W","W","W","W"," ","W","W","W","W"], ingredients: {W:"Planks"} },
-        { name: "Shield", icon: "🛡️", cat: "combat", grid: ["W","I","W","W","W","W"," ","W"," "], ingredients: {W:"Planks", I:"Iron"} },
-        { name: "Sword", icon: "⚔️", cat: "combat", grid: [" ","M"," "," ","M"," "," ","S"," "], ingredients: {M:"Material", S:"Stick"} },
-        { name: "Pickaxe", icon: "⛏️", cat: "tools", grid: ["M","M","M"," ","S"," "," ","S"," "], ingredients: {M:"Material", S:"Stick"} },
-        { name: "Bed", icon: "🛏️", cat: "basic", grid: [" "," "," ","L","L","L","W","W","W"], ingredients: {L:"Wool", W:"Planks"} },
-        { name: "Torch", icon: "🕯️", cat: "basic", grid: [" ","C"," "," ","S"," "," "," "," "], ingredients: {C:"Coal", S:"Stick"} },
-        { name: "Sticky Piston", icon: "⚙️", cat: "redstone", grid: [" ","B"," "," ","P"," "," "," "," "], ingredients: {B:"Slime", P:"Piston"} }
-    ];
-
-    function loadRecipes(filter = 'all', search = '') {
-        const container = document.getElementById('mainItemList');
-        container.innerHTML = "";
-        
-        recipeDb.forEach(item => {
-            if((filter === 'all' || item.cat === filter) && (item.name.toLowerCase().includes(search.toLowerCase()))) {
-                const div = document.createElement('div');
-                div.className = "item-icon-card";
-                div.onclick = () => showRecipe(item);
-                div.innerHTML = `<span>${item.icon}</span><p>${item.name}</p>`;
-                container.appendChild(div);
-            }
-        });
-    }
-
-    function showRecipe(item) {
-        document.getElementById('recipePreview').style.display = 'block';
-        document.getElementById('selectedItemName').innerText = item.name + " Recipe";
-        const grid = document.getElementById('visualCraftGrid');
-        grid.innerHTML = "";
-        
-        item.grid.forEach(slot => {
-            const slotDiv = document.createElement('div');
-            slotDiv.className = "recipe-slot";
-            // Map character to emoji/text for simplicity
-            slotDiv.innerText = slot !== " " ? slot : ""; 
-            grid.appendChild(slotDiv);
-        });
-        document.getElementById('resultSlot').innerText = item.icon;
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-
-    function filterCat(cat) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        loadRecipes(cat);
-    }
-
-    function filterRecipes() {
-        const val = document.getElementById('recipeSearch').value;
-        loadRecipes('all', val);
-    }
-
-    // Previous functionalities
     function switchTab(id) {
         document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        // Find current button and highlight
-        const btns = document.querySelectorAll('.nav-btn');
-        btns.forEach(btn => { if(btn.innerText.toLowerCase().includes(id)) btn.classList.add('active'); });
+        event.currentTarget.classList.add('active');
     }
 
+    // --- CIRCLE LOGIC ---
     function drawCircle() {
         const canvas = document.getElementById('circleCanvas');
         const ctx = canvas.getContext('2d');
-        const w = parseInt(document.getElementById('circWidth').value) || 20;
-        const h = parseInt(document.getElementById('circHeight').value) || 20;
+        const w = parseInt(document.getElementById('circWidth').value) || 10;
+        const h = parseInt(document.getElementById('circHeight').value) || 10;
+        
         ctx.clearRect(0,0,400,400);
         const cellSize = Math.min(380/w, 380/h);
+        
+        ctx.strokeStyle = "#333";
+        for(let i=0; i<=w; i++) ctx.strokeRect(10 + i*cellSize, 10, 0, h*cellSize);
+        for(let j=0; j<=h; j++) ctx.strokeRect(10, 10 + j*cellSize, w*cellSize, 0);
+
         ctx.fillStyle = "#39ff14";
         for (let y = 0; y < h; y++) {
             for (let x = 0; x < w; x++) {
-                let dx = (x + 0.5) - w/2; let dy = (y + 0.5) - h/2;
-                if ((dx*dx)/(w*w/4) + (dy*dy)/(h*h/4) <= 1.0) ctx.fillRect(10 + x*cellSize, 10 + y*cellSize, cellSize-1, cellSize-1);
+                let dx = (x + 0.5) - w/2;
+                let dy = (y + 0.5) - h/2;
+                if ((dx*dx)/(w*w/4) + (dy*dy)/(h*h/4) <= 1.0) {
+                    ctx.fillRect(10 + x*cellSize + 1, 10 + y*cellSize + 1, cellSize-2, cellSize-2);
+                }
             }
         }
     }
 
+    // --- OP COMMAND LOGIC ---
     function genCommand() {
         const item = document.getElementById('opItem').value;
-        const name = document.getElementById('opName').value || "Ender_God";
-        const cmd = `/give @p ${item}{display:{Name:'{"text":"${name}"}'},Enchantments:[{id:sharpness,lvl:255}]} 1`;
+        const name = document.getElementById('opName').value || "EnderKit_Item";
+        const sh = document.getElementById('en1').value;
+        const un = document.getElementById('en2').value;
+        const cmd = `/give @p ${item}{display:{Name:'{"text":"${name}","color":"gold"}'},Enchantments:[{id:sharpness,lvl:${sh}},{id:unbreaking,lvl:${un}}]} 1`;
         document.getElementById('cmdRes').value = cmd;
     }
 
-    // Start
-    loadRecipes();
+    // --- RECIPE LOGIC ---
+    const data = {
+        "tnt": ["🧨","🧨","🧨","🧨","🧨","🧨","🧨","🧨","🧨"], // Dummy representation
+        "torch": [" ","🔥"," "," ","🪵"," "," "," "," "],
+        "chest": ["🪵","🪵","🪵","🪵"," ","🪵","🪵","🪵","🪵"]
+    };
+
+    function searchRecipe() {
+        const q = document.getElementById('recipeSearch').value.toLowerCase();
+        const grid = document.getElementById('craftGrid');
+        grid.innerHTML = "";
+        
+        if(data[q]) {
+            document.getElementById('recipeTitle').innerText = q.toUpperCase();
+            data[q].forEach(item => {
+                grid.innerHTML += `<div class="recipe-slot">${item}</div>`;
+            });
+        }
+    }
+
+    // Initialize
     drawCircle();
 </script>
 
