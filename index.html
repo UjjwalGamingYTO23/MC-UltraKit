@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>EnderKit | Best Minecraft Stylish Font Generator & Tools India</title>
-    <meta name="description" content="EnderKit: #1 Minecraft Toolbox. Get 50+ Stylish Fonts, OP Seeds 1.21, Nether Portal Calculator, HD Skin Grabber and Server Status. Free & Fast!">
-    <meta name="keywords" content="Minecraft Stylish Font Generator, Minecraft Name Style, Nether Portal Calculator, OP Minecraft Seeds 1.21, Minecraft Skin Downloader, MC Server Status India, Minecraft Color Codes, Fancy Text Generator for Gaming">
+    <title>EnderKit | Pro Minecraft Tools - Seeds, Skins & Status</title>
+    <meta name="description" content="EnderKit: The ultimate Minecraft toolbox. Get OP Seeds, HD Skin Grabber, Server Status Checker and Color Codes. Free and Fast!">
+    <meta name="keywords" content="Minecraft Seeds, Minecraft Skin Grabber, Server Status, Minecraft Color Codes">
     
     <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/minecraft-main.png">
     
@@ -23,6 +23,7 @@
             --input-bg: #12121a;
         }
 
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -33,28 +34,27 @@
 
         /* HEADER */
         .header {
-            width: 100%; padding: 15px; text-align: center;
-            background: rgba(0,0,0,0.4); border-bottom: 1px solid #1f1f27;
-            position: sticky; top: 0; z-index: 110; backdrop-filter: blur(12px);
+            width: 100%; padding: 20px; text-align: center;
+            background: rgba(0,0,0,0.3); border-bottom: 1px solid #1f1f27;
+            position: sticky; top: 0; z-index: 110; backdrop-filter: blur(10px);
         }
 
-        h1.logo { 
-            font-family: 'Syncopate', sans-serif; font-size: 26px; font-weight: 900; 
-            background: linear-gradient(90deg, #ff0000, #39ff14, #00ffff, #ff00ff);
+        .logo { 
+            font-family: 'Syncopate', sans-serif; font-size: 24px; font-weight: 900; 
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
             background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: rgb-move 8s linear infinite; text-transform: uppercase;
-            letter-spacing: 2px;
         }
-
         @keyframes rgb-move { 0% { background-position: 0%; } 100% { background-position: 400%; } }
 
-        /* NAVIGATION */
+        /* NAVIGATION: SIDEBAR (DESKTOP) */
         .sidebar { 
-            width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.98); 
+            width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.95); 
             position: fixed; left: 0; top: 0; border-right: 1px solid #1f1f27; 
             padding: 100px 15px 30px 15px; z-index: 100;
         }
 
+        /* NAVIGATION: BOTTOM DOCK (MOBILE) */
         .bottom-nav {
             display: none; position: fixed; bottom: 0; left: 0; width: 100%;
             background: #0a0a0f; border-top: 1px solid #1f1f27;
@@ -68,162 +68,186 @@
         }
         .nav-btn.active { background: var(--btn); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
 
-        /* CONTENT */
-        .wrapper { margin-left: 280px; padding: 40px; flex-grow: 1; }
+        /* MAIN WRAPPER */
+        .wrapper { margin-left: 280px; padding: 40px; width: auto; flex-grow: 1; }
+
         .app-card { display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto; }
         .app-card.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-        .section-title { font-size: 13px; font-weight: 900; color: #666; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1.5px; border-left: 3px solid var(--primary); padding-left: 10px; }
+        /* COMPONENTS */
+        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .section-title { font-size: 13px; font-weight: 900; color: #555; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
 
         input, select { 
             width: 100%; padding: 16px; background: var(--input-bg); 
             border: 1px solid #222; border-radius: 12px; 
-            color: #fff; font-weight: 600; outline: none; margin-bottom: 15px; transition: 0.3s;
+            color: #fff; font-weight: 600; outline: none; margin-bottom: 15px;
         }
-        input:focus { border-color: var(--primary); background: #161622; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+        .color-chip { 
+            height: 65px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer; font-weight: 900; font-size: 11px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; transition: 0.3s;
+        }
 
         .cta-btn { 
             width: 100%; padding: 18px; background: linear-gradient(45deg, #a855f7, #6366f1); 
             border: none; border-radius: 15px; color: #fff; font-weight: 900; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        /* FONT GENERATOR UI */
-        #fontResults { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
-        .font-res-card { 
-            background: #12121a; padding: 15px; border-radius: 15px; border: 1px solid #1f1f27; 
-            cursor: pointer; transition: 0.3s; position: relative;
+        /* FONT MAKER SPECIFIC */
+        .font-res-card {
+            background: var(--input-bg); padding: 20px; border-radius: 15px; border: 1px dashed #333;
+            margin-top: 15px; cursor: pointer; transition: 0.3s;
         }
-        .font-res-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-        .font-label { font-size: 10px; color: #555; margin-bottom: 5px; display: block; }
-        .font-text { font-size: 17px; font-weight: 700; color: #fff; word-break: break-all; }
+        .font-res-card:hover { border-color: var(--accent); background: #161622; }
+        .font-label { font-size: 10px; color: #666; margin-bottom: 5px; display: block; }
+        .font-text { font-size: 18px; font-weight: 700; color: var(--accent); }
 
-        /* CALC GRID */
-        .calc-grid { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 15px; align-items: center; }
-        .calc-input-group { text-align: center; }
-        .calc-input-group label { display: block; margin-bottom: 8px; font-size: 12px; color: #888; font-weight: 700; }
-
-        /* UTILS */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-        .color-chip { height: 65px; border-radius: 15px; cursor: pointer; font-weight: 900; font-size: 11px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .srv-res { background: #000; padding: 25px; border-radius: 20px; border: 1px solid #222; margin-top: 20px; display: none; }
-
-        /* MOBILE FIXES */
+        /* RESPONSIVE FIXES */
         @media (max-width: 850px) {
             .sidebar { display: none; }
             .bottom-nav { display: flex; }
-            .wrapper { margin-left: 0; padding: 20px 15px 100px 15px; }
-            #fontResults { grid-template-columns: 1fr; }
-            .calc-grid { grid-template-columns: 1fr; }
-            .calc-arrow { transform: rotate(90deg); margin: 10px 0; text-align: center; }
-            .nav-btn { font-size: 10px; padding: 10px 2px; text-align: center; margin-bottom: 0; flex: 1; }
+            .wrapper { margin-left: 0; padding: 20px; padding-bottom: 100px; }
+            .bottom-nav .nav-btn { margin-bottom: 0; text-align: center; font-size: 10px; padding: 10px 5px; flex: 1; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .color-chip { height: 55px; font-size: 10px; }
+            .logo { font-size: 20px; }
         }
+
+        /* SKIN & SERVER SPECIFIC */
+        .srv-res { background: #000; padding: 20px; border-radius: 20px; border: 1px solid #222; margin-top: 20px; display: none; }
+        .stat-line { margin-bottom: 10px; font-weight: 700; color: #888; font-size: 14px; }
+        .stat-line span { color: var(--accent); }
+        .skin-display { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px; }
+        .skin-img { height: 280px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.3)); }
+        .dl-btn { padding: 15px 40px; background: var(--accent); color: #000; text-decoration: none; border-radius: 15px; font-weight: 900; text-align: center; width: 100%; max-width: 250px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1 class="logo">ENDERKIT</h1>
+        <div class="logo">ENDERKIT</div>
     </div>
 
     <div class="sidebar">
-        <button class="nav-btn active" onclick="tab(event, 'fontmaker')">✍️ Stylish Fonts</button>
-        <button class="nav-btn" onclick="tab(event, 'calc')">💎 Nether Calc</button>
-        <button class="nav-btn" onclick="tab(event, 'colors')">🎨 Color Codes</button>
-        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seeds</button>
+        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️ Font Maker</button>
+        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seed Finder</button>
         <button class="nav-btn" onclick="tab(event, 'skins')">👤 Skin Grabber</button>
+        <button class="nav-btn" onclick="tab(event, 'status')">📡 Server Status</button>
     </div>
 
     <div class="bottom-nav">
-        <button class="nav-btn active" onclick="tab(event, 'fontmaker')">✍️<br>Fonts</button>
-        <button class="nav-btn" onclick="tab(event, 'calc')">💎<br>Calc</button>
-        <button class="nav-btn" onclick="tab(event, 'colors')">🎨<br>Colors</button>
+        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨<br>Colors</button>
+        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️<br>Fonts</button>
         <button class="nav-btn" onclick="tab(event, 'seeds')">🌍<br>Seeds</button>
         <button class="nav-btn" onclick="tab(event, 'skins')">👤<br>Skins</button>
+        <button class="nav-btn" onclick="tab(event, 'status')">📡<br>Status</button>
     </div>
 
     <div class="wrapper">
-        
-        <div id="fontmaker" class="app-card active">
+        <div id="colors" class="app-card active">
             <div class="box-container">
-                <div class="section-title">✍️ Minecraft Stylish Name Generator</div>
-                <input type="text" id="fontInput" placeholder="Apna Naam Likho (e.g. ProGamer)..." oninput="genFonts()">
-                <div id="fontResults">
-                    </div>
-            </div>
-            <p style="color: #444; font-size: 12px; text-align: center;">Create cool names for Minecraft Bedrock, Java, and Social Media.</p>
-        </div>
-
-        <div id="calc" class="app-card">
-            <div class="box-container">
-                <div class="section-title">💎 Nether Portal Linker</div>
-                <div class="calc-grid">
-                    <div class="calc-input-group">
-                        <label>OVERWORLD X/Z</label>
-                        <input type="number" id="ow" placeholder="800" oninput="calcNether(8)">
-                    </div>
-                    <div class="calc-arrow" style="font-size: 24px; color: var(--primary);">➔</div>
-                    <div class="calc-input-group">
-                        <label>NETHER X/Z</label>
-                        <input type="number" id="ne" placeholder="100" oninput="calcNether(0.125)">
-                    </div>
-                </div>
-                <button class="cta-btn" onclick="ad()">Link Portals Precisely</button>
-            </div>
-        </div>
-
-        <div id="colors" class="app-card">
-            <div class="box-container">
-                <div class="section-title">🎨 Chat & MOTD Color Codes</div>
+                <div class="section-title">✨ Standard 16 Colors</div>
                 <div class="grid" id="gridStd"></div>
             </div>
             <div class="box-container">
-                <div class="section-title">🌈 Premium RGB Hex Codes</div>
+                <div class="section-title">🌑 Dark & Formatting</div>
+                <div class="grid" id="gridDark"></div>
+            </div>
+            <div class="box-container">
+                <div class="section-title">🌈 Neon Premium HEX</div>
                 <div class="grid" id="gridHex"></div>
+            </div>
+        </div>
+
+        <div id="fontmaker" class="app-card">
+            <div class="box-container">
+                <div class="section-title">✍️ Minecraft Font Style Maker</div>
+                <input type="text" id="fontInput" placeholder="Type your name..." oninput="generateFonts()">
+                
+                <div id="fontResults">
+                    <div class="font-res-card" onclick="copyFont('f1')">
+                        <span class="font-label">MC Bold Style</span>
+                        <div class="font-text" id="f1">EnderKit</div>
+                    </div>
+                    <div class="font-res-card" onclick="copyFont('f2')">
+                        <span class="font-label">Full Width Style</span>
+                        <div class="font-text" id="f2">ＥｎｄｅｒＫｉｔ</div>
+                    </div>
+                    <div class="font-res-card" onclick="copyFont('f3')">
+                        <span class="font-label">Medieval Style</span>
+                        <div class="font-text" id="f3">𝔈𝔫𝔡𝔢𝔯𝔎𝔦𝔱</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="seeds" class="app-card">
             <div class="box-container">
-                <div class="section-title">🌍 God Tier Seeds (1.21+)</div>
-                <select id="seedCat">
-                    <option value="34088318">🌸 Cherry Spawn Village</option>
-                    <option value="1669320">🍄 Infinite Mushroom Island</option>
-                    <option value="734081023">💎 Ancient City at Spawn</option>
-                    <option value="-453063455">⚡ Speedrun God Seed</option>
+                <div class="section-title">🌍 Select Your Dream World</div>
+                <select id="ed"><option value="java">☕ Java Edition</option><option value="bedrock">📱 Bedrock / PE</option></select>
+                <select id="cat">
+                    <option value="cherry">🌸 Cherry Grove Spawn</option>
+                    <option value="mushroom">🍄 Rare Mushroom Island</option>
+                    <option value="ancient">💎 Ancient City Under Spawn</option>
+                    <option value="mansion">🏰 Woodland Mansion Close</option>
+                    <option value="village">🏘️ 5x Blacksmith Village</option>
+                    <option value="speedrun">⚡ God Seed (Fortress + Bastion)</option>
                 </select>
-                <button class="cta-btn" onclick="getSeed()">Generate OP Seed</button>
+                <button class="cta-btn" onclick="getSeed()">Generate Seed</button>
                 <div id="sRes" class="srv-res">
-                    <h2 id="sVal" style="color:var(--accent); text-align: center; font-size: 32px;"></h2>
-                    <p style="text-align: center; color: #888; margin-top: 10px;">Click to copy seed and ad will open.</p>
+                    <h1 id="sVal" style="color:var(--accent); font-size: 30px; text-align: center;"></h1>
+                    <p id="sDes" style="margin-top:10px; font-weight: 700; text-align: center; color: #aaa;"></p>
                 </div>
             </div>
         </div>
 
         <div id="skins" class="app-card">
             <div class="box-container">
-                <div class="section-title">👤 Pro Skin Grabber</div>
-                <input type="text" id="skU" placeholder="Enter Minecraft Username">
+                <div class="section-title">👤 Minecraft Skin Grabber</div>
+                <input type="text" id="skU" placeholder="Username (e.g. Dream)">
                 <button class="cta-btn" onclick="getSkin()">Grab HD Skin</button>
-                <div id="skRes" style="display:none; text-align:center; margin-top:25px;">
-                    <img id="skImg" style="max-height: 250px; filter: drop-shadow(0 0 20px var(--primary));">
-                    <div style="margin-top:20px;">
-                        <a id="skDl" href="#" target="_blank" class="cta-btn" style="display:inline-block; width:auto; padding:12px 35px;">Download PNG</a>
-                    </div>
+                <div id="skRes" class="skin-display" style="display:none;">
+                    <img id="skImg" src="" class="skin-img">
+                    <a id="skDl" href="#" target="_blank" class="dl-btn">Download PNG</a>
                 </div>
             </div>
         </div>
 
+        <div id="status" class="app-card">
+            <div class="box-container">
+                <div class="section-title">📡 Server Status Scanner</div>
+                <input type="text" id="srv" placeholder="play.hypixel.net">
+                <button class="cta-btn" onclick="getSrv()">Scan Server</button>
+                <div id="srvRes" class="srv-res">
+                    <h2 id="srvStatus" style="margin-bottom:15px;"></h2>
+                    <div class="stat-line">MOTD: <span id="srvMotd"></span></div>
+                    <div class="stat-line">Players: <span id="srvPlayers"></span></div>
+                    <div class="stat-line">Version: <span id="srvVer"></span></div>
+                    <div class="stat-line">Software: <span id="srvType"></span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         const AD_URL = "https://otieu.com/4/10581423";
         function ad() { window.open(AD_URL, '_blank'); }
 
-        // Navigation Tab Logic
+        const cStd = [
+            {n:"White", c:"§f", h:"#ffffff"}, {n:"Yellow", c:"§e", h:"#ffff55"}, {n:"Red", c:"§c", h:"#ff5555"},
+            {n:"Aqua", c:"§b", h:"#55ffff"}, {n:"Green", c:"§a", h:"#55ff55"}, {n:"Gold", c:"§6", h:"#ffaa00"}
+        ];
+        const cDark = [
+            {n:"Black", c:"§0", h:"#000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"Bold", c:"§l", h:"#222"}, {n:"Reset", c:"§r", h:"#f00"}
+        ];
+        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#0000FF","#8b00ff"];
+
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -233,62 +257,50 @@
             window.scrollTo(0,0);
         }
 
-        // Font Logic
-        const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const fMaps = [
-            { n: "Standard Bold", m: "𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏Ｑ𝐑𝐒𝐓ＵＶＷＸＹＺ𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
-            { n: "Medieval", m: "𝔞𝔟𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔙𝔚𝔛𝔜ℨ0123456789" },
-            { n: "Cursive", m: "𝓪𝓿𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩0123456789" },
-            { n: "Double Struck", m: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡" },
-            { n: "Small Caps", m: "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ0123456789" },
-            { n: "Bubble", m: "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ⓪①②③④⑤⑥⑦⑧⑨" },
-            { n: "Monospace", m: "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅ＷＸＹＺ𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿" },
-            { n: "Mirror", m: "ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎzⱯᗺϽᗡƎℲƃHIᒋʞ˥WNOԀὉᴚS┴∩ᴧMX⅄Z0123456789" }
-        ];
-
-        function genFonts() {
+        // Font Maker Logic
+        function generateFonts() {
             const val = document.getElementById('fontInput').value || "EnderKit";
-            const res = document.getElementById('fontResults');
-            res.innerHTML = "";
-            fMaps.forEach(f => {
-                let out = val.split('').map(c => {
-                    let i = alpha.indexOf(c);
-                    return i > -1 ? f.m[i] : c;
-                }).join('');
-                res.innerHTML += `<div class="font-res-card" onclick="ad(); navigator.clipboard.writeText('${out}'); alert('Copied!')"><span class="font-label">${f.n}</span><div class="font-text">${out}</div></div>`;
-            });
-        }
-        genFonts();
-
-        // Nether Calculator
-        function calcNether(factor) {
-            if(factor === 8) {
-                document.getElementById('ne').value = Math.floor(document.getElementById('ow').value / 8);
-            } else {
-                document.getElementById('ow').value = Math.floor(document.getElementById('ne').value * 8);
-            }
-        }
-
-        // Color Fill
-        function fillColors() {
-            const std = [
-                {c:"§f",h:"#fff"},{c:"§e",h:"#ffff55"},{c:"§c",h:"#ff5555"},
-                {c:"§b",h:"#55ffff"},{c:"§a",h:"#55ff55"},{c:"§6",h:"#ffaa00"},
-                {c:"§d",h:"#ff55ff"},{c:"§9",h:"#5555ff"},{c:"§0",h:"#000"}
-            ];
-            const sGrid = document.getElementById('gridStd');
-            std.forEach(i => sGrid.innerHTML += `<div class="color-chip" style="background:${i.h}; border: 1px solid #333; color:${i.h==='#fff'?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied')">${i.c}</div>`);
             
-            const hGrid = document.getElementById('gridHex');
-            ["#FF0000","#00FF00","#0000FF","#FFFF00","#FF00FF","#00FFFF","#FFA500"].forEach(x => {
-                hGrid.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}'); alert('Copied')">${x}</div>`;
-            });
-        }
-        fillColors();
+            // F1: Bold Logic (Custom MC style feel)
+            document.getElementById('f1').innerText = val;
+            
+            // F2: Full Width
+            const fullWidth = val.split('').map(char => {
+                const code = char.charCodeAt(0);
+                return (code >= 33 && code <= 126) ? String.fromCharCode(code + 65248) : char;
+            }).join('');
+            document.getElementById('f2').innerText = fullWidth;
 
-        // Seeds & Skins
-        function getSeed() { ad(); const s = document.getElementById('seedCat').value; document.getElementById('sVal').innerText = s; document.getElementById('sRes').style.display = "block"; }
-        function getSkin() { const u = document.getElementById('skU').value; if(!u) return; ad(); document.getElementById('skRes').style.display="block"; document.getElementById('skImg').src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; }
+            // F3: Medieval
+            const medievalMap = {"a":"𝔞","b":"𝔟","c":"𝔠","d":"𝔡","e":"𝔢","f":"𝔣","g":"𝔤","h":"𝔥","i":"𝔦","j":"𝔧","k":"𝔨","l":"𝔩","m":"𝔪","n":"𝔫","o":"𝔬","p":"𝔭","q":"𝔮","r":"𝔯","s":"𝔰","t":"𝔱","u":"𝔲","v":"𝔳","w":"𝔴","x":"𝔵","y":"𝔶","z":"𝔷","A":"𝔄","B":"𝔅","C":"ℭ","D":"𝔇","E":"𝔈","F":"𝔉","G":"𝔊","H":"ℌ","I":"ℑ","J":"𝔍","K":"𝔎","L":"𝔏","M":"𝔐","N":"𝔑","O":"𝔒","P":"𝔓","Q":"𝔔","R":"ℜ","S":"𝔖","T":"𝔗","U":"𝔘","V":"𝔙","W":"𝔚","X":"𝔛","Y":"𝔜","Z":"ℨ"};
+            const medieval = val.split('').map(char => medievalMap[char] || char).join('');
+            document.getElementById('f3').innerText = medieval;
+        }
+
+        function copyFont(id) {
+            ad();
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Copied: " + text);
+        }
+
+        function fill() {
+            const s = document.getElementById('gridStd'), d = document.getElementById('gridDark'), h = document.getElementById('gridHex');
+            cStd.forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}; color:${i.h==='#ffffff'?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.c}</div>`);
+            cDark.forEach(i => d.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.c}</div>`);
+            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
+        }
+        fill();
+
+        const sDB = {
+            cherry: {s:"34088318", d:"Cherry Grove Spawn"}, mushroom: {s:"1669320", d:"Mushroom Island"},
+            ancient: {s:"734081023", d:"Ancient City"}, speedrun: {s:"-453063455", d:"God Seed Fortress"}, village: {s:"906167", d:"5 Blacksmith Village"}
+        };
+
+        function getSeed() { ad(); const c=document.getElementById('cat').value; const r=sDB[c] || sDB['cherry']; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
+        function getSkin() { const u=document.getElementById('skU').value; if(!u) return; ad(); const img = document.getElementById('skImg'); img.onload = () => document.getElementById('skRes').style.display="flex"; img.src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; }
+        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const res = await fetch(`https://api.mcsrvstat.us/2/${i}`); const data = await res.json(); document.getElementById('srvRes').style.display = "block"; if(data.online) { document.getElementById('srvStatus').innerHTML = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14"; document.getElementById('srvMotd').innerText = data.motd.clean[0]; document.getElementById('srvPlayers').innerText = `${data.players.online}/${data.players.max}`; document.getElementById('srvVer').innerText = data.version; } else { document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red"; } }
     </script>
 </body>
 </html>
+
