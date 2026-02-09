@@ -1,535 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="6m77o9z49m" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>EnderKit ULTIMATE | Gradient, Fonts, Seeds & Tools</title>
-    <meta name="description" content="EnderKit Ultimate: The most advanced Minecraft toolbox. RGB Gradients, 50+ Fonts, Nether Calc, OP Seeds, and Server Status.">
-    <meta name="keywords" content="Minecraft Gradient Generator, Minecraft Font Styles, Nether Portal Calculator, Hypixel Status, Skin Grabber">
-    
-    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/minecraft-main.png">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnderKit ULTIMATE | Pro Tools</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Outfit:wght@300;500;700;900&family=Syncopate:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Outfit:wght@300;500;800&family=Syncopate:wght@700&display=swap');
 
         :root {
-            --bg: #050508;
-            --panel: #0f0f16;
-            --panel-border: #1f1f2a;
-            --accent: #39ff14;
-            --primary: #a855f7;
-            --secondary: #00e5ff;
-            --danger: #ff2a2a;
-            --text-main: #ffffff;
-            --text-muted: #8888aa;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --bg: #050508; --panel: #0f0f16; --panel-border: #1f1f2a;
+            --accent: #39ff14; --primary: #a855f7; --text-main: #ffffff;
         }
 
-        /* RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: #fff; overflow-x: hidden; }
 
-        body { 
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
-            color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
-        }
-
-        /* NOTIFICATIONS (TOAST) */
-        #toast-box { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-        .toast { background: rgba(20, 20, 30, 0.95); border: 1px solid var(--accent); padding: 12px 20px; border-radius: 8px; color: #fff; font-weight: 700; font-size: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(100%); animation: slideIn 0.3s forwards; pointer-events: auto; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(5px); }
-        .toast.error { border-color: var(--danger); }
-        @keyframes slideIn { to { transform: translateX(0); } }
-
-        /* HEADER */
-        .header {
-            width: 100%; padding: 15px 30px; 
-            background: rgba(5, 5, 8, 0.8); border-bottom: 1px solid var(--panel-border);
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: space-between;
-        }
-
-        .logo { 
-            font-family: 'Syncopate', sans-serif; font-size: 22px; font-weight: 900; 
-            background: linear-gradient(90deg, #fff, var(--primary), var(--accent));
-            background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite; letter-spacing: 1px;
-        }
-        @keyframes shine { 0% { background-position: 0%; } 100% { background-position: 200%; } }
-
-        /* LAYOUT */
-        .main-container { display: flex; min-height: calc(100vh - 70px); }
-        
+        /* Sidebar & Layout */
+        .main-container { display: flex; min-height: 100vh; }
         .sidebar { 
             width: 260px; background: var(--panel); border-right: 1px solid var(--panel-border);
-            padding: 20px; display: flex; flex-direction: column; gap: 8px;
-            position: fixed; height: calc(100vh - 70px); top: 70px; overflow-y: auto;
+            padding: 20px; position: fixed; height: 100vh; overflow-y: auto; z-index: 100;
         }
+        .content-area { flex: 1; margin-left: 260px; padding: 40px; }
 
-        .content-area { 
-            flex: 1; margin-left: 260px; padding: 40px; 
-            max-width: 1400px; width: 100%;
-        }
-
-        /* MOBILE NAV */
-        .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #0a0a10; border-top: 1px solid var(--panel-border); z-index: 900; padding: 10px; justify-content: space-around; backdrop-filter: blur(10px); }
-
-        /* BUTTONS & INPUTS */
         .nav-btn { 
-            width: 100%; padding: 14px 18px; border: 1px solid transparent; background: transparent;
-            color: var(--text-muted); text-align: left; cursor: pointer; border-radius: 10px;
-            font-weight: 600; transition: all 0.3s; display: flex; align-items: center; gap: 12px;
+            width: 100%; padding: 12px; margin-bottom: 5px; background: transparent; 
+            border: 1px solid transparent; color: #88a; cursor: pointer; text-align: left;
+            border-radius: 8px; transition: 0.3s; display: flex; align-items: center; gap: 10px;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-btn.active { background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3); color: var(--accent); box-shadow: 0 0 15px rgba(168, 85, 247, 0.05); }
+        .nav-btn:hover, .nav-btn.active { background: rgba(168, 85, 247, 0.1); color: var(--accent); border-color: #333; }
 
-        .app-card { display: none; animation: fadeUp 0.4s ease; }
+        .app-card { display: none; animation: fadeIn 0.4s; }
         .app-card.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden; }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); opacity: 0.5; }
-        
-        .section-header { margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        .section-title { font-size: 18px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
-        .section-badge { font-size: 10px; background: var(--primary); padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+        .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; }
+        input:focus { border-color: var(--primary); }
 
-        input, select, textarea { 
-            width: 100%; background: #050508; border: 1px solid #333; color: #fff;
-            padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 14px;
-            outline: none; transition: 0.3s; margin-bottom: 15px;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2); }
+        /* --- RECIPE STYLES --- */
+        .category-tabs { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 10px; }
+        .tab-btn { padding: 8px 15px; background: #1a1a24; border: 1px solid #333; color: #fff; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 13px; }
+        .tab-btn.active { background: var(--primary); border-color: var(--primary); }
 
-        .cta-btn { 
-            width: 100%; padding: 16px; background: var(--gradient); 
-            border: none; border-radius: 10px; color: #fff; font-weight: 800; 
-            text-transform: uppercase; cursor: pointer; letter-spacing: 1px;
-            transition: 0.3s; position: relative; overflow: hidden;
+        .recipe-list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; }
+        .item-icon-card { 
+            background: #1a1a24; border: 1px solid #333; border-radius: 12px; padding: 15px; 
+            text-align: center; cursor: pointer; transition: 0.2s;
         }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+        .item-icon-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .item-icon-card span { font-size: 30px; display: block; margin-bottom: 5px; }
+        .item-icon-card p { font-size: 11px; color: #aaa; text-transform: capitalize; }
 
-        /* --- FIXED GRADIENT PICKER STYLES --- */
-        .grad-controls {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;
+        .crafting-viewer { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background: #2b2b2b; padding: 30px; border-radius: 12px; border: 4px solid #1e1e1e;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5); margin-top: 20px;
         }
-        .picker-group {
-            display: flex; align-items: center; gap: 15px; 
-            background: #151520; padding: 10px 15px; border-radius: 12px; border: 1px solid #333;
-        }
-        .picker-label { font-size: 12px; color: #aaa; font-weight: 600; flex-grow: 1; }
-        
-        /* Custom Color Input Styling */
-        input[type="color"] {
-            -webkit-appearance: none; border: none; width: 40px; height: 40px; padding: 0;
-            border-radius: 50%; overflow: hidden; cursor: pointer; background: none; margin: 0;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); transition: transform 0.2s;
-        }
-        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; border: 2px solid #fff; }
-        input[type="color"]:hover { transform: scale(1.1); }
-
-        .gradient-preview {
-            font-size: 30px; font-weight: 900; text-align: center; margin: 20px 0;
-            padding: 20px; background: #000; border-radius: 12px; border: 1px dashed #333;
+        .recipe-grid { display: grid; grid-template-columns: repeat(3, 60px); gap: 4px; background: #8b8b8b; padding: 4px; border: 3px solid #373737; }
+        .recipe-slot { 
+            width: 60px; height: 60px; background: #8b8b8b; border: 2px solid #373737; 
+            box-shadow: inset -3px -3px 0 #5a5a5a, inset 3px 3px 0 #ffffff44;
+            display: flex; align-items: center; justify-content: center; font-size: 28px;
         }
 
-        /* --- COLORS GRID --- */
-        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-        .color-box { 
-            height: 80px; border-radius: 12px; cursor: pointer; display: flex; 
-            flex-direction: column; align-items: center; justify-content: center;
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.2s;
-        }
-        .color-box:hover { transform: scale(1.05); z-index: 2; border-color: #fff; }
-        .hex-code { font-family: 'JetBrains Mono'; font-size: 10px; margin-top: 5px; opacity: 0.7; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; }
+        .result-arrow { font-size: 30px; margin: 0 20px; color: #373737; }
 
-        /* --- FONTS --- */
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        .font-item { 
-            background: rgba(255,255,255,0.02); border: 1px solid var(--panel-border); 
-            padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.2s; 
-        }
-        .font-item:hover { background: rgba(255,255,255,0.05); border-color: var(--accent); }
-        .font-name { font-size: 10px; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 5px; }
-        .font-result { font-size: 16px; color: var(--accent); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        /* Pehle wale Canvas aur tools ka CSS */
+        #circleCanvas { background: #111; border: 1px solid #444; display: block; margin: 20px auto; max-width: 100%; border-radius: 8px; }
+        .potion-step { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; }
 
-        /* --- NETHER --- */
-        .calc-wrapper { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
-        .dimension-box { flex: 1; background: #000; padding: 20px; border-radius: 15px; border: 1px solid #333; min-width: 280px; }
-        .dim-label { color: var(--text-muted); font-size: 12px; font-weight: 900; margin-bottom: 15px; display: block; text-align: center; letter-spacing: 2px; }
-        .coord-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        .coord-inp { text-align: center; padding: 10px; margin: 0; }
-        .calc-arrow { font-size: 24px; color: var(--primary); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        /* --- SEEDS --- */
-        .seed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .seed-card { 
-            background: #15151b; border-radius: 15px; overflow: hidden; cursor: pointer;
-            border: 1px solid var(--panel-border); transition: 0.3s;
-        }
-        .seed-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .seed-icon { height: 100px; background: linear-gradient(45deg, #222, #333); display: flex; align-items: center; justify-content: center; font-size: 40px; }
-        .seed-info { padding: 15px; }
-        .seed-title { font-weight: 700; color: #fff; margin-bottom: 5px; }
-        .seed-desc { font-size: 12px; color: #888; }
-
-        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .sidebar { display: none; }
-            .content-area { margin-left: 0; padding: 20px 15px 100px 15px; }
-            .bottom-nav { display: flex; }
-            .calc-wrapper { flex-direction: column; }
-            .calc-arrow { transform: rotate(90deg); }
-            .grad-controls { grid-template-columns: 1fr; } 
+            .content-area { margin-left: 0; padding: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="toast-box"></div>
-
-    <div class="header">
-        <div class="logo">ENDERKIT<span style="font-size:10px; vertical-align:top; color:var(--accent);">PRO</span></div>
+<div class="main-container">
+    <div class="sidebar">
+        <h2 style="font-family:'Syncopate'; font-size:18px; color:var(--primary); margin-bottom:20px;">ENDERKIT</h2>
+        <button class="nav-btn" onclick="switchTab('circle')">🏗️ Circle Gen</button>
+        <button class="nav-btn" onclick="switchTab('op')">🔥 OP Item Gen</button>
+        <button class="nav-btn active" onclick="switchTab('recipes')">📚 Recipe Book</button>
+        <button class="nav-btn" onclick="switchTab('brew')">🧪 Potion Guide</button>
+        <button class="nav-btn" onclick="location.reload()">🔙 Back to Home</button>
     </div>
 
-    <div class="main-container">
-        <div class="sidebar">
-            <button class="nav-btn active" onclick="switchTab('colors')"><span>🎨</span> Color & Gradients</button>
-            <button class="nav-btn" onclick="switchTab('fonts')"><span>✍️</span> Font Generator</button>
-            <button class="nav-btn" onclick="switchTab('nether')"><span>💎</span> Nether Linker</button>
-            <button class="nav-btn" onclick="switchTab('seeds')"><span>🌍</span> God Seeds</button>
-            <button class="nav-btn" onclick="switchTab('skins')"><span>👤</span> Skin Viewer</button>
-            <button class="nav-btn" onclick="switchTab('status')"><span>📡</span> Server Status</button>
+    <div class="content-area">
+        
+        <div id="recipes" class="app-card active">
+            <div class="card">
+                <h3>Minecraft Recipe Encyclopedia</h3>
+                <input type="text" id="recipeSearch" placeholder="Search any item (e.g. Shield, TNT, Bed)..." oninput="filterRecipes()">
+                
+                <div class="category-tabs">
+                    <button class="tab-btn active" onclick="filterCat('all')">All</button>
+                    <button class="tab-btn" onclick="filterCat('basic')">Basic</button>
+                    <button class="tab-btn" onclick="filterCat('tools')">Tools</button>
+                    <button class="tab-btn" onclick="filterCat('combat')">Combat</button>
+                    <button class="tab-btn" onclick="filterCat('redstone')">Redstone</button>
+                </div>
+
+                <div class="recipe-list-grid" id="mainItemList">
+                    </div>
+            </div>
+
+            <div id="recipePreview" class="card" style="display:none; text-align: center;">
+                <h4 id="selectedItemName" style="color:var(--accent); margin-bottom: 15px;">Item Name</h4>
+                <div class="crafting-viewer">
+                    <div style="display:flex; align-items:center;">
+                        <div class="recipe-grid" id="visualCraftGrid">
+                            </div>
+                        <div class="result-arrow">➜</div>
+                        <div class="recipe-slot" id="resultSlot" style="transform: scale(1.2); background: #999;"></div>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('recipePreview').style.display='none'" style="margin-top:20px; background:none; border:none; color:#88a; cursor:pointer;">✖ Close Preview</button>
+            </div>
         </div>
 
-        <div class="bottom-nav">
-            <button class="nav-btn active" onclick="switchTab('colors')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px;">🎨<br>Colors</button>
-            <button class="nav-btn" onclick="switchTab('fonts')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px;">✍️<br>Fonts</button>
-            <button class="nav-btn" onclick="switchTab('nether')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px;">💎<br>Calc</button>
-            <button class="nav-btn" onclick="switchTab('seeds')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px;">🌍<br>Seeds</button>
-            <button class="nav-btn" onclick="switchTab('skins')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px;">👤<br>Skins</button>
+        <div id="circle" class="app-card">
+            <div class="card">
+                <h3>Pixel Circle/Oval Generator</h3>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="circWidth" placeholder="Width" value="20" oninput="drawCircle()">
+                    <input type="number" id="circHeight" placeholder="Height" value="20" oninput="drawCircle()">
+                </div>
+                <canvas id="circleCanvas" width="400" height="400"></canvas>
+            </div>
         </div>
 
-        <div class="content-area">
-
-            <div id="colors" class="app-card active">
-                <div class="card">
-                    <div class="section-header">
-                        <div class="section-title">RGB Gradient Generator</div>
-                        <span class="section-badge">NEW</span>
-                    </div>
-                    
-                    <input type="text" id="gradInput" placeholder="Enter text for gradient..." value="Welcome to EnderKit" oninput="generateGradient()">
-                    
-                    <div class="grad-controls">
-                        <div class="picker-group">
-                            <span class="picker-label">Start Color</span>
-                            <input type="color" id="col1" value="#39ff14" oninput="generateGradient()">
-                        </div>
-                        <div class="picker-group">
-                            <span class="picker-label">End Color</span>
-                            <input type="color" id="col2" value="#a855f7" oninput="generateGradient()">
-                        </div>
-                    </div>
-
-                    <div class="gradient-preview" id="gradPreview"></div>
-                    <textarea id="gradCode" readonly style="height:80px; font-size:11px; color:#aaa;"></textarea>
-                    <button class="cta-btn" onclick="copyToClip('gradCode')">Copy Gradient JSON</button>
+        <div id="op" class="app-card">
+            <div class="card">
+                <h3>OP Item Creator</h3>
+                <select id="opItem">
+                    <option value="netherite_sword">Netherite Sword</option>
+                    <option value="netherite_pickaxe">Netherite Pickaxe</option>
+                    <option value="bow">Bow</option>
+                </select>
+                <input type="text" id="opName" placeholder="Item Name">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div>Sharpness: <input type="number" id="en1" value="5"></div>
+                    <div>Unbreaking: <input type="number" id="en2" value="3"></div>
                 </div>
-
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Classic Color Codes</div></div>
-                    <div class="color-grid" id="stdColors"></div>
-                </div>
-
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Neon Hex Palette</div></div>
-                    <div class="color-grid" id="hexColors"></div>
-                </div>
+                <button onclick="genCommand()" style="width:100%; padding:15px; background:var(--primary); border:none; border-radius:8px; color:#fff; font-weight:800; cursor:pointer;">GENERATE COMMAND</button>
+                <textarea id="cmdRes" readonly style="width:100%; margin-top:15px; background:#000; color:var(--accent); border:1px solid #333; border-radius:8px; padding:10px; height:80px;"></textarea>
             </div>
-
-            <div id="fonts" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">50+ Font Styles</div></div>
-                    <input type="text" id="fontInput" placeholder="Type your name..." oninput="renderFonts()">
-                    <div class="font-grid" id="fontOutput"></div>
-                </div>
-            </div>
-
-            <div id="nether" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">3D Portal Linker</div></div>
-                    <div class="calc-wrapper">
-                        <div class="dimension-box" style="border-color:var(--accent);">
-                            <span class="dim-label" style="color:var(--accent);">OVERWORLD</span>
-                            <div class="coord-group">
-                                <input type="number" class="coord-inp" id="owX" placeholder="X" oninput="calcNether('toN')">
-                                <input type="number" class="coord-inp" id="owY" placeholder="Y" value="64">
-                                <input type="number" class="coord-inp" id="owZ" placeholder="Z" oninput="calcNether('toN')">
-                            </div>
-                        </div>
-                        <div class="calc-arrow">➔</div>
-                        <div class="dimension-box" style="border-color:var(--danger);">
-                            <span class="dim-label" style="color:var(--danger);">THE NETHER</span>
-                            <div class="coord-group">
-                                <input type="number" class="coord-inp" id="neX" placeholder="X" oninput="calcNether('toO')">
-                                <input type="number" class="coord-inp" id="neY" placeholder="Y" value="64">
-                                <input type="number" class="coord-inp" id="neZ" placeholder="Z" oninput="calcNether('toO')">
-                            </div>
-                        </div>
-                    </div>
-                    <p style="text-align:center; color:#666; font-size:12px; margin-top:15px;">Ratio is 8:1. Y-level remains constant.</p>
-                </div>
-            </div>
-
-            <div id="seeds" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">God Seeds (1.21+)</div></div>
-                    <div class="seed-grid" id="seedList"></div>
-                </div>
-                <div id="seedResult" style="display:none; background:#111; padding:20px; border-radius:10px; border:1px solid var(--accent); margin-top:20px;">
-                    <h2 id="srTitle" style="color:var(--accent)"></h2>
-                    <h1 id="srVal" style="font-size:40px; word-break:break-all;"></h1>
-                    <button class="cta-btn" onclick="copySeed()">Copy Seed</button>
-                </div>
-            </div>
-
-            <div id="skins" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Skin Viewer & Downloader</div></div>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="skinUser" placeholder="Username (e.g. Dream)">
-                        <button class="cta-btn" style="width:100px;" onclick="loadSkin()">LOAD</button>
-                    </div>
-                    <div id="skinDisplay" style="display:none; flex-direction:column; align-items:center; margin-top:20px;">
-                        <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
-                            <img id="skinBody" style="height:300px; filter:drop-shadow(0 0 20px rgba(255,255,255,0.2));">
-                            <img id="skinFace" style="height:150px; image-rendering:pixelated; border:2px solid #333;">
-                        </div>
-                        <a id="skinDl" href="#" class="cta-btn" style="max-width:300px; margin-top:20px; text-decoration:none; text-align:center;">Download PNG</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="status" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Server Intelligence</div></div>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="srvIp" placeholder="IP Address (e.g. play.hypixel.net)">
-                        <button class="cta-btn" style="width:100px;" onclick="checkServer()">SCAN</button>
-                    </div>
-                    <div id="srvResult" style="display:none; margin-top:20px;">
-                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-                            <img id="srvIcon" style="width:64px; height:64px; border-radius:8px;">
-                            <div>
-                                <h2 id="srvHostname" style="color:#fff;"></h2>
-                                <span id="srvState" style="padding:4px 8px; border-radius:4px; font-size:12px; font-weight:bold;"></span>
-                            </div>
-                        </div>
-                        <div style="background:#000; padding:15px; border-radius:8px; font-family:'JetBrains Mono'; color:#aaa; font-size:12px;">
-                            <p>MOTD: <span id="srvMotd" style="color:#fff;"></span></p>
-                            <p>Players: <span id="srvPlay" style="color:var(--accent);"></span></p>
-                            <p>Version: <span id="srvVer" style="color:var(--primary);"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div id="brew" class="app-card">
+            <div class="card">
+                <h3>Brewing Guide</h3>
+                <div class="potion-step">🟤 Awkward = Nether Wart + Bottle</div>
+                <div class="potion-step">💪 Strength = Blaze Powder + Awkward</div>
+                <div class="potion-step">⚡ Swiftness = Sugar + Awkward</div>
+                <div class="potion-step">🍎 Healing = Glistering Melon + Awkward</div>
+                <div class="potion-step">👁️ Invisibility = Night Vision + Spider Eye</div>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <script>
-        const AD_URL = "https://otieu.com/4/10581423";
-        function ad() { window.open(AD_URL, '_blank'); }
+<script>
+    // RECIPE DATABASE (Expanded based on your images)
+    const recipeDb = [
+        { name: "TNT", icon: "🧨", cat: "redstone", grid: ["S","G","S","G","G","G","S","G","S"], ingredients: {S:"Sand", G:"Gunpowder"} },
+        { name: "Chest", icon: "📦", cat: "basic", grid: ["W","W","W","W"," ","W","W","W","W"], ingredients: {W:"Planks"} },
+        { name: "Shield", icon: "🛡️", cat: "combat", grid: ["W","I","W","W","W","W"," ","W"," "], ingredients: {W:"Planks", I:"Iron"} },
+        { name: "Sword", icon: "⚔️", cat: "combat", grid: [" ","M"," "," ","M"," "," ","S"," "], ingredients: {M:"Material", S:"Stick"} },
+        { name: "Pickaxe", icon: "⛏️", cat: "tools", grid: ["M","M","M"," ","S"," "," ","S"," "], ingredients: {M:"Material", S:"Stick"} },
+        { name: "Bed", icon: "🛏️", cat: "basic", grid: [" "," "," ","L","L","L","W","W","W"], ingredients: {L:"Wool", W:"Planks"} },
+        { name: "Torch", icon: "🕯️", cat: "basic", grid: [" ","C"," "," ","S"," "," "," "," "], ingredients: {C:"Coal", S:"Stick"} },
+        { name: "Sticky Piston", icon: "⚙️", cat: "redstone", grid: [" ","B"," "," ","P"," "," "," "," "], ingredients: {B:"Slime", P:"Piston"} }
+    ];
 
-        // --- UI UTILS ---
-        function toast(msg, type='success') {
-            const t = document.createElement('div');
-            t.className = `toast ${type}`;
-            t.innerHTML = `<span>${type==='success'?'✅':'⚠️'}</span> ${msg}`;
-            document.getElementById('toast-box').appendChild(t);
-            setTimeout(() => t.remove(), 3000);
-        }
+    function loadRecipes(filter = 'all', search = '') {
+        const container = document.getElementById('mainItemList');
+        container.innerHTML = "";
+        
+        recipeDb.forEach(item => {
+            if((filter === 'all' || item.cat === filter) && (item.name.toLowerCase().includes(search.toLowerCase()))) {
+                const div = document.createElement('div');
+                div.className = "item-icon-card";
+                div.onclick = () => showRecipe(item);
+                div.innerHTML = `<span>${item.icon}</span><p>${item.name}</p>`;
+                container.appendChild(div);
+            }
+        });
+    }
 
-        function switchTab(id) {
-            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll(`button[onclick="switchTab('${id}')"]`).forEach(b => b.classList.add('active'));
-            window.scrollTo(0,0);
-        }
+    function showRecipe(item) {
+        document.getElementById('recipePreview').style.display = 'block';
+        document.getElementById('selectedItemName').innerText = item.name + " Recipe";
+        const grid = document.getElementById('visualCraftGrid');
+        grid.innerHTML = "";
+        
+        item.grid.forEach(slot => {
+            const slotDiv = document.createElement('div');
+            slotDiv.className = "recipe-slot";
+            // Map character to emoji/text for simplicity
+            slotDiv.innerText = slot !== " " ? slot : ""; 
+            grid.appendChild(slotDiv);
+        });
+        document.getElementById('resultSlot').innerText = item.icon;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
 
-        // --- 1. COLOR LOGIC ---
-        const std = [
-            {n:"Black", c:"§0", h:"#000000"}, {n:"D.Blue", c:"§1", h:"#0000AA"}, {n:"D.Green", c:"§2", h:"#00AA00"},
-            {n:"D.Aqua", c:"§3", h:"#00AAAA"}, {n:"D.Red", c:"§4", h:"#AA0000"}, {n:"D.Purple", c:"§5", h:"#AA00AA"},
-            {n:"Gold", c:"§6", h:"#FFAA00"}, {n:"Gray", c:"§7", h:"#AAAAAA"}, {n:"D.Gray", c:"§8", h:"#555555"},
-            {n:"Blue", c:"§9", h:"#5555FF"}, {n:"Green", c:"§a", h:"#55FF55"}, {n:"Aqua", c:"§b", h:"#55FFFF"},
-            {n:"Red", c:"§c", h:"#FF5555"}, {n:"L.Purple", c:"§d", h:"#FF55FF"}, {n:"Yellow", c:"§e", h:"#FFFF55"},
-            {n:"White", c:"§f", h:"#FFFFFF"}, {n:"Bold", c:"§l", h:"#333"}, {n:"Obfuscated", c:"§k", h:"#333"}
-        ];
+    function filterCat(cat) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        loadRecipes(cat);
+    }
 
-        const hexPalette = ["#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#8B00FF","#FF0080","#00FFFF","#39FF14"];
+    function filterRecipes() {
+        const val = document.getElementById('recipeSearch').value;
+        loadRecipes('all', val);
+    }
 
-        function initColors() {
-            const sDiv = document.getElementById('stdColors');
-            std.forEach(x => {
-                sDiv.innerHTML += `<div class="color-box" style="background:${x.h}; color:${x.h=='#FFFFFF'?'#000':'#fff'}" onclick="copyTxt('${x.c}')"><span>${x.n}</span><span class="hex-code">${x.c}</span></div>`;
-            });
-            const hDiv = document.getElementById('hexColors');
-            hexPalette.forEach(x => {
-                hDiv.innerHTML += `<div class="color-box" style="background:${x}; color:#000" onclick="copyTxt('${x}')"><span class="hex-code">${x}</span></div>`;
-            });
-        }
+    // Previous functionalities
+    function switchTab(id) {
+        document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        // Find current button and highlight
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => { if(btn.innerText.toLowerCase().includes(id)) btn.classList.add('active'); });
+    }
 
-        function generateGradient() {
-            const text = document.getElementById('gradInput').value || "EnderKit";
-            const c1 = document.getElementById('col1').value;
-            const c2 = document.getElementById('col2').value;
-            const preview = document.getElementById('gradPreview');
-            preview.style.background = `linear-gradient(to right, ${c1}, ${c2})`;
-            preview.style.webkitBackgroundClip = "text";
-            preview.style.webkitTextFillColor = "transparent";
-            preview.innerText = text;
-            
-            // Simulating JSON output for plugins
-            document.getElementById('gradCode').value = JSON.stringify({text:text, color1:c1, color2:c2, bold:true});
-        }
-
-        // --- 2. FONTS LOGIC ---
-        const fontMaps = [
-            {n:"Bold Serif", m:"𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗"},
-            {n:"Italic", m:"𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0123456789"},
-            {n:"Script", m:"𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩0123456789"},
-            {n:"Double Struck", m:"𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡"},
-            {n:"Monospace", m:"𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"},
-            {n:"Bubbles", m:"ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ⓪①②③④⑤⑥⑦⑧⑨"},
-            {n:"Square", m:"🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉0123456789"},
-            {n:"Medieval", m:"𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔙𝔚𝔛𝔜ℨ0123456789"},
-            {n:"Wide", m:"ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ０１２３４５６７８９"}
-        ];
-        const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-        function renderFonts() {
-            const txt = document.getElementById('fontInput').value || "EnderKit";
-            const out = document.getElementById('fontOutput');
-            out.innerHTML = "";
-            fontMaps.forEach(f => {
-                let r = txt.split('').map(c => {
-                    let i = alpha.indexOf(c);
-                    return i > -1 ? Array.from(f.m)[i] : c;
-                }).join('');
-                out.innerHTML += `<div class="font-item" onclick="copyTxt('${r}')"><span class="font-name">${f.n}</span><div class="font-result">${r}</div></div>`;
-            });
-        }
-
-        // --- 3. NETHER LOGIC ---
-        function calcNether(mode) {
-            const ox = document.getElementById('owX'), oy = document.getElementById('owY'), oz = document.getElementById('owZ');
-            const nx = document.getElementById('neX'), ny = document.getElementById('neY'), nz = document.getElementById('neZ');
-            
-            if(mode === 'toN') {
-                nx.value = Math.floor(ox.value / 8);
-                nz.value = Math.floor(oz.value / 8);
-                ny.value = oy.value;
-            } else {
-                ox.value = nx.value * 8;
-                oz.value = nz.value * 8;
-                oy.value = ny.value;
+    function drawCircle() {
+        const canvas = document.getElementById('circleCanvas');
+        const ctx = canvas.getContext('2d');
+        const w = parseInt(document.getElementById('circWidth').value) || 20;
+        const h = parseInt(document.getElementById('circHeight').value) || 20;
+        ctx.clearRect(0,0,400,400);
+        const cellSize = Math.min(380/w, 380/h);
+        ctx.fillStyle = "#39ff14";
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                let dx = (x + 0.5) - w/2; let dy = (y + 0.5) - h/2;
+                if ((dx*dx)/(w*w/4) + (dy*dy)/(h*h/4) <= 1.0) ctx.fillRect(10 + x*cellSize, 10 + y*cellSize, cellSize-1, cellSize-1);
             }
         }
+    }
 
-        // --- 4. SEEDS LOGIC ---
-        const seeds = [
-            {t:"Cherry Blossom", d:"Spawn in a massive pink biome.", s:"34088318", i:"🌸"},
-            {t:"Mushroom Island", d:"Safe haven, no hostile mobs.", s:"1669320", i:"🍄"},
-            {t:"Ancient City", d:"Deep dark right below spawn.", s:"734081023", i:"💎"},
-            {t:"Speedrun God", d:"Fortress + Bastion at start.", s:"-453063455", i:"⚡"},
-            {t:"Village Mania", d:"5 Blacksmiths in one spot.", s:"906167", i:"🏘️"},
-            {t:"Survival Island", d:"Hardcore ocean start.", s:"-123456789", i:"🏝️"}
-        ];
+    function genCommand() {
+        const item = document.getElementById('opItem').value;
+        const name = document.getElementById('opName').value || "Ender_God";
+        const cmd = `/give @p ${item}{display:{Name:'{"text":"${name}"}'},Enchantments:[{id:sharpness,lvl:255}]} 1`;
+        document.getElementById('cmdRes').value = cmd;
+    }
 
-        function initSeeds() {
-            const sl = document.getElementById('seedList');
-            seeds.forEach(s => {
-                sl.innerHTML += `<div class="seed-card" onclick="showSeed('${s.s}', '${s.t}')"><div class="seed-icon">${s.i}</div><div class="seed-info"><div class="seed-title">${s.t}</div><div class="seed-desc">${s.d}</div></div></div>`;
-            });
-        }
-        function showSeed(s, t) {
-            ad();
-            document.getElementById('srTitle').innerText = t;
-            document.getElementById('srVal').innerText = s;
-            document.getElementById('seedResult').style.display = 'block';
-        }
-        function copySeed() {
-            const s = document.getElementById('srVal').innerText;
-            copyTxt(s);
-        }
+    // Start
+    loadRecipes();
+    drawCircle();
+</script>
 
-        // --- 5. SKIN LOGIC ---
-        function loadSkin() {
-            const u = document.getElementById('skinUser').value;
-            if(!u) return toast("Enter a username!", "error");
-            ad();
-            document.getElementById('skinDisplay').style.display = 'flex';
-            document.getElementById('skinBody').src = `https://mc-heads.net/body/${u}/300`;
-            document.getElementById('skinFace').src = `https://mc-heads.net/avatar/${u}/150`;
-            document.getElementById('skinDl').href = `https://mc-heads.net/download/${u}`;
-        }
-
-        // --- 6. SERVER LOGIC ---
-        async function checkServer() {
-            const ip = document.getElementById('srvIp').value;
-            if(!ip) return toast("Enter IP!", "error");
-            ad();
-            try {
-                const req = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-                const data = await req.json();
-                document.getElementById('srvResult').style.display = 'block';
-                if(data.online) {
-                    document.getElementById('srvHostname').innerText = data.hostname || ip;
-                    document.getElementById('srvState').innerText = "ONLINE";
-                    document.getElementById('srvState').style.background = "#39ff14";
-                    document.getElementById('srvState').style.color = "#000";
-                    document.getElementById('srvMotd').innerText = data.motd.clean[0] || "";
-                    document.getElementById('srvPlay').innerText = `${data.players.online} / ${data.players.max}`;
-                    document.getElementById('srvVer').innerText = data.version;
-                    document.getElementById('srvIcon').src = data.icon;
-                } else {
-                    document.getElementById('srvState').innerText = "OFFLINE";
-                    document.getElementById('srvState').style.background = "red";
-                }
-            } catch(e) {
-                toast("Failed to scan server", "error");
-            }
-        }
-
-        // --- GENERAL ---
-        function copyTxt(t) {
-            ad();
-            navigator.clipboard.writeText(t);
-            toast(`Copied: ${t}`);
-        }
-        function copyToClip(id) {
-            ad();
-            const el = document.getElementById(id);
-            el.select();
-            document.execCommand('copy');
-            toast("Copied to clipboard!");
-        }
-
-        // INIT
-        initColors();
-        renderFonts();
-        initSeeds();
-        generateGradient();
-
-    </script>
 </body>
 </html>
