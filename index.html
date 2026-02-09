@@ -98,6 +98,15 @@
             text-transform: uppercase;
         }
 
+        /* FONT MAKER SPECIFIC */
+        .font-res-card {
+            background: var(--input-bg); padding: 20px; border-radius: 15px; border: 1px dashed #333;
+            margin-top: 15px; cursor: pointer; transition: 0.3s;
+        }
+        .font-res-card:hover { border-color: var(--accent); background: #161622; }
+        .font-label { font-size: 10px; color: #666; margin-bottom: 5px; display: block; }
+        .font-text { font-size: 18px; font-weight: 700; color: var(--accent); }
+
         /* RESPONSIVE FIXES */
         @media (max-width: 850px) {
             .sidebar { display: none; }
@@ -126,6 +135,7 @@
 
     <div class="sidebar">
         <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️ Font Maker</button>
         <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seed Finder</button>
         <button class="nav-btn" onclick="tab(event, 'skins')">👤 Skin Grabber</button>
         <button class="nav-btn" onclick="tab(event, 'status')">📡 Server Status</button>
@@ -133,6 +143,7 @@
 
     <div class="bottom-nav">
         <button class="nav-btn active" onclick="tab(event, 'colors')">🎨<br>Colors</button>
+        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️<br>Fonts</button>
         <button class="nav-btn" onclick="tab(event, 'seeds')">🌍<br>Seeds</button>
         <button class="nav-btn" onclick="tab(event, 'skins')">👤<br>Skins</button>
         <button class="nav-btn" onclick="tab(event, 'status')">📡<br>Status</button>
@@ -151,6 +162,28 @@
             <div class="box-container">
                 <div class="section-title">🌈 Neon Premium HEX</div>
                 <div class="grid" id="gridHex"></div>
+            </div>
+        </div>
+
+        <div id="fontmaker" class="app-card">
+            <div class="box-container">
+                <div class="section-title">✍️ Minecraft Font Style Maker</div>
+                <input type="text" id="fontInput" placeholder="Type your name..." oninput="generateFonts()">
+                
+                <div id="fontResults">
+                    <div class="font-res-card" onclick="copyFont('f1')">
+                        <span class="font-label">MC Bold Style</span>
+                        <div class="font-text" id="f1">EnderKit</div>
+                    </div>
+                    <div class="font-res-card" onclick="copyFont('f2')">
+                        <span class="font-label">Full Width Style</span>
+                        <div class="font-text" id="f2">ＥｎｄｅｒＫｉｔ</div>
+                    </div>
+                    <div class="font-res-card" onclick="copyFont('f3')">
+                        <span class="font-label">Medieval Style</span>
+                        <div class="font-text" id="f3">𝔈𝔫𝔡𝔢𝔯𝔎𝔦𝔱</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -222,6 +255,33 @@
             const activeBtns = document.querySelectorAll(`button[onclick*="'${id}'"]`);
             activeBtns.forEach(b => b.classList.add('active'));
             window.scrollTo(0,0);
+        }
+
+        // Font Maker Logic
+        function generateFonts() {
+            const val = document.getElementById('fontInput').value || "EnderKit";
+            
+            // F1: Bold Logic (Custom MC style feel)
+            document.getElementById('f1').innerText = val;
+            
+            // F2: Full Width
+            const fullWidth = val.split('').map(char => {
+                const code = char.charCodeAt(0);
+                return (code >= 33 && code <= 126) ? String.fromCharCode(code + 65248) : char;
+            }).join('');
+            document.getElementById('f2').innerText = fullWidth;
+
+            // F3: Medieval
+            const medievalMap = {"a":"𝔞","b":"𝔟","c":"𝔠","d":"𝔡","e":"𝔢","f":"𝔣","g":"𝔤","h":"𝔥","i":"𝔦","j":"𝔧","k":"𝔨","l":"𝔩","m":"𝔪","n":"𝔫","o":"𝔬","p":"𝔭","q":"𝔮","r":"𝔯","s":"𝔰","t":"𝔱","u":"𝔲","v":"𝔳","w":"𝔴","x":"𝔵","y":"𝔶","z":"𝔷","A":"𝔄","B":"𝔅","C":"ℭ","D":"𝔇","E":"𝔈","F":"𝔉","G":"𝔊","H":"ℌ","I":"ℑ","J":"𝔍","K":"𝔎","L":"𝔏","M":"𝔐","N":"𝔑","O":"𝔒","P":"𝔓","Q":"𝔔","R":"ℜ","S":"𝔖","T":"𝔗","U":"𝔘","V":"𝔙","W":"𝔚","X":"𝔛","Y":"𝔜","Z":"ℨ"};
+            const medieval = val.split('').map(char => medievalMap[char] || char).join('');
+            document.getElementById('f3').innerText = medieval;
+        }
+
+        function copyFont(id) {
+            ad();
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Copied: " + text);
         }
 
         function fill() {
