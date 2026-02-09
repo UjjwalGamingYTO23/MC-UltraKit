@@ -4,7 +4,12 @@
     <meta name="google-site-verification" content="6m77o9z49m" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EnderKit | Pro Minecraft Tools</title>
+    
+    <title>EnderKit | Pro Minecraft Tools - Seeds, Skins & Status</title>
+    <meta name="description" content="EnderKit: The ultimate Minecraft toolbox. Get OP Seeds, HD Skin Grabber, Server Status Checker and Color Codes. Free and Fast!">
+    <meta name="keywords" content="Minecraft Seeds, Minecraft Skin Grabber, Server Status, Minecraft Color Codes">
+    
+    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/minecraft-main.png">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Syncopate:wght@700&display=swap');
@@ -237,4 +242,4 @@
         async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const res = await fetch(`https://api.mcsrvstat.us/2/${i}`); const data = await res.json(); document.getElementById('srvRes').style.display = "block"; if(data.online) { document.getElementById('srvStatus').innerHTML = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14"; document.getElementById('srvMotd').innerText = data.motd.clean[0]; document.getElementById('srvPlayers').innerText = `${data.players.online}/${data.players.max}`; document.getElementById('srvVer').innerText = data.version; } else { document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red"; } }
     </script>
 </body>
-                    </html>
+</html>
