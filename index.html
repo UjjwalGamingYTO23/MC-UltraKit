@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>EnderKit | Pro Minecraft Tools - Seeds, Skins & Status</title>
-    <meta name="description" content="EnderKit: The ultimate Minecraft toolbox. Get OP Seeds, HD Skin Grabber, Server Status Checker and Color Codes. Free and Fast!">
-    <meta name="keywords" content="Minecraft Seeds, Minecraft Skin Grabber, Server Status, Minecraft Color Codes">
+    <title>EnderKit | Minecraft Stylish Font Generator, Nether Calc & Seeds</title>
+    <meta name="description" content="EnderKit: #1 Minecraft toolbox in India. Generate 50+ Stylish Fonts, calculate Nether Portals, find OP Seeds, and grab HD Skins for free!">
+    <meta name="keywords" content="Minecraft Stylish Font Generator, Minecraft Name Style India, Nether Portal Calculator, OP Minecraft Seeds 1.21, Minecraft Skin Downloader, MC Server Status, Minecraft Color Codes">
     
     <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/minecraft-main.png">
     
@@ -23,7 +23,6 @@
             --input-bg: #12121a;
         }
 
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -35,26 +34,25 @@
         /* HEADER */
         .header {
             width: 100%; padding: 20px; text-align: center;
-            background: rgba(0,0,0,0.3); border-bottom: 1px solid #1f1f27;
-            position: sticky; top: 0; z-index: 110; backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.4); border-bottom: 1px solid #1f1f27;
+            position: sticky; top: 0; z-index: 110; backdrop-filter: blur(12px);
         }
 
         .logo { 
-            font-family: 'Syncopate', sans-serif; font-size: 24px; font-weight: 900; 
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            font-family: 'Syncopate', sans-serif; font-size: 26px; font-weight: 900; 
+            background: linear-gradient(90deg, #ff0000, #39ff14, #00ffff, #ff00ff);
             background-size: 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: rgb-move 8s linear infinite; text-transform: uppercase;
         }
         @keyframes rgb-move { 0% { background-position: 0%; } 100% { background-position: 400%; } }
 
-        /* NAVIGATION: SIDEBAR (DESKTOP) */
+        /* NAVIGATION */
         .sidebar { 
-            width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.95); 
+            width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.98); 
             position: fixed; left: 0; top: 0; border-right: 1px solid #1f1f27; 
             padding: 100px 15px 30px 15px; z-index: 100;
         }
 
-        /* NAVIGATION: BOTTOM DOCK (MOBILE) */
         .bottom-nav {
             display: none; position: fixed; bottom: 0; left: 0; width: 100%;
             background: #0a0a0f; border-top: 1px solid #1f1f27;
@@ -68,28 +66,19 @@
         }
         .nav-btn.active { background: var(--btn); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
 
-        /* MAIN WRAPPER */
-        .wrapper { margin-left: 280px; padding: 40px; width: auto; flex-grow: 1; }
-
+        /* CONTENT WRAPPER */
+        .wrapper { margin-left: 280px; padding: 40px; flex-grow: 1; }
         .app-card { display: none; animation: fadeIn 0.5s ease; max-width: 900px; margin: 0 auto; }
         .app-card.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* COMPONENTS */
-        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .section-title { font-size: 13px; font-weight: 900; color: #555; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .box-container { background: var(--panel); border: 1px solid #1f1f27; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        .section-title { font-size: 13px; font-weight: 900; color: #666; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1.5px; border-left: 3px solid var(--primary); padding-left: 10px; }
 
         input, select { 
             width: 100%; padding: 16px; background: var(--input-bg); 
             border: 1px solid #222; border-radius: 12px; 
             color: #fff; font-weight: 600; outline: none; margin-bottom: 15px;
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-        .color-chip { 
-            height: 65px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer; font-weight: 900; font-size: 11px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; transition: 0.3s;
         }
 
         .cta-btn { 
@@ -98,33 +87,31 @@
             text-transform: uppercase;
         }
 
-        /* FONT MAKER SPECIFIC */
-        .font-res-card {
-            background: var(--input-bg); padding: 20px; border-radius: 15px; border: 1px dashed #333;
-            margin-top: 15px; cursor: pointer; transition: 0.3s;
-        }
+        /* FONT GENERATOR */
+        #fontResults { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .font-res-card { background: #12121a; padding: 15px; border-radius: 15px; border: 1px dashed #333; cursor: pointer; transition: 0.3s; }
         .font-res-card:hover { border-color: var(--accent); background: #161622; }
-        .font-label { font-size: 10px; color: #666; margin-bottom: 5px; display: block; }
-        .font-text { font-size: 18px; font-weight: 700; color: var(--accent); }
+        .font-label { font-size: 10px; color: #555; margin-bottom: 5px; display: block; }
+        .font-text { font-size: 17px; font-weight: 700; color: var(--accent); word-break: break-all; }
 
-        /* RESPONSIVE FIXES */
+        /* NETHER CALC */
+        .calc-grid { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 15px; align-items: center; text-align: center; }
+
+        /* COLORS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+        .color-chip { height: 65px; border-radius: 15px; cursor: pointer; font-weight: 900; font-size: 11px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+
+        /* RESPONSIVE */
         @media (max-width: 850px) {
-            .sidebar { display: none; }
-            .bottom-nav { display: flex; }
-            .wrapper { margin-left: 0; padding: 20px; padding-bottom: 100px; }
-            .bottom-nav .nav-btn { margin-bottom: 0; text-align: center; font-size: 10px; padding: 10px 5px; flex: 1; }
-            .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            .color-chip { height: 55px; font-size: 10px; }
-            .logo { font-size: 20px; }
+            .sidebar { display: none; } .bottom-nav { display: flex; } .wrapper { margin-left: 0; padding: 20px 15px 100px 15px; }
+            #fontResults { grid-template-columns: 1fr; }
+            .calc-grid { grid-template-columns: 1fr; }
+            .nav-btn { font-size: 10px; padding: 10px 2px; text-align: center; margin-bottom: 0; flex: 1; }
         }
 
-        /* SKIN & SERVER SPECIFIC */
         .srv-res { background: #000; padding: 20px; border-radius: 20px; border: 1px solid #222; margin-top: 20px; display: none; }
         .stat-line { margin-bottom: 10px; font-weight: 700; color: #888; font-size: 14px; }
         .stat-line span { color: var(--accent); }
-        .skin-display { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px; }
-        .skin-img { height: 280px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.3)); }
-        .dl-btn { padding: 15px 40px; background: var(--accent); color: #000; text-decoration: none; border-radius: 15px; font-weight: 900; text-align: center; width: 100%; max-width: 250px; }
     </style>
 </head>
 <body>
@@ -134,119 +121,93 @@
     </div>
 
     <div class="sidebar">
-        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨 Color Codes</button>
-        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️ Font Maker</button>
-        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seed Finder</button>
+        <button class="nav-btn active" onclick="tab(event, 'fontmaker')">✍️ Stylish Fonts</button>
+        <button class="nav-btn" onclick="tab(event, 'calc')">💎 Nether Calc</button>
+        <button class="nav-btn" onclick="tab(event, 'colors')">🎨 Color Codes</button>
+        <button class="nav-btn" onclick="tab(event, 'seeds')">🌍 OP Seeds</button>
         <button class="nav-btn" onclick="tab(event, 'skins')">👤 Skin Grabber</button>
         <button class="nav-btn" onclick="tab(event, 'status')">📡 Server Status</button>
     </div>
 
     <div class="bottom-nav">
-        <button class="nav-btn active" onclick="tab(event, 'colors')">🎨<br>Colors</button>
-        <button class="nav-btn" onclick="tab(event, 'fontmaker')">✍️<br>Fonts</button>
+        <button class="nav-btn active" onclick="tab(event, 'fontmaker')">✍️<br>Fonts</button>
+        <button class="nav-btn" onclick="tab(event, 'calc')">💎<br>Calc</button>
+        <button class="nav-btn" onclick="tab(event, 'colors')">🎨<br>Colors</button>
         <button class="nav-btn" onclick="tab(event, 'seeds')">🌍<br>Seeds</button>
-        <button class="nav-btn" onclick="tab(event, 'skins')">👤<br>Skins</button>
         <button class="nav-btn" onclick="tab(event, 'status')">📡<br>Status</button>
     </div>
 
     <div class="wrapper">
-        <div id="colors" class="app-card active">
+        
+        <div id="fontmaker" class="app-card active">
             <div class="box-container">
-                <div class="section-title">✨ Standard 16 Colors</div>
-                <div class="grid" id="gridStd"></div>
-            </div>
-            <div class="box-container">
-                <div class="section-title">🌑 Dark & Formatting</div>
-                <div class="grid" id="gridDark"></div>
-            </div>
-            <div class="box-container">
-                <div class="section-title">🌈 Neon Premium HEX</div>
-                <div class="grid" id="gridHex"></div>
+                <div class="section-title">✍️ Indian Stylish Font Generator</div>
+                <input type="text" id="fontInput" placeholder="Enter your name (e.g. Sahil)..." oninput="genFonts()">
+                <div id="fontResults"></div>
             </div>
         </div>
 
-        <div id="fontmaker" class="app-card">
+        <div id="calc" class="app-card">
             <div class="box-container">
-                <div class="section-title">✍️ Minecraft Font Style Maker</div>
-                <input type="text" id="fontInput" placeholder="Type your name..." oninput="generateFonts()">
-                
-                <div id="fontResults">
-                    <div class="font-res-card" onclick="copyFont('f1')">
-                        <span class="font-label">MC Bold Style</span>
-                        <div class="font-text" id="f1">EnderKit</div>
-                    </div>
-                    <div class="font-res-card" onclick="copyFont('f2')">
-                        <span class="font-label">Full Width Style</span>
-                        <div class="font-text" id="f2">ＥｎｄｅｒＫｉｔ</div>
-                    </div>
-                    <div class="font-res-card" onclick="copyFont('f3')">
-                        <span class="font-label">Medieval Style</span>
-                        <div class="font-text" id="f3">𝔈𝔫𝔡𝔢𝔯𝔎𝔦𝔱</div>
-                    </div>
+                <div class="section-title">💎 Nether Portal Calculator</div>
+                <div class="calc-grid">
+                    <div><label style="font-size: 10px; color:#555;">OVERWORLD X</label><input type="number" id="owX" oninput="toNether()"></div>
+                    <div style="font-size: 20px; color:var(--primary);">➔</div>
+                    <div><label style="font-size: 10px; color:#555;">NETHER X</label><input type="number" id="nX" oninput="toOver()"></div>
                 </div>
+                <button class="cta-btn" onclick="ad()">Link Portals</button>
             </div>
+        </div>
+
+        <div id="colors" class="app-card">
+            <div class="box-container"><div class="section-title">✨ Standard Colors</div><div class="grid" id="gridStd"></div></div>
+            <div class="box-container"><div class="section-title">🌈 Neon HEX</div><div class="grid" id="gridHex"></div></div>
         </div>
 
         <div id="seeds" class="app-card">
             <div class="box-container">
-                <div class="section-title">🌍 Select Your Dream World</div>
-                <select id="ed"><option value="java">☕ Java Edition</option><option value="bedrock">📱 Bedrock / PE</option></select>
-                <select id="cat">
-                    <option value="cherry">🌸 Cherry Grove Spawn</option>
-                    <option value="mushroom">🍄 Rare Mushroom Island</option>
-                    <option value="ancient">💎 Ancient City Under Spawn</option>
-                    <option value="mansion">🏰 Woodland Mansion Close</option>
-                    <option value="village">🏘️ 5x Blacksmith Village</option>
-                    <option value="speedrun">⚡ God Seed (Fortress + Bastion)</option>
+                <div class="section-title">🌍 OP Seed Finder (1.21+)</div>
+                <select id="seedCat">
+                    <option value="34088318">🌸 Cherry Spawn Village</option>
+                    <option value="1669320">🍄 Rare Mushroom Island</option>
+                    <option value="734081023">💎 Ancient City Under Spawn</option>
+                    <option value="-453063455">⚡ Speedrun God Seed</option>
                 </select>
-                <button class="cta-btn" onclick="getSeed()">Generate Seed</button>
-                <div id="sRes" class="srv-res">
-                    <h1 id="sVal" style="color:var(--accent); font-size: 30px; text-align: center;"></h1>
-                    <p id="sDes" style="margin-top:10px; font-weight: 700; text-align: center; color: #aaa;"></p>
-                </div>
+                <button class="cta-btn" onclick="getSeed()">Get Seed</button>
+                <div id="sRes" class="srv-res"><h1 id="sVal" style="color:var(--accent); text-align:center;"></h1></div>
             </div>
         </div>
 
         <div id="skins" class="app-card">
             <div class="box-container">
-                <div class="section-title">👤 Minecraft Skin Grabber</div>
+                <div class="section-title">👤 HD Skin Grabber</div>
                 <input type="text" id="skU" placeholder="Username (e.g. Dream)">
-                <button class="cta-btn" onclick="getSkin()">Grab HD Skin</button>
-                <div id="skRes" class="skin-display" style="display:none;">
-                    <img id="skImg" src="" class="skin-img">
-                    <a id="skDl" href="#" target="_blank" class="dl-btn">Download PNG</a>
+                <button class="cta-btn" onclick="getSkin()">Grab Skin</button>
+                <div id="skRes" style="display:none; text-align:center; margin-top:20px;">
+                    <img id="skImg" style="height:250px;"><br>
+                    <a id="skDl" href="#" target="_blank" class="cta-btn" style="display:inline-block; width:auto; padding:10px 30px; margin-top:10px;">Download PNG</a>
                 </div>
             </div>
         </div>
 
         <div id="status" class="app-card">
             <div class="box-container">
-                <div class="section-title">📡 Server Status Scanner</div>
+                <div class="section-title">📡 Server Scanner</div>
                 <input type="text" id="srv" placeholder="play.hypixel.net">
-                <button class="cta-btn" onclick="getSrv()">Scan Server</button>
+                <button class="cta-btn" onclick="getSrv()">Scan Now</button>
                 <div id="srvRes" class="srv-res">
-                    <h2 id="srvStatus" style="margin-bottom:15px;"></h2>
-                    <div class="stat-line">MOTD: <span id="srvMotd"></span></div>
+                    <h2 id="srvStatus"></h2>
                     <div class="stat-line">Players: <span id="srvPlayers"></span></div>
                     <div class="stat-line">Version: <span id="srvVer"></span></div>
-                    <div class="stat-line">Software: <span id="srvType"></span></div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
         const AD_URL = "https://otieu.com/4/10581423";
         function ad() { window.open(AD_URL, '_blank'); }
-
-        const cStd = [
-            {n:"White", c:"§f", h:"#ffffff"}, {n:"Yellow", c:"§e", h:"#ffff55"}, {n:"Red", c:"§c", h:"#ff5555"},
-            {n:"Aqua", c:"§b", h:"#55ffff"}, {n:"Green", c:"§a", h:"#55ff55"}, {n:"Gold", c:"§6", h:"#ffaa00"}
-        ];
-        const cDark = [
-            {n:"Black", c:"§0", h:"#000"}, {n:"D. Blue", c:"§1", h:"#0000aa"}, {n:"Bold", c:"§l", h:"#222"}, {n:"Reset", c:"§r", h:"#f00"}
-        ];
-        const cHex = ["#FF0000","#39FF14","#00FFFF","#FF00FF","#FFFF00","#0000FF","#8b00ff"];
 
         function tab(e, id) {
             document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
@@ -257,50 +218,42 @@
             window.scrollTo(0,0);
         }
 
-        // Font Maker Logic
-        function generateFonts() {
+        // Font Logic
+        const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const fMaps = [
+            { n: "Monospace", m: "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓ᴋʟᴍɴᴏᴘ𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇ＹＺ𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿" },
+            { n: "Double Struck", m: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡" },
+            { n: "Medieval", m: "𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔙𝔚𝔛𝔜ℨ0123456789" },
+            { n: "Bubble", m: "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ⓪①②③④⑤⑥⑦⑧⑨" }
+        ];
+
+        function genFonts() {
             const val = document.getElementById('fontInput').value || "EnderKit";
-            
-            // F1: Bold Logic (Custom MC style feel)
-            document.getElementById('f1').innerText = val;
-            
-            // F2: Full Width
-            const fullWidth = val.split('').map(char => {
-                const code = char.charCodeAt(0);
-                return (code >= 33 && code <= 126) ? String.fromCharCode(code + 65248) : char;
-            }).join('');
-            document.getElementById('f2').innerText = fullWidth;
-
-            // F3: Medieval
-            const medievalMap = {"a":"𝔞","b":"𝔟","c":"𝔠","d":"𝔡","e":"𝔢","f":"𝔣","g":"𝔤","h":"𝔥","i":"𝔦","j":"𝔧","k":"𝔨","l":"𝔩","m":"𝔪","n":"𝔫","o":"𝔬","p":"𝔭","q":"𝔮","r":"𝔯","s":"𝔰","t":"𝔱","u":"𝔲","v":"𝔳","w":"𝔴","x":"𝔵","y":"𝔶","z":"𝔷","A":"𝔄","B":"𝔅","C":"ℭ","D":"𝔇","E":"𝔈","F":"𝔉","G":"𝔊","H":"ℌ","I":"ℑ","J":"𝔍","K":"𝔎","L":"𝔏","M":"𝔐","N":"𝔑","O":"𝔒","P":"𝔓","Q":"𝔔","R":"ℜ","S":"𝔖","T":"𝔗","U":"𝔘","V":"𝔙","W":"𝔚","X":"𝔛","Y":"𝔜","Z":"ℨ"};
-            const medieval = val.split('').map(char => medievalMap[char] || char).join('');
-            document.getElementById('f3').innerText = medieval;
+            const res = document.getElementById('fontResults');
+            res.innerHTML = "";
+            fMaps.forEach(f => {
+                let out = val.split('').map(c => { let i = alpha.indexOf(c); return i > -1 ? f.m[i] : c; }).join('');
+                res.innerHTML += `<div class="font-res-card" onclick="ad(); navigator.clipboard.writeText('${out}'); alert('Copied!')"><span class="font-label">${f.n}</span><div class="font-text">${out}</div></div>`;
+            });
         }
+        genFonts();
 
-        function copyFont(id) {
-            ad();
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text);
-            alert("Copied: " + text);
-        }
+        // Nether Calc
+        function toNether() { let v = document.getElementById('owX').value; document.getElementById('nX').value = Math.floor(v/8); }
+        function toOver() { let v = document.getElementById('nX').value; document.getElementById('owX').value = v*8; }
 
+        // Colors
         function fill() {
-            const s = document.getElementById('gridStd'), d = document.getElementById('gridDark'), h = document.getElementById('gridHex');
-            cStd.forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}; color:${i.h==='#ffffff'?'#000':'#fff'}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.c}</div>`);
-            cDark.forEach(i => d.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}'); alert('Copied ${i.c}')">${i.c}</div>`);
-            cHex.forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
+            const s = document.getElementById('gridStd'), h = document.getElementById('gridHex');
+            [{n:"Red",c:"§c",h:"#ff5555"},{n:"Gold",c:"§6",h:"#ffaa00"},{n:"Aqua",c:"§b",h:"#55ffff"},{n:"Green",c:"§a",h:"#55ff55"}].forEach(i => s.innerHTML += `<div class="color-chip" style="background:${i.h}" onclick="ad(); navigator.clipboard.writeText('${i.c}')">${i.c}</div>`);
+            ["#FF0000","#00FF00","#0000FF","#FF00FF"].forEach(x => h.innerHTML += `<div class="color-chip" style="background:${x}; color:#000" onclick="ad(); navigator.clipboard.writeText('${x}')">${x}</div>`);
         }
         fill();
 
-        const sDB = {
-            cherry: {s:"34088318", d:"Cherry Grove Spawn"}, mushroom: {s:"1669320", d:"Mushroom Island"},
-            ancient: {s:"734081023", d:"Ancient City"}, speedrun: {s:"-453063455", d:"God Seed Fortress"}, village: {s:"906167", d:"5 Blacksmith Village"}
-        };
-
-        function getSeed() { ad(); const c=document.getElementById('cat').value; const r=sDB[c] || sDB['cherry']; document.getElementById('sVal').innerText=r.s; document.getElementById('sDes').innerText=r.d; document.getElementById('sRes').style.display="block"; }
-        function getSkin() { const u=document.getElementById('skU').value; if(!u) return; ad(); const img = document.getElementById('skImg'); img.onload = () => document.getElementById('skRes').style.display="flex"; img.src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; }
-        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const res = await fetch(`https://api.mcsrvstat.us/2/${i}`); const data = await res.json(); document.getElementById('srvRes').style.display = "block"; if(data.online) { document.getElementById('srvStatus').innerHTML = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14"; document.getElementById('srvMotd').innerText = data.motd.clean[0]; document.getElementById('srvPlayers').innerText = `${data.players.online}/${data.players.max}`; document.getElementById('srvVer').innerText = data.version; } else { document.getElementById('srvStatus').innerHTML = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red"; } }
+        // Seeds, Skins & Status
+        function getSeed() { ad(); document.getElementById('sVal').innerText = document.getElementById('seedCat').value; document.getElementById('sRes').style.display="block"; }
+        function getSkin() { const u = document.getElementById('skU').value; if(!u) return; ad(); document.getElementById('skRes').style.display="block"; document.getElementById('skImg').src=`https://mc-heads.net/body/${u}/250`; document.getElementById('skDl').href=`https://mc-heads.net/download/${u}`; }
+        async function getSrv() { const i=document.getElementById('srv').value; if(!i) return; ad(); const res = await fetch(`https://api.mcsrvstat.us/2/${i}`); const data = await res.json(); document.getElementById('srvRes').style.display = "block"; if(data.online) { document.getElementById('srvStatus').innerText = "● ONLINE"; document.getElementById('srvStatus').style.color = "#39ff14"; document.getElementById('srvPlayers').innerText = `${data.players.online}/${data.players.max}`; document.getElementById('srvVer').innerText = data.version; } else { document.getElementById('srvStatus').innerText = "● OFFLINE"; document.getElementById('srvStatus').style.color = "red"; } }
     </script>
 </body>
 </html>
-
