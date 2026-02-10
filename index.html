@@ -3,348 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnderKit - All Items Recipe Book</title>
-    <style>
-        /* --- DESIGN (CSS) --- */
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --accent: #5effb1; /* Ender Green */
-            --text: #ffffff;
-            --border: #333;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding-bottom: 100px; /* Space for sticky ad */
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        h1 {
-            color: var(--accent);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-        }
-
-        /* Recipe Viewer Area */
-        .recipe-viewer {
-            background: var(--card-bg);
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(94, 255, 177, 0.2);
-        }
-
-        .crafting-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px;
-            background: #c6c6c6; /* Minecraft GUI Grey */
-            padding: 15px;
-            border-radius: 4px;
-            border: 2px solid #555;
-        }
-
-        /* 3x3 Grid */
-        .crafting-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 40px);
-            grid-template-rows: repeat(3, 40px);
-            gap: 2px;
-        }
-
-        .slot {
-            width: 40px;
-            height: 40px;
-            background: #8b8b8b;
-            border: 2px solid #373737;
-            border-right-color: #fff;
-            border-bottom-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slot img { width: 32px; height: 32px; image-rendering: pixelated; }
-
-        .arrow { font-size: 24px; color: #333; font-weight: bold; }
-
-        .output-slot {
-            width: 50px;
-            height: 50px;
-            background: #8b8b8b;
-            border: 2px solid #373737;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .output-slot img { width: 40px; height: 40px; image-rendering: pixelated; }
-
-        /* Categories & Items */
-        .category-header {
-            border-bottom: 2px solid #333;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            color: #ddd;
-        }
-
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 10px;
-        }
-
-        .item-box {
-            background: #252525;
-            border: 1px solid #3d3d3d;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            border-radius: 5px;
-        }
-
-        .item-box:hover {
-            background: #444;
-            border-color: var(--accent);
-        }
-
-        .item-box img { width: 40px; height: 40px; image-rendering: pixelated; }
-
-        /* Sticky Bottom Banner (Ad) */
-        .sticky-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #fff;
-            color: #000;
-            padding: 10px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .banner-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            max-width: 1000px;
-            width: 100%;
-            justify-content: space-between;
-        }
-
-        .ad-tag {
-            background: #f1c40f;
-            padding: 2px 6px;
-            font-size: 11px;
-            font-weight: bold;
-            border-radius: 3px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
+    <title>ENDERKIT | All Item Recipes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>EnderKit Recipe Book</h1>
+    <header class="main-header">
+        <h1>ENDERKIT PRO</h1>
+    </header>
 
-        <div class="recipe-viewer">
-            <h3 id="item-title">Select an item below</h3>
-            <div class="crafting-area">
-                <div class="crafting-grid" id="grid-display">
+    <div class="container">
+        <section class="recipe-viewer-box">
+            <h2 id="recipe-name">Select an Item</h2>
+            <div class="mc-crafting-table">
+                <div class="crafting-grid" id="grid-container">
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
                 </div>
-                <div class="arrow">➞</div>
-                <div class="output-slot" id="output-display"></div>
+                <div class="mc-arrow">➞</div>
+                <div class="output-slot" id="result-slot"></div>
             </div>
-            <p style="color: #aaa; font-size: 0.9em; margin-top: 10px;">Click any item to view recipe</p>
-        </div>
+        </section>
 
-        <div id="library-container"></div>
+        <div id="items-library"></div>
     </div>
 
-    <div class="sticky-banner" id="adBanner">
-        <div class="banner-content">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <span class="ad-tag">Ad</span>
-                <span><strong>Want Exclusive Mods?</strong> Get the Pro texture pack now!</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:15px;">
-                <button style="background:#007bff; color:white; border:none; padding:8px 15px; border-radius:4px; cursor:pointer;">Download</button>
-                <button class="close-btn" onclick="document.getElementById('adBanner').style.display='none'">×</button>
-            </div>
+    <div class="sticky-footer-ad" id="ad-banner">
+        <div class="ad-wrap">
+            <span class="ad-badge">AD</span>
+            <p><strong>ENDERKIT PRO:</strong> Unlock VIP Seeds & Custom Gradients!</p>
+            <button class="ad-action-btn">GET NOW</button>
+            <button class="close-ad" onclick="document.getElementById('ad-banner').style.display='none'">×</button>
         </div>
     </div>
 
-    <script>
-        /* --- LOGIC (JAVASCRIPT) --- */
-
-        // 1. DATABASE: Yahan apne items add karte jao
-        // Note: Images ke liye maine placeholder lagaya hai. 
-        // Tum "assets/block_name.png" use karna jab tumhari files ready hon.
-        const items = [
-            {
-                id: "chest",
-                name: "Chest",
-                category: "Storage",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/41/Chest.png", // Example Online Image
-                recipe: [
-                    "planks", "planks", "planks",
-                    "planks", null,     "planks",
-                    "planks", "planks", "planks"
-                ]
-            },
-            {
-                id: "stick",
-                name: "Stick",
-                category: "Materials",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/7a/Stick_JE1_BE1.png",
-                recipe: [
-                    null, "planks", null,
-                    null, "planks", null,
-                    null, null, null
-                ]
-            },
-            {
-                id: "diamond_sword",
-                name: "Diamond Sword",
-                category: "Combat",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c3/Diamond_Sword_JE2_BE2.png",
-                recipe: [
-                    null, "diamond", null,
-                    null, "diamond", null,
-                    null, "stick", null
-                ]
-            },
-            {
-                id: "furnace",
-                name: "Furnace",
-                category: "Production",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/de/Furnace_%28S%29_JE4.png",
-                recipe: [
-                    "cobblestone", "cobblestone", "cobblestone",
-                    "cobblestone", null,          "cobblestone",
-                    "cobblestone", "cobblestone", "cobblestone"
-                ]
-            },
-            {
-                id: "planks", // Dummy item used in recipes
-                name: "Oak Planks",
-                category: "Building",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1b/Oak_Planks.png",
-                recipe: [null, "log", null, null, null, null, null, null, null]
-            },
-             {
-                id: "diamond", // Dummy item
-                name: "Diamond",
-                category: "Materials",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c4/Diamond_JE2_BE2.png",
-                recipe: []
-            },
-            {
-                id: "cobblestone", // Dummy item
-                name: "Cobblestone",
-                category: "Building",
-                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a2/Cobblestone_JE4_BE2.png",
-                recipe: []
-            }
-        ];
-
-        // 2. Helper function to find image by ID
-        function getImg(id) {
-            if(!id) return ''; // Empty slot
-            const found = items.find(i => i.id === id);
-            // Agar item list me hai to uski image, nahi to default question mark
-            return found ? found.img : 'https://via.placeholder.com/32?text=?'; 
-        }
-
-        // 3. Render Page
-        const container = document.getElementById('library-container');
-        
-        // Categories nikalo unique
-        const categories = [...new Set(items.map(i => i.category))];
-
-        categories.forEach(cat => {
-            // Category Title
-            const header = document.createElement('h2');
-            header.className = 'category-header';
-            header.innerText = cat;
-            container.appendChild(header);
-
-            // Grid for this category
-            const grid = document.createElement('div');
-            grid.className = 'items-grid';
-
-            // Items filter karo
-            items.filter(i => i.category === cat).forEach(item => {
-                const box = document.createElement('div');
-                box.className = 'item-box';
-                box.innerHTML = `<img src="${item.img}" title="${item.name}">`;
-                
-                // Click Event
-                box.onclick = () => loadRecipe(item);
-                
-                grid.appendChild(box);
-            });
-            container.appendChild(grid);
-        });
-
-        // 4. Load Recipe Function
-        function loadRecipe(item) {
-            document.getElementById('item-title').innerText = "Recipe: " + item.name;
-            document.getElementById('output-display').innerHTML = `<img src="${item.img}">`;
-
-            const gridContainer = document.getElementById('grid-display');
-            gridContainer.innerHTML = ''; // Clear old
-
-            // 9 slots fill karo
-            const recipe = item.recipe && item.recipe.length === 9 
-                           ? item.recipe 
-                           : [null,null,null,null,null,null,null,null,null];
-
-            recipe.forEach(ingredientId => {
-                const slot = document.createElement('div');
-                slot.className = 'slot';
-                if(ingredientId) {
-                    slot.innerHTML = `<img src="${getImg(ingredientId)}">`;
-                }
-                gridContainer.appendChild(slot);
-            });
-            
-            // Scroll to top to see recipe
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
