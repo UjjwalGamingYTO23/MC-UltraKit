@@ -1,0 +1,38 @@
+.header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+}
+.navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
