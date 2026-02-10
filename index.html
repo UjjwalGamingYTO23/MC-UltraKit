@@ -1,482 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="6m77o9z49m" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>EnderKit ULTIMATE | Recipes, Gradients & Tools</title>
-    <meta name="description" content="EnderKit Ultimate: Minecraft Recipe Book, RGB Gradients, Fonts, Nether Calc, Seeds, and Server Status.">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/minecraft-main.png">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnderKit - All Items Recipe Book</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Outfit:wght@300;500;700;900&family=Syncopate:wght@700&display=swap');
-
+        /* --- DESIGN (CSS) --- */
         :root {
-            --bg: #050508;
-            --panel: #0f0f16;
-            --panel-border: #1f1f2a;
-            --accent: #39ff14;
-            --primary: #a855f7;
-            --secondary: #00e5ff;
-            --danger: #ff2a2a;
-            --text-main: #ffffff;
-            --text-muted: #8888aa;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent: #5effb1; /* Ender Green */
+            --text: #ffffff;
+            --border: #333;
         }
 
-        /* RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-
-        body { 
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
-            color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-bottom: 100px; /* Space for sticky ad */
         }
 
-        /* NOTIFICATIONS */
-        #toast-box { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-        .toast { background: rgba(20, 20, 30, 0.95); border: 1px solid var(--accent); padding: 12px 20px; border-radius: 8px; color: #fff; font-weight: 700; font-size: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(100%); animation: slideIn 0.3s forwards; pointer-events: auto; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(5px); }
-        .toast.error { border-color: var(--danger); }
-        @keyframes slideIn { to { transform: translateX(0); } }
-
-        /* HEADER */
-        .header {
-            width: 100%; padding: 15px 30px; 
-            background: rgba(5, 5, 8, 0.8); border-bottom: 1px solid var(--panel-border);
-            position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: space-between;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .logo { 
-            font-family: 'Syncopate', sans-serif; font-size: 22px; font-weight: 900; 
-            background: linear-gradient(90deg, #fff, var(--primary), var(--accent));
-            background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite; letter-spacing: 1px;
-        }
-        @keyframes shine { 0% { background-position: 0%; } 100% { background-position: 200%; } }
-
-        /* LAYOUT */
-        .main-container { display: flex; min-height: calc(100vh - 70px); }
-        
-        .sidebar { 
-            width: 260px; background: var(--panel); border-right: 1px solid var(--panel-border);
-            padding: 20px; display: flex; flex-direction: column; gap: 8px;
-            position: fixed; height: calc(100vh - 70px); top: 70px; overflow-y: auto;
+        h1 {
+            color: var(--accent);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
         }
 
-        .content-area { 
-            flex: 1; margin-left: 260px; padding: 40px; 
-            max-width: 1400px; width: 100%;
+        /* Recipe Viewer Area */
+        .recipe-viewer {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(94, 255, 177, 0.2);
         }
 
-        /* MOBILE NAV FIXED */
-        .bottom-nav { 
-            display: none; position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: #0a0a10; border-top: 1px solid var(--panel-border); 
-            z-index: 900; padding: 10px; 
-            overflow-x: auto; /* ENABLE HORIZONTAL SCROLL */
-            white-space: nowrap; /* PREVENT WRAPPING */
+        .crafting-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            background: #c6c6c6; /* Minecraft GUI Grey */
+            padding: 15px;
+            border-radius: 4px;
+            border: 2px solid #555;
+        }
+
+        /* 3x3 Grid */
+        .crafting-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 40px);
+            grid-template-rows: repeat(3, 40px);
+            gap: 2px;
+        }
+
+        .slot {
+            width: 40px;
+            height: 40px;
+            background: #8b8b8b;
+            border: 2px solid #373737;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slot img { width: 32px; height: 32px; image-rendering: pixelated; }
+
+        .arrow { font-size: 24px; color: #333; font-weight: bold; }
+
+        .output-slot {
+            width: 50px;
+            height: 50px;
+            background: #8b8b8b;
+            border: 2px solid #373737;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .output-slot img { width: 40px; height: 40px; image-rendering: pixelated; }
+
+        /* Categories & Items */
+        .category-header {
+            border-bottom: 2px solid #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            color: #ddd;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
             gap: 10px;
-            backdrop-filter: blur(10px); 
         }
-        /* Hide scrollbar for clean look but allow scroll */
-        .bottom-nav::-webkit-scrollbar { height: 0px; background: transparent; }
 
-        /* BUTTONS & INPUTS */
-        .nav-btn { 
-            width: 100%; padding: 14px 18px; border: 1px solid transparent; background: transparent;
-            color: var(--text-muted); text-align: left; cursor: pointer; border-radius: 10px;
-            font-weight: 600; transition: all 0.3s; display: flex; align-items: center; gap: 12px;
-            flex-shrink: 0; /* Prevent shrinking in mobile nav */
+        .item-box {
+            background: #252525;
+            border: 1px solid #3d3d3d;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 5px;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-btn.active { background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3); color: var(--accent); box-shadow: 0 0 15px rgba(168, 85, 247, 0.05); }
 
-        .app-card { display: none; animation: fadeUp 0.4s ease; }
-        .app-card.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden; }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); opacity: 0.5; }
-        
-        .section-header { margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        .section-title { font-size: 18px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        input, select, textarea { 
-            width: 100%; background: #050508; border: 1px solid #333; color: #fff;
-            padding: 15px; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 14px;
-            outline: none; transition: 0.3s; margin-bottom: 15px;
+        .item-box:hover {
+            background: #444;
+            border-color: var(--accent);
         }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2); }
 
-        .cta-btn { 
-            width: 100%; padding: 16px; background: var(--gradient); 
-            border: none; border-radius: 10px; color: #fff; font-weight: 800; 
-            text-transform: uppercase; cursor: pointer; letter-spacing: 1px;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+        .item-box img { width: 40px; height: 40px; image-rendering: pixelated; }
 
-        /* --- RECIPE STYLES --- */
-        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 5px;}
-        .recipe-item { 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; 
+        /* Sticky Bottom Banner (Ad) */
+        .sticky-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            color: #000;
+            padding: 10px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
         }
-        .recipe-item:hover { border-color: var(--accent); background: rgba(57, 255, 20, 0.1); }
-        .recipe-icon { font-size: 32px; display: block; margin-bottom: 5px; }
-        .recipe-name { font-size: 10px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        /* CRAFTING TABLE UI */
-        .crafting-ui { display: flex; align-items: center; justify-content: center; gap: 20px; background: #c6c6c6; padding: 20px; border-radius: 10px; width: fit-content; margin: 20px auto; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); border: 4px solid #555; }
-        .craft-grid { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; }
-        .craft-slot { 
-            width: 40px; height: 40px; background: #8b8b8b; border: 2px solid #373737; border-right-color: #fff; border-bottom-color: #fff; 
-            display: flex; align-items: center; justify-content: center; font-size: 20px; position: relative;
-        }
-        .craft-slot:hover::after {
-            content: attr(data-item); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            background: #111; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 4px; white-space: nowrap; pointer-events: none;
-        }
-        .arrow { font-size: 30px; color: #444; }
-        .result-slot { width: 60px; height: 60px; background: #8b8b8b; border: 2px solid #373737; display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer; }
-        .result-slot:hover { background: #a0a0a0; }
 
-        /* EXISTING STYLES (Colors, Fonts, etc.) preserved... */
-        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-        .color-box { height: 60px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); font-size: 10px; }
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        .font-item { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; cursor: pointer; border: 1px solid var(--panel-border); }
-        .calc-wrapper { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
-        .dimension-box { flex: 1; background: #000; padding: 20px; border-radius: 15px; border: 1px solid #333; min-width: 250px; }
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1000px;
+            width: 100%;
+            justify-content: space-between;
+        }
 
-        @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .content-area { margin-left: 0; padding: 20px 15px 120px 15px; }
-            .bottom-nav { display: flex; }
-            .calc-wrapper { flex-direction: column; }
-            .crafting-ui { transform: scale(0.9); padding: 10px; }
+        .ad-tag {
+            background: #f1c40f;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div id="toast-box"></div>
+    <div class="container">
+        <h1>EnderKit Recipe Book</h1>
 
-    <div class="header">
-        <div class="logo">ENDERKIT<span style="font-size:10px; vertical-align:top; color:var(--accent);">ULTIMATE</span></div>
+        <div class="recipe-viewer">
+            <h3 id="item-title">Select an item below</h3>
+            <div class="crafting-area">
+                <div class="crafting-grid" id="grid-display">
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                </div>
+                <div class="arrow">➞</div>
+                <div class="output-slot" id="output-display"></div>
+            </div>
+            <p style="color: #aaa; font-size: 0.9em; margin-top: 10px;">Click any item to view recipe</p>
+        </div>
+
+        <div id="library-container"></div>
     </div>
 
-    <div class="main-container">
-        <div class="sidebar">
-            <button class="nav-btn active" onclick="switchTab('recipes')"><span>📖</span> Recipe Book</button>
-            <button class="nav-btn" onclick="switchTab('colors')"><span>🎨</span> Colors & Gradients</button>
-            <button class="nav-btn" onclick="switchTab('fonts')"><span>✍️</span> Font Generator</button>
-            <button class="nav-btn" onclick="switchTab('nether')"><span>💎</span> Nether Linker</button>
-            <button class="nav-btn" onclick="switchTab('seeds')"><span>🌍</span> God Seeds</button>
-            <button class="nav-btn" onclick="switchTab('skins')"><span>👤</span> Skin Viewer</button>
-            <button class="nav-btn" onclick="switchTab('status')"><span>📡</span> Server Status</button>
-        </div>
-
-        <div class="bottom-nav">
-            <button class="nav-btn active" onclick="switchTab('recipes')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">📖<br>Recipes</button>
-            <button class="nav-btn" onclick="switchTab('colors')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">🎨<br>Colors</button>
-            <button class="nav-btn" onclick="switchTab('fonts')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">✍️<br>Fonts</button>
-            <button class="nav-btn" onclick="switchTab('nether')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">💎<br>Calc</button>
-            <button class="nav-btn" onclick="switchTab('seeds')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">🌍<br>Seeds</button>
-            <button class="nav-btn" onclick="switchTab('skins')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">👤<br>Skins</button>
-            <button class="nav-btn" onclick="switchTab('status')" style="flex-direction:column; gap:5px; font-size:10px; padding:8px; width:70px;">📡<br>Status</button>
-        </div>
-
-        <div class="content-area">
-
-            <div id="recipes" class="app-card active">
-                <div class="card">
-                    <div class="section-header">
-                        <div class="section-title">Item Recipe Database</div>
-                    </div>
-                    
-                    <input type="text" id="recipeSearch" placeholder="Search item (e.g. Sword, TNT, Beacon, Cake)..." oninput="filterRecipes()">
-                    
-                    <div id="craftingView" style="display:none; text-align:center; animation: fadeUp 0.3s;">
-                        <h3 id="craftTitle" style="color:var(--accent); margin-bottom:10px;">Item Name</h3>
-                        <div class="crafting-ui">
-                            <div class="craft-grid" id="craftGrid"></div>
-                            <div class="arrow">➜</div>
-                            <div class="result-slot" id="craftResult"></div>
-                        </div>
-                        <p style="color:#888; font-size:12px; margin-top:10px;">Hover over slots to see ingredients</p>
-                        <hr style="border-color:#333; margin: 20px 0;">
-                    </div>
-
-                    <div class="recipe-grid" id="recipeList">
-                        </div>
-                </div>
+    <div class="sticky-banner" id="adBanner">
+        <div class="banner-content">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span class="ad-tag">Ad</span>
+                <span><strong>Want Exclusive Mods?</strong> Get the Pro texture pack now!</span>
             </div>
-
-            <div id="colors" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">RGB Gradient</div></div>
-                    <input type="text" id="gradInput" value="Welcome to EnderKit" oninput="generateGradient()">
-                    <div style="display:flex; gap:10px; margin-bottom:20px;">
-                        <input type="color" id="col1" value="#39ff14" oninput="generateGradient()" style="height:50px;">
-                        <input type="color" id="col2" value="#a855f7" oninput="generateGradient()" style="height:50px;">
-                    </div>
-                    <div id="gradPreview" style="font-size:30px; font-weight:900; text-align:center; margin:20px 0; background:#000; padding:20px; border-radius:10px;"></div>
-                    <textarea id="gradCode" readonly style="height:60px; color:#aaa; font-size:11px;"></textarea>
-                </div>
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Color Codes</div></div>
-                    <div class="color-grid" id="stdColors"></div>
-                </div>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <button style="background:#007bff; color:white; border:none; padding:8px 15px; border-radius:4px; cursor:pointer;">Download</button>
+                <button class="close-btn" onclick="document.getElementById('adBanner').style.display='none'">×</button>
             </div>
-
-            <div id="fonts" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Font Styles</div></div>
-                    <input type="text" id="fontInput" placeholder="Type name..." oninput="renderFonts()">
-                    <div class="font-grid" id="fontOutput"></div>
-                </div>
-            </div>
-
-            <div id="nether" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Portal Linker</div></div>
-                    <div class="calc-wrapper">
-                        <div class="dimension-box">
-                            <span style="color:var(--accent); display:block; margin-bottom:10px; font-weight:bold;">OVERWORLD</span>
-                            <div style="display:flex; gap:5px;"><input type="number" id="owX" placeholder="X" oninput="calcNether('toN')"><input type="number" id="owZ" placeholder="Z" oninput="calcNether('toN')"></div>
-                        </div>
-                        <div style="font-size:24px;">➜</div>
-                        <div class="dimension-box">
-                            <span style="color:var(--danger); display:block; margin-bottom:10px; font-weight:bold;">NETHER</span>
-                            <div style="display:flex; gap:5px;"><input type="number" id="neX" placeholder="X" oninput="calcNether('toO')"><input type="number" id="neZ" placeholder="Z" oninput="calcNether('toO')"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="seeds" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">God Seeds (1.21+)</div></div>
-                    <div id="seedList" style="display:grid; gap:15px;"></div>
-                </div>
-            </div>
-
-            <div id="skins" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Skin Viewer</div></div>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="skinUser" placeholder="Username">
-                        <button class="cta-btn" style="width:100px;" onclick="loadSkin()">GO</button>
-                    </div>
-                    <div id="skinDisplay" style="display:none; text-align:center; margin-top:20px;">
-                        <img id="skinBody" style="height:250px;">
-                    </div>
-                </div>
-            </div>
-
-            <div id="status" class="app-card">
-                <div class="card">
-                    <div class="section-header"><div class="section-title">Server Status</div></div>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="srvIp" placeholder="IP (e.g. hypixel.net)">
-                        <button class="cta-btn" style="width:100px;" onclick="checkServer()">SCAN</button>
-                    </div>
-                    <div id="srvResult" style="display:none; margin-top:20px; text-align:center;">
-                        <img id="srvIcon" style="width:64px; border-radius:10px;">
-                        <h2 id="srvHostname" style="margin:10px 0;"></h2>
-                        <div id="srvState" style="display:inline-block; padding:5px 10px; border-radius:5px; font-weight:bold;"></div>
-                        <p id="srvPlay" style="color:var(--accent); margin-top:10px;"></p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
     <script>
-        const AD_URL = "https://otieu.com/4/10581423";
-        function ad() { window.open(AD_URL, '_blank'); }
+        /* --- LOGIC (JAVASCRIPT) --- */
 
-        function toast(msg) {
-            const t = document.createElement('div'); t.className = "toast"; t.innerHTML = `<span>✅</span> ${msg}`;
-            document.getElementById('toast-box').appendChild(t); setTimeout(() => t.remove(), 3000);
-        }
-
-        function switchTab(id) {
-            document.querySelectorAll('.app-card').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll(`button[onclick="switchTab('${id}')"]`).forEach(b => b.classList.add('active'));
-            window.scrollTo(0,0);
-        }
-
-        /* --- RECIPE DATABASE (HUGE) --- */
-        // Key: Name, Icon, Pattern (null = empty), Ingredients Map
-        const recipes = [
-            // TOOLS
-            {n:"Wooden Pickaxe", i:"⛏️", p:["W","W","W",null,"S",null,null,"S",null], m:{W:"Planks", S:"Stick"}},
-            {n:"Wooden Sword", i:"⚔️", p:[null,"W",null,null,"W",null,null,"S",null], m:{W:"Planks", S:"Stick"}},
-            {n:"Wooden Axe", i:"🪓", p:["W","W",null,"W","S",null,null,"S",null], m:{W:"Planks", S:"Stick"}},
-            {n:"Wooden Shovel", i:"🥄", p:[null,"W",null,null,"S",null,null,"S",null], m:{W:"Planks", S:"Stick"}},
-            {n:"Wooden Hoe", i:"🌾", p:["W","W",null,null,"S",null,null,"S",null], m:{W:"Planks", S:"Stick"}},
-            {n:"Iron Pickaxe", i:"⛏️", p:["I","I","I",null,"S",null,null,"S",null], m:{I:"Iron Ingot", S:"Stick"}},
-            {n:"Iron Sword", i:"⚔️", p:[null,"I",null,null,"I",null,null,"S",null], m:{I:"Iron Ingot", S:"Stick"}},
-            {n:"Diamond Pickaxe", i:"💎", p:["D","D","D",null,"S",null,null,"S",null], m:{D:"Diamond", S:"Stick"}},
-            {n:"Shield", i:"🛡️", p:["W","I","W","W","W","W",null,"W",null], m:{W:"Planks", I:"Iron Ingot"}},
-            {n:"Bow", i:"🏹", p:[null,"S","t","S",null,"t",null,"S","t"], m:{S:"Stick", t:"String"}},
-            {n:"Arrow", i:"➹", p:[null,"F",null,null,"S",null,null,"Fe",null], m:{F:"Flint", S:"Stick", Fe:"Feather"}},
-            
-            // UTILITY
-            {n:"Crafting Table", i:"🟫", p:["W","W",null,"W","W",null,null,null,null], m:{W:"Planks"}},
-            {n:"Chest", i:"📦", p:["W","W","W","W",null,"W","W","W","W"], m:{W:"Planks"}},
-            {n:"Furnace", i:"🔥", p:["C","C","C","C",null,"C","C","C","C"], m:{C:"Cobblestone"}},
-            {n:"Torch", i:"🕯️", p:[null,"C",null,null,"S",null,null,null,null], m:{C:"Coal/Charcoal", S:"Stick"}},
-            {n:"Bucket", i:"🪣", p:[null,null,null,"I",null,"I",null,"I",null], m:{I:"Iron Ingot"}},
-            {n:"Bed", i:"🛏️", p:[null,null,null,"L","L","L","W","W","W"], m:{L:"Wool", W:"Planks"}},
-            {n:"Boat", i:"🛶", p:[null,null,null,"W",null,"W","W","W","W"], m:{W:"Planks"}},
-            
-            // REDSTONE
-            {n:"TNT", i:"🧨", p:["G","S","G","S","G","S","G","S","G"], m:{G:"Gunpowder", S:"Sand"}},
-            {n:"Piston", i:"🧱", p:["W","W","W","C","I","C","C","R","C"], m:{W:"Planks", C:"Cobble", I:"Iron", R:"Redstone"}},
-            {n:"Dispenser", i:"😲", p:["C","C","C","C","B","C","C","R","C"], m:{C:"Cobble", B:"Bow", R:"Redstone"}},
-            {n:"Repeater", i:"🔁", p:[null,null,null,"T","R","T","S","S","S"], m:{T:"Redstone Torch", R:"Redstone", S:"Stone"}},
-            {n:"Observer", i:"👀", p:["C","C","C","R","R","Q","C","C","C"], m:{C:"Cobble", R:"Redstone", Q:"Quartz"}},
-            
-            // FOOD
-            {n:"Bread", i:"🍞", p:[null,null,null,"W","W","W",null,null,null], m:{W:"Wheat"}},
-            {n:"Cake", i:"🎂", p:["M","M","M","S","E","S","W","W","W"], m:{M:"Milk", S:"Sugar", E:"Egg", W:"Wheat"}},
-            {n:"Golden Apple", i:"🍎", p:["G","G","G","G","A","G","G","G","G"], m:{G:"Gold Ingot", A:"Apple"}},
-            {n:"Cookie", i:"🍪", p:[null,null,null,"W","C","W",null,null,null], m:{W:"Wheat", C:"Cocoa Beans"}},
-            {n:"Pumpkin Pie", i:"🥧", p:[null,null,null,"P","S",null,"E",null,null], m:{P:"Pumpkin", S:"Sugar", E:"Egg"}},
-            
-            // ARMOR
-            {n:"Iron Helmet", i:"🧢", p:["I","I","I","I",null,"I",null,null,null], m:{I:"Iron Ingot"}},
-            {n:"Iron Chestplate", i:"👕", p:["I",null,"I","I","I","I","I","I","I"], m:{I:"Iron Ingot"}},
-            {n:"Iron Leggings", i:"👖", p:["I","I","I","I",null,"I","I",null,"I"], m:{I:"Iron Ingot"}},
-            {n:"Iron Boots", i:"👢", p:[null,null,null,"I",null,"I","I",null,"I"], m:{I:"Iron Ingot"}},
-            
-            // MISC
-            {n:"Beacon", i:"🔆", p:["G","G","G","G","N","G","O","O","O"], m:{G:"Glass", N:"Nether Star", O:"Obsidian"}},
-            {n:"Enchanting Table", i:"📖", p:[null,"B",null,"D","O","D","O","O","O"], m:{B:"Book", D:"Diamond", O:"Obsidian"}},
-            {n:"Anvil", i:"🔨", p:["B","B","B",null,"I",null,"I","I","I"], m:{B:"Iron Block", I:"Iron Ingot"}},
-            {n:"Ender Eye", i:"👁️", p:[null,"P",null,null,"B",null,null,null,null], m:{P:"Ender Pearl", B:"Blaze Powder"}},
+        // 1. DATABASE: Yahan apne items add karte jao
+        // Note: Images ke liye maine placeholder lagaya hai. 
+        // Tum "assets/block_name.png" use karna jab tumhari files ready hon.
+        const items = [
+            {
+                id: "chest",
+                name: "Chest",
+                category: "Storage",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/41/Chest.png", // Example Online Image
+                recipe: [
+                    "planks", "planks", "planks",
+                    "planks", null,     "planks",
+                    "planks", "planks", "planks"
+                ]
+            },
+            {
+                id: "stick",
+                name: "Stick",
+                category: "Materials",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/7a/Stick_JE1_BE1.png",
+                recipe: [
+                    null, "planks", null,
+                    null, "planks", null,
+                    null, null, null
+                ]
+            },
+            {
+                id: "diamond_sword",
+                name: "Diamond Sword",
+                category: "Combat",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c3/Diamond_Sword_JE2_BE2.png",
+                recipe: [
+                    null, "diamond", null,
+                    null, "diamond", null,
+                    null, "stick", null
+                ]
+            },
+            {
+                id: "furnace",
+                name: "Furnace",
+                category: "Production",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/de/Furnace_%28S%29_JE4.png",
+                recipe: [
+                    "cobblestone", "cobblestone", "cobblestone",
+                    "cobblestone", null,          "cobblestone",
+                    "cobblestone", "cobblestone", "cobblestone"
+                ]
+            },
+            {
+                id: "planks", // Dummy item used in recipes
+                name: "Oak Planks",
+                category: "Building",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1b/Oak_Planks.png",
+                recipe: [null, "log", null, null, null, null, null, null, null]
+            },
+             {
+                id: "diamond", // Dummy item
+                name: "Diamond",
+                category: "Materials",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c4/Diamond_JE2_BE2.png",
+                recipe: []
+            },
+            {
+                id: "cobblestone", // Dummy item
+                name: "Cobblestone",
+                category: "Building",
+                img: "https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a2/Cobblestone_JE4_BE2.png",
+                recipe: []
+            }
         ];
 
-        function filterRecipes() {
-            const q = document.getElementById('recipeSearch').value.toLowerCase();
-            const list = document.getElementById('recipeList');
-            list.innerHTML = "";
-            recipes.filter(x => x.n.toLowerCase().includes(q)).forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'recipe-item';
-                div.innerHTML = `<span class="recipe-icon">${item.i}</span><span class="recipe-name">${item.n}</span>`;
-                div.onclick = () => showRecipe(item);
-                list.appendChild(div);
-            });
+        // 2. Helper function to find image by ID
+        function getImg(id) {
+            if(!id) return ''; // Empty slot
+            const found = items.find(i => i.id === id);
+            // Agar item list me hai to uski image, nahi to default question mark
+            return found ? found.img : 'https://via.placeholder.com/32?text=?'; 
         }
+
+        // 3. Render Page
+        const container = document.getElementById('library-container');
         
-        function showRecipe(item) {
-            document.getElementById('craftingView').style.display = 'block';
-            document.getElementById('craftTitle').innerText = item.n;
-            document.getElementById('craftResult').innerText = item.i;
-            const grid = document.getElementById('craftGrid');
-            grid.innerHTML = "";
-            
-            item.p.forEach((slotCode, index) => {
-                const slot = document.createElement('div');
-                slot.className = "craft-slot";
+        // Categories nikalo unique
+        const categories = [...new Set(items.map(i => i.category))];
+
+        categories.forEach(cat => {
+            // Category Title
+            const header = document.createElement('h2');
+            header.className = 'category-header';
+            header.innerText = cat;
+            container.appendChild(header);
+
+            // Grid for this category
+            const grid = document.createElement('div');
+            grid.className = 'items-grid';
+
+            // Items filter karo
+            items.filter(i => i.category === cat).forEach(item => {
+                const box = document.createElement('div');
+                box.className = 'item-box';
+                box.innerHTML = `<img src="${item.img}" title="${item.name}">`;
                 
-                if(slotCode) {
-                    // Logic to make it look nicer (simple coloring)
-                    let display = slotCode;
-                    let ingredientName = item.m[slotCode] || "Unknown";
-                    slot.innerText = slotCode;
-                    slot.setAttribute('data-item', ingredientName);
-                    
-                    // Simple styling based on type
-                    if(['W','S'].includes(slotCode)) slot.style.color = "#d4a373"; // Wood
-                    if(['I'].includes(slotCode)) slot.style.color = "#fff"; // Iron
-                    if(['D'].includes(slotCode)) slot.style.color = "#00e5ff"; // Diamond
-                    if(['G'].includes(slotCode)) slot.style.color = "#e9c46a"; // Gold
-                    if(['R'].includes(slotCode)) slot.style.color = "red"; // Redstone
+                // Click Event
+                box.onclick = () => loadRecipe(item);
+                
+                grid.appendChild(box);
+            });
+            container.appendChild(grid);
+        });
+
+        // 4. Load Recipe Function
+        function loadRecipe(item) {
+            document.getElementById('item-title').innerText = "Recipe: " + item.name;
+            document.getElementById('output-display').innerHTML = `<img src="${item.img}">`;
+
+            const gridContainer = document.getElementById('grid-display');
+            gridContainer.innerHTML = ''; // Clear old
+
+            // 9 slots fill karo
+            const recipe = item.recipe && item.recipe.length === 9 
+                           ? item.recipe 
+                           : [null,null,null,null,null,null,null,null,null];
+
+            recipe.forEach(ingredientId => {
+                const slot = document.createElement('div');
+                slot.className = 'slot';
+                if(ingredientId) {
+                    slot.innerHTML = `<img src="${getImg(ingredientId)}">`;
                 }
-                grid.appendChild(slot);
+                gridContainer.appendChild(slot);
             });
-            // Auto scroll to view
-            document.getElementById('craftingView').scrollIntoView({ behavior: 'smooth' });
+            
+            // Scroll to top to see recipe
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // --- EXISTING FUNCTIONS ---
-        const std = [
-            {n:"Black",c:"§0",h:"#000000"},{n:"D.Blue",c:"§1",h:"#0000AA"},{n:"D.Green",c:"§2",h:"#00AA00"},
-            {n:"D.Aqua",c:"§3",h:"#00AAAA"},{n:"D.Red",c:"§4",h:"#AA0000"},{n:"D.Purple",c:"§5",h:"#AA00AA"},
-            {n:"Gold",c:"§6",h:"#FFAA00"},{n:"Gray",c:"§7",h:"#AAAAAA"},{n:"D.Gray",c:"§8",h:"#555555"},
-            {n:"Blue",c:"§9",h:"#5555FF"},{n:"Green",c:"§a",h:"#55FF55"},{n:"Aqua",c:"§b",h:"#55FFFF"},
-            {n:"Red",c:"§c",h:"#FF5555"},{n:"L.Purple",c:"§d",h:"#FF55FF"},{n:"Yellow",c:"§e",h:"#FFFF55"},
-            {n:"White",c:"§f",h:"#FFFFFF"}
-        ];
-        function initColors() {
-            const d = document.getElementById('stdColors');
-            std.forEach(x => { d.innerHTML += `<div class="color-box" style="background:${x.h}; color:${x.h=='#FFFFFF'?'#000':'#fff'}" onclick="copyTxt('${x.c}')">${x.n}<br>${x.c}</div>`; });
-        }
-        function generateGradient() {
-            const t = document.getElementById('gradInput').value || "Kit";
-            const c1 = document.getElementById('col1').value, c2 = document.getElementById('col2').value;
-            const p = document.getElementById('gradPreview');
-            p.style.background = `linear-gradient(to right, ${c1}, ${c2})`; p.style.webkitBackgroundClip="text"; p.style.webkitTextFillColor="transparent"; p.innerText = t;
-            document.getElementById('gradCode').value = JSON.stringify({text:t, c1:c1, c2:c2});
-        }
-        function copyTxt(t) { navigator.clipboard.writeText(t); toast("Copied!"); ad(); }
-
-        /* FONT LOGIC (Simplified for brevity) */
-        const fontMaps = [{n:"Bold",m:"𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙"}, {n:"Italic",m:"𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡"}];
-        const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        function renderFonts() {
-            const t = document.getElementById('fontInput').value || "Kit";
-            const o = document.getElementById('fontOutput'); o.innerHTML="";
-            fontMaps.forEach(f => {
-                let r = t.split('').map(c => { let i=alpha.indexOf(c); return i>-1?Array.from(f.m)[i]:c; }).join('');
-                o.innerHTML += `<div class="font-item" onclick="copyTxt('${r}')">${f.n}: <br><span style="color:var(--accent)">${r}</span></div>`;
-            });
-        }
-
-        /* NETHER */
-        function calcNether(m) {
-            const ox=document.getElementById('owX'), oz=document.getElementById('owZ'), nx=document.getElementById('neX'), nz=document.getElementById('neZ');
-            if(m==='toN'){ nx.value=Math.floor(ox.value/8); nz.value=Math.floor(oz.value/8); }
-            else { ox.value=nx.value*8; oz.value=nz.value*8; }
-        }
-
-        /* SEEDS */
-        const seeds = [{t:"Cherry Grove",s:"34088318"},{t:"Mushroom",s:"1669320"},{t:"Ancient City",s:"734081023"},{t:"Speedrun",s:"-453063455"}];
-        document.getElementById('seedList').innerHTML = seeds.map(s=>`<div class="card" style="padding:15px; cursor:pointer;" onclick="copyTxt('${s.s}')"><b>${s.t}</b><br><span style="color:#666">${s.s}</span></div>`).join('');
-
-        /* SKIN & SERVER */
-        function loadSkin(){ 
-            const u=document.getElementById('skinUser').value; if(u){ ad(); document.getElementById('skinDisplay').style.display='block'; document.getElementById('skinBody').src=`https://mc-heads.net/body/${u}/250`; } 
-        }
-        async function checkServer(){
-            const ip=document.getElementById('srvIp').value; if(!ip)return; ad();
-            try {
-                const r=await fetch(`https://api.mcsrvstat.us/2/${ip}`); const d=await r.json();
-                document.getElementById('srvResult').style.display='block';
-                if(d.online){ 
-                    document.getElementById('srvHostname').innerText=d.hostname||ip; 
-                    document.getElementById('srvState').innerText="ONLINE"; document.getElementById('srvState').style.background="#39ff14";
-                    document.getElementById('srvPlay').innerText=`Players: ${d.players.online}/${d.players.max}`;
-                    document.getElementById('srvIcon').src=d.icon;
-                } else { document.getElementById('srvState').innerText="OFFLINE"; document.getElementById('srvState').style.background="red"; }
-            } catch(e){ toast("Error scanning"); }
-        }
-
-        // INIT
-        initColors(); renderFonts(); filterRecipes();
     </script>
 </body>
 </html>
