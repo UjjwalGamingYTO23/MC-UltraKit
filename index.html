@@ -3,41 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENDERKIT | All Item Recipes</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ENDERKIT | All Recipes & Blocks</title>
+    <style>
+        /* --- CSS: NO CHEDKHANI, PROFESSIONAL LOOK --- */
+        :root {
+            --primary: #5effb1; /* Ender Green */
+            --bg: #0d0d0d;
+            --card: #1a1a1a;
+            --mc-grey: #c6c6c6;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            border-bottom: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        /* Recipe Display Section */
+        .recipe-viewer {
+            background: var(--card);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .mc-ui {
+            display: inline-flex;
+            align-items: center;
+            background: var(--mc-grey);
+            padding: 15px;
+            border: 3px solid #555;
+            gap: 20px;
+            border-radius: 4px;
+        }
+
+        .grid-3x3 { display: grid; grid-template-columns: repeat(3, 45px); gap: 2px; }
+
+        .slot {
+            width: 45px; height: 45px;
+            background: #8b8b8b;
+            border: 2px solid #373737;
+            border-right-color: #fff; border-bottom-color: #fff;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .slot img { width: 32px; image-rendering: pixelated; }
+
+        .arrow { font-size: 30px; color: #444; font-weight: bold; }
+
+        .output {
+            width: 60px; height: 60px;
+            background: #8b8b8b;
+            border: 2px solid #373737;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .output img { width: 45px; image-rendering: pixelated; }
+
+        /* Category System */
+        .category-title {
+            margin-top: 40px;
+            color: var(--primary);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            font-size: 1.4rem;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .block-card {
+            background: #222;
+            height: 60px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .block-card:hover {
+            border-color: var(--primary);
+            background: #2a2a2a;
+            transform: scale(1.1);
+        }
+
+        .block-card img { width: 40px; height: 40px; image-rendering: pixelated; }
+
+        /* THE STICKY AD (As per your request) */
+        .sticky-ad {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #fff; color: #000;
+            padding: 12px 25px;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
+            z-index: 9999;
+        }
+
+        .ad-content { display: flex; align-items: center; gap: 20px; max-width: 1000px; width: 100%; justify-content: space-between; }
+        .ad-tag { background: #fbc531; padding: 2px 6px; font-weight: bold; font-size: 12px; border-radius: 3px; }
+        .ad-btn { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .close-ad { background: none; border: none; font-size: 24px; cursor: pointer; }
+
+    </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <h1>ENDERKIT PRO</h1>
+    <header class="header">
+        <h1>EnderKit - Recipe Book</h1>
     </header>
 
     <div class="container">
-        <section class="recipe-viewer-box">
-            <h2 id="recipe-name">Select an Item</h2>
-            <div class="mc-crafting-table">
-                <div class="crafting-grid" id="grid-container">
+        <div class="recipe-viewer">
+            <h2 id="item-name">Select an Item below to craft</h2>
+            <div class="mc-ui">
+                <div class="grid-3x3" id="main-grid">
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                    <div class="slot"></div><div class="slot"></div><div class="slot)</div>
                     <div class="slot"></div><div class="slot"></div><div class="slot"></div>
                 </div>
-                <div class="mc-arrow">➞</div>
-                <div class="output-slot" id="result-slot"></div>
+                <div class="arrow">➞</div>
+                <div class="output" id="main-output"></div>
             </div>
-        </section>
+        </div>
 
-        <div id="items-library"></div>
+        <div id="blocks-container"></div>
     </div>
 
-    <div class="sticky-footer-ad" id="ad-banner">
-        <div class="ad-wrap">
-            <span class="ad-badge">AD</span>
-            <p><strong>ENDERKIT PRO:</strong> Unlock VIP Seeds & Custom Gradients!</p>
-            <button class="ad-action-btn">GET NOW</button>
-            <button class="close-ad" onclick="document.getElementById('ad-banner').style.display='none'">×</button>
+    <div class="sticky-ad" id="adBanner">
+        <div class="ad-content">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span class="ad-tag">AD</span>
+                <span><strong>EnderKit Pro:</strong> Unlock 100+ Custom Armor Skins!</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <button class="ad-btn">Download</button>
+                <button class="close-ad" onclick="document.getElementById('adBanner').style.display='none'">×</button>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        /* --- JAVASCRIPT: DATA & LOGIC --- */
+
+        // Ingredient Images Map (Main items used in crafting)
+        const assets = {
+            planks: "https://minecraft.wiki/images/Oak_Planks.png",
+            stick: "https://minecraft.wiki/images/Stick_JE1_BE1.png",
+            iron: "https://minecraft.wiki/images/Iron_Ingot_JE3_BE2.png",
+            gold: "https://minecraft.wiki/images/Gold_Ingot_JE3_BE2.png",
+            diamond: "https://minecraft.wiki/images/Diamond_JE2_BE2.png",
+            cobble: "https://minecraft.wiki/images/Cobblestone_JE4_BE2.png",
+            redstone: "https://minecraft.wiki/images/Redstone_Dust_JE2_BE2.png",
+            string: "https://minecraft.wiki/images/String_JE2_BE2.png"
+        };
+
+        // All Items Database
+        const items = [
+            { id: "pickaxe", name: "Diamond Pickaxe", cat: "Tools", img: "https://minecraft.wiki/images/Diamond_Pickaxe_JE3_BE3.png", recipe: ["diamond","diamond","diamond",null,"stick",null,null,"stick",null] },
+            { id: "sword", name: "Diamond Sword", cat: "Combat", img: "https://minecraft.wiki/images/Diamond_Sword_JE2_BE2.png", recipe: [null,"diamond",null,null,"diamond",null,null,"stick",null] },
+            { id: "chest", name: "Chest", cat: "Basic", img: "https://minecraft.wiki/images/Chest.png", recipe: ["planks","planks","planks","planks",null,"planks","planks","planks","planks"] },
+            { id: "furnace", name: "Furnace", cat: "Basic", img: "https://minecraft.wiki/images/Furnace_%28S%29_JE4.png", recipe: ["cobble","cobble","cobble","cobble",null,"cobble","cobble","cobble","cobble"] },
+            { id: "piston", name: "Piston", cat: "Redstone", img: "https://minecraft.wiki/images/Piston_JE4_BE3.png", recipe: ["planks","planks","planks","cobble","iron","cobble","cobble","redstone","cobble"] },
+            { id: "bow", name: "Bow", cat: "Combat", img: "https://minecraft.wiki/images/Bow_JE2_BE1.png", recipe: [null,"stick","string","stick",null,"string",null,"stick","string"] },
+            { id: "tnt", name: "TNT", cat: "Redstone", img: "https://minecraft.wiki/images/TNT.png", recipe: [null,null,null,null,null,null,null,null,null] } // Add recipe as needed
+        ];
+
+        const container = document.getElementById('blocks-container');
+        const categories = [...new Set(items.map(i => i.cat))];
+
+        // 1. Generate Categories and Grids
+        categories.forEach(cat => {
+            const wrap = document.createElement('div');
+            wrap.innerHTML = `<h3 class="category-title">${cat} Items</h3>`;
+            
+            const grid = document.createElement('div');
+            grid.className = 'items-grid';
+
+            items.filter(i => i.cat === cat).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'block-card';
+                card.innerHTML = `<img src="${item.img}" title="${item.name}">`;
+                card.onclick = () => updateRecipe(item);
+                grid.appendChild(card);
+            });
+
+            wrap.appendChild(grid);
+            container.appendChild(wrap);
+        });
+
+        // 2. Logic to Show Recipe
+        function updateRecipe(item) {
+            document.getElementById('item-name').innerText = "Recipe for " + item.name;
+            document.getElementById('main-output').innerHTML = `<img src="${item.img}">`;
+
+            const slots = document.querySelectorAll('.slot');
+            item.recipe.forEach((ingId, index) => {
+                if(ingId) {
+                    const imgUrl = assets[ingId] || items.find(x => x.id === ingId)?.img;
+                    slots[index].innerHTML = `<img src="${imgUrl}">`;
+                } else {
+                    slots[index].innerHTML = '';
+                }
+            });
+
+            // Auto-scroll to top to show recipe
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
